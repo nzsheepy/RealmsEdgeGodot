@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0xyp0pttwtkw"]
+[gd_scene load_steps=8 format=3 uid="uid://c0xyp0pttwtkw"]
 
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://world.gd" id="1_vgqhc"]
 [ext_resource type="TileSet" uid="uid://dl1tk1t06bd1q" path="res://tile_set.tres" id="2_17pu0"]
 [ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Unit/unit.tscn" id="2_o6aqm"]
 [ext_resource type="Script" path="res://Grid.gd" id="3_q2yen"]
+[ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="6_gbo3i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41w8"]
 bg_color = Color(0.662745, 0.894118, 0.415686, 0.219608)
@@ -61,6 +62,15 @@ position = Vector2(134, 74)
 
 [node name="Unit2" parent="Units" groups=["units"] instance=ExtResource("2_o6aqm")]
 position = Vector2(247, 88)
+
+[node name="Building" type="Sprite2D" parent="."]
+position = Vector2(272, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("6_gbo3i")
+centered = false
+hframes = 3
+vframes = 5
+frame = 7
 
 [connection signal="input_event" from="Units/Unit" to="." method="_on_unit_input_event"]
 [connection signal="input_event" from="Units/Unit2" to="." method="_on_unit_input_event"]

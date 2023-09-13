@@ -8,10 +8,10 @@ var blocked_tiles
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	BuildTiles()
+	_buildTiles()
 
 
-func BuildTiles():
+func _buildTiles():
 	var pos = get_used_rect().position
 	var size = get_used_rect().size
 
@@ -34,6 +34,7 @@ func BuildTiles():
 			blocked_tiles[y][x] = 0 if i == GRASS else 1
 
 
+## Gets the tile type at the given position
 func GetTileType(pos):
 	var x = pos.x
 	var y = pos.y
@@ -44,6 +45,7 @@ func GetTileType(pos):
 	return tiles[y][x]
 
 
+## Gets the tile type of a range, if all tiles are the same type
 func GetTilesTypeRange(start, end):
 	var x = min(start.x, end.x)
 	var y = min(start.y, end.y)
@@ -65,6 +67,7 @@ func GetTilesTypeRange(start, end):
 	return tile_type
 
 
+## Gets whether the tile at the given position is blocked
 func IsTileBlocked(pos):
 	var x = pos.x
 	var y = pos.y
@@ -75,6 +78,7 @@ func IsTileBlocked(pos):
 	return blocked_tiles[y][x] == 1
 
 
+## Blocks or unblocks the tile at the given position
 func BlockUnBlock(pos, block):
 	var x = pos.x
 	var y = pos.y
@@ -85,6 +89,7 @@ func BlockUnBlock(pos, block):
 	blocked_tiles[y][x] = 1 if block else 0
 
 
+## Blocks or unblocks a range of tiles
 func BlockUnBlockRange(start, end, block):
 	var x = min(start.x, end.x)
 	var y = min(start.y, end.y)
