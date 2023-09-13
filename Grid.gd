@@ -83,3 +83,20 @@ func BlockUnBlock(pos, block):
 		return
 	
 	blocked_tiles[y][x] = 1 if block else 0
+
+
+func BlockUnBlockRange(start, end, block):
+	var x = min(start.x, end.x)
+	var y = min(start.y, end.y)
+	var x_end = max(start.x, end.x)
+	var y_end = max(start.y, end.y)
+
+	if y < 0 or y >= blocked_tiles.size() or x < 0 or x >= blocked_tiles[y].size():
+		return
+	
+	if y_end < 0 or y_end >= blocked_tiles.size() or x_end < 0 or x_end >= blocked_tiles[y_end].size():
+		return
+
+	for i in range(y, y_end + 1):
+		for j in range(x, x_end + 1):
+			blocked_tiles[i][j] = 1 if block else 0
