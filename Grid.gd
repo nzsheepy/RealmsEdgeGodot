@@ -44,6 +44,27 @@ func GetTileType(pos):
 	return tiles[y][x]
 
 
+func GetTilesTypeRange(start, end):
+	var x = min(start.x, end.x)
+	var y = min(start.y, end.y)
+	var x_end = max(start.x, end.x)
+	var y_end = max(start.y, end.y)
+
+	if y < 0 or y >= tiles.size() or x < 0 or x >= tiles[y].size():
+		return INVALID
+	
+	if y_end < 0 or y_end >= tiles.size() or x_end < 0 or x_end >= tiles[y_end].size():
+		return INVALID
+
+	var tile_type = tiles[y][x]
+	for i in range(y, y_end + 1):
+		for j in range(x, x_end + 1):
+			if tiles[i][j] != tile_type:
+				return INVALID
+	
+	return tile_type
+
+
 func IsTileBlocked(pos):
 	var x = pos.x
 	var y = pos.y
