@@ -105,3 +105,21 @@ func BlockUnBlockRange(start, end, block):
 	for i in range(y, y_end + 1):
 		for j in range(x, x_end + 1):
 			blocked_tiles[i][j] = 1 if block else 0
+
+
+## Convert a world position to a tile position
+func WorldToTilePos(world_pos):
+	var tile_size = cell_quadrant_size
+	var offset = get_used_rect().position * tile_size
+	var x = floor((world_pos.x - offset.x) / tile_size)
+	var y = floor((world_pos.y - offset.y) / tile_size)
+	return Vector2(x, y)
+
+
+## Convert a tile position to a world position
+func TileToWorldPos(tile_pos):
+	var tile_size = cell_quadrant_size
+	var offset = get_used_rect().position * tile_size
+	var x = tile_pos.x * tile_size + offset.x
+	var y = tile_pos.y * tile_size + offset.y
+	return Vector2(x, y)
