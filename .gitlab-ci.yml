@@ -1,0 +1,42 @@
+image: barichello/godot-ci:4.1.1
+
+# NOTE: the `cd` command in each build stage is not necessary if your
+# project.godot is at the repo root. Also replace ../build with build/
+
+# Cache imported assets between runs
+cache:
+  key: import-assets
+  paths:
+    - .godot/imported/
+
+stages:
+  - import-assets
+  - export
+  - deploy
+
+variables:
+  EXPORT_NAME: RTS_Game
+
+# Open the editor to import assets in case the cache was empty or outdated
+import-assets:
+  stage: import-assets
+  tags:
+    - docker
+  script:
+    - godot -v -e --quit --headless
+  only:
+    - release
+
+windows:
+  stage: export
+  tags:
+    - docker
+  script:
+    - mkdir -v -p build/windows
+    - godot -v --export-release --headless "Windows Desktop" build/windows/$EXPORT_NAME.exe
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/windows
+  only:
+    - release
