@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bftnxisbnkcia"]
+[gd_scene load_steps=5 format=3 uid="uid://bftnxisbnkcia"]
 
 [ext_resource type="Script" path="res://Unit/unit.gd" id="1_3tlvm"]
 [ext_resource type="Texture2D" uid="uid://bsrv5t6vopx41" path="res://MiniWorldSprites/Characters/Champions/Arthax.png" id="1_a3w7p"]
-[ext_resource type="Texture2D" uid="uid://cdx6t2orc5xif" path="res://MiniWorldSprites/Buildings/Cyan/CyanBarracks.png" id="3_cdj75"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uamjd"]
 size = Vector2(15, 9)
@@ -34,9 +33,5 @@ offset_left = -8.0
 offset_top = -14.0
 offset_right = 7.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ycwy4")
-
-[node name="CyanBarracks" type="Sprite2D" parent="."]
-position = Vector2(40, -9)
-texture = ExtResource("3_cdj75")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

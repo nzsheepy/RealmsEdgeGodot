@@ -1,0 +1,23 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dl1tk1t06bd1q"]
+
+[ext_resource type="Texture2D" uid="uid://bmhyuvjlx2h7i" path="res://MiniWorldSprites/Ground/Grass.png" id="1_g8iut"]
+[ext_resource type="Texture2D" uid="uid://2eo0blxlrxx" path="res://MiniWorldSprites/Nature/Trees.png" id="2_bct6o"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dr66v"]
+texture = ExtResource("1_g8iut")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfj2y"]
+texture = ExtResource("2_bct6o")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_dr66v")
+sources/1 = SubResource("TileSetAtlasSource_cfj2y")
