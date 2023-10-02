@@ -34,4 +34,6 @@ offset_top = -14.0
 offset_right = 7.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ycwy4")
 
+[node name="HealthComponent" type="Node2D" parent="."]
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
