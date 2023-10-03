@@ -59,7 +59,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_q41w8")
 [node name="Units" type="Node2D" parent="."]
 
 [node name="Entity" parent="Units" groups=["units"] instance=ExtResource("2_o6aqm")]
-position = Vector2(134, 74)
+position = Vector2(176, 0)
 
 [node name="resourceManager" type="Node2D" parent="."]
 script = ExtResource("8_b4m7g")

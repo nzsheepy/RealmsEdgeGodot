@@ -1,7 +1,7 @@
 extends Node2D
 class_name MovementComponent
 
-@export var movement_speed = 100
+@export var movement_speed = 50
 @export var grid: Grid
 var character: Entity
 var current_destination: Vector2 = Vector2(-1, -1)
@@ -15,11 +15,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	if (current_destination == Vector2(-1, -1)):
+		return
+	
 	var world_position = grid.TileToWorldPos(current_destination)
 	var distance = character.global_position.distance_to(world_position)
 	var velocity = (world_position - character.global_position).normalized() * movement_speed
 
-	if (distance < 5):
+	if (distance < 2):
 		velocity = Vector2.ZERO
 	
 	character.velocity = velocity
@@ -30,6 +33,10 @@ func GetGridPosition():
 	return grid.WorldToTilePos(character.global_position)
 
 
-func SetDestination(destination: Vector2):
+func SetDestinationGrid(destination: Vector2i):
 	current_destination = destination
 
+
+func SetDestinationWorld(destination: Vector2i):
+	current_destination = grid.WorldToTilePos(destination)
+	print(current_destination)

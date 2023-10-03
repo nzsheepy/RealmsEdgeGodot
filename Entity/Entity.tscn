@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Entity/MovementComponent.gd" id="4_un5hx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uamjd"]
-size = Vector2(15, 9)
+size = Vector2(14, 13.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycwy4"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -17,29 +17,33 @@ border_width_bottom = 2
 border_color = Color(0.415686, 0.886275, 0.909804, 1)
 border_blend = true
 
-[node name="Entity" type="CharacterBody2D"]
+[node name="Entity" type="CharacterBody2D" node_paths=PackedStringArray("movement_component", "health_component")]
 script = ExtResource("1_lpjb5")
+movement_component = NodePath("MovementComponent")
+health_component = NodePath("HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -4.5)
+position = Vector2(8, 8.75)
 shape = SubResource("RectangleShape2D_uamjd")
 
 [node name="Arthax" type="Sprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(8, 8)
 texture = ExtResource("2_anamj")
 hframes = 5
 vframes = 8
 
 [node name="Box" type="Panel" parent="."]
-offset_left = -8.0
-offset_top = -14.0
-offset_right = 7.0
+offset_right = 16.0
+offset_bottom = 16.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ycwy4")
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthComponent" type="Node2D" parent="."]
+position = Vector2(0, 5)
 script = ExtResource("3_ai44s")
 
 [node name="MovementComponent" type="Node2D" parent="."]
+position = Vector2(0, 5)
 script = ExtResource("4_un5hx")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
