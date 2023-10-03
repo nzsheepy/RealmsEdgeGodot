@@ -14,7 +14,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
 	if (current_destination == Vector2(-1, -1)):
 		return
 	
@@ -26,7 +26,8 @@ func _process(_delta):
 		velocity = Vector2.ZERO
 	
 	character.velocity = velocity
-	character.move_and_slide()
+	# TODO: Compare with move_and_slide (Don't want anything sliding)
+	character.move_and_collide(velocity * delta)
 
 
 func GetGridPosition():
@@ -39,4 +40,3 @@ func SetDestinationGrid(destination: Vector2i):
 
 func SetDestinationWorld(destination: Vector2i):
 	current_destination = grid.WorldToTilePos(destination)
-	print(current_destination)
