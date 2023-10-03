@@ -46,6 +46,8 @@ func use(resource, amount):
 		food -= amount
 		return true
 		
+	print("not enough",resource)
 	return false
+	
 	
 
