@@ -1,0 +1,68 @@
+{
+  "TownCenter": {
+    "BuildingSizeX": 5,
+    "BuildingSizeY": 5,
+    "BuildingHealth": 1500,
+    "BuildingGold": 800,
+    "WoodCost": 500,
+    "StoneCost": 500,
+    "BuildingFood": 400,
+    "BuildTime": 60,
+    "HelpDesciption": "Produces 1 worker every 20 seconds +1 per every 2 garrisoned"
+  },
+  "House": {
+    "BuildingSizeX": 2,
+    "BuildingSizeY": 2,
+    "BuildingHealth": 150,
+    "BuildingGold": 50,
+    "WoodCost": 25,
+    "StoneCost": 0,
+    "BuildingFood": 25,
+    "BuildTime": 10,
+    "HelpDesciption": "Supports 5 population space, generates 10 gold"
+  },
+  "LumberCamp": {
+    "BuildingSizeX": 2,
+    "BuildingSizeY": 2,
+    "BuildingHealth": 300,
+    "BuildingGold": 100,
+    "WoodCost": 50,
+    "StoneCost": 0,
+    "BuildingFood": 0,
+    "BuildTime": 20,
+    "HelpDesciption": "Must be built on trees, garrisoned workers generate 10 wood each"
+  },
+  "MiningCamp": {
+    "BuildingSizeX": 2,
+    "BuildingSizeY": 2,
+    "BuildingHealth": 300,
+    "BuildingGold": 100,
+    "WoodCost": 50,
+    "StoneCost": 0,
+    "BuildingFood": 0,
+    "BuildTime": 20,
+    "HelpDesciption": "Must be built on mountain, garrisoned workers generate 10 stone each"
+  },
+  "Farm": {
+    "BuildingSizeX": 3,
+    "BuildingSizeY": 3,
+    "BuildingHealth": 400,
+    "BuildingGold": 200,
+    "WoodCost": 100,
+    "StoneCost": 50,
+    "BuildingFood": 0,
+    "BuildTime": 30,
+    "HelpDesciption": "Must be built on grass, (2 tile radius around it becomes farm land) garrisoned workers generate 10 food each)"
+  },
+  "Barracks": {
+    "BuildingSizeX": 3,
+    "BuildingSizeY": 3,
+    "BuildingHealth": 1000,
+    "BuildingGold": 500,
+    "WoodCost": 300,
+    "StoneCost": 300,
+    "BuildingFood": 50,
+    "BuildTime": 60,
+    "HelpDesciption": "Garrisoned workers can become a Soldier"
+  }
+}
