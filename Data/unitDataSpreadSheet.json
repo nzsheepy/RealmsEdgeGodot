@@ -1,0 +1,13 @@
+{
+  "Worker": {
+    "UnitAttack": 10,
+    "UnitArmor": 5,
+    "UnitHealth": 30,
+    "UnitGoldCost": 100,
+    "UnitWoodCost": 50,
+    "UnitStoneCost": 25,
+    "UnitFoodCost": 50,
+    "TrainingTime": 60,
+    "UnitHelpDesciption": "Basic Melee Unit: Effective in melee"
+  }
+}
