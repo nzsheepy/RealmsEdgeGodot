@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://world.gd" id="1_vgqhc"]
 [ext_resource type="TileSet" uid="uid://dl1tk1t06bd1q" path="res://tile_set.tres" id="2_17pu0"]
-[ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="2_o6aqm"]
 [ext_resource type="Script" path="res://Grid.gd" id="3_q2yen"]
+[ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/Unit.tscn" id="5_dlx64"]
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="6_gbo3i"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
 
@@ -58,7 +58,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_q41w8")
 
 [node name="Units" type="Node2D" parent="."]
 
-[node name="Entity" parent="Units" groups=["units"] instance=ExtResource("2_o6aqm")]
+[node name="Unit" parent="Units" instance=ExtResource("5_dlx64")]
 position = Vector2(176, 0)
 
 [node name="resourceManager" type="Node2D" parent="."]
@@ -76,5 +76,3 @@ centered = false
 hframes = 3
 vframes = 5
 frame = 7
-
-[connection signal="input_event" from="Units/Entity" to="." method="_on_unit_input_event"]
