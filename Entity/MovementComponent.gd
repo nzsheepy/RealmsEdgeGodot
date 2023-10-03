@@ -30,6 +30,16 @@ func _process(delta):
 	character.move_and_collide(velocity * delta)
 
 
+func Stop():
+	if (current_destination == Vector2(-1, -1)):
+		return
+
+	current_destination = Vector2(-1, -1)
+	var velocity = Vector2.ZERO
+	character.velocity = velocity
+	character.move_and_collide(velocity)
+
+
 func GetGridPosition():
 	return grid.WorldToTilePos(character.global_position)
 
