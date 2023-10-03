@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0xyp0pttwtkw"]
+[gd_scene load_steps=10 format=3 uid="uid://c0xyp0pttwtkw"]
 
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://world.gd" id="1_vgqhc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Grid.gd" id="3_q2yen"]
 [ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/Unit.tscn" id="5_dlx64"]
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="6_gbo3i"]
+[ext_resource type="Script" path="res://Buildings.gd" id="8_77uya"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41w8"]
@@ -76,3 +77,6 @@ centered = false
 hframes = 3
 vframes = 5
 frame = 7
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("8_77uya")
