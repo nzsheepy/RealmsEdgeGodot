@@ -30,6 +30,10 @@ func _process(delta):
 	character.move_and_collide(velocity * delta)
 
 
+func IsMoving():
+	return character.velocity != Vector2.ZERO
+
+
 func Stop():
 	if (current_destination == Vector2(-1, -1)):
 		return

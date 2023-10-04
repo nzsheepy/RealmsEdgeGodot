@@ -16,11 +16,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if (state == State.IDLE):
+	if (state != State.MOVING):
 		character.movement_component.Stop()
 
 	if (state == State.MOVING):
-		pass
+		# not moving then set state to idle
+		if (!character.movement_component.IsMoving()):
+			state = State.IDLE
 	
 	if (state == State.CONSTRUCTING):
 		pass
@@ -34,3 +36,8 @@ func _process(_delta):
 
 func SetState(newState: State):
 	state = newState
+
+
+func MoveUnit(target: Vector2):
+	state = State.MOVING
+	character.movement_component.Move(target)
