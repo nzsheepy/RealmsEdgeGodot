@@ -6,6 +6,10 @@ class_name Selection
 @export var unitManager: UnitManager
 @export var timer: Timer
 
+func _ready():
+	timer.connect("timeout", OnTimeOut)
+
+
 func SelectArea(topleft: Vector2, botright: Vector2):
 	area.position = topleft + (botright - topleft) / 2
 
@@ -15,7 +19,6 @@ func SelectArea(topleft: Vector2, botright: Vector2):
 
 	unitManager.DeselectAll()
 
-	timer.connect("timeout", OnTimeOut)
 	timer.start()
 
 
