@@ -1,49 +1,54 @@
 extends Camera2D
 
-var mousePos = Vector2()
-
-var mousePosGlobal = Vector2()
 var start = Vector2()
 var startV = Vector2()
 var end = Vector2()
 var endV = Vector2()
 var isDragging = false
-signal area_selected
-signal start_move_selection
 
 @onready var box = get_node("../UI/Panel")
+@export var selection: Selection
+@export var unitManager: UnitManager
 
-func _ready():
-	connect("area_selected", Callable(get_parent(),"_on_area_selected"))
-
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("LeftClick"):
-		start = mousePosGlobal
-		startV = mousePos
+		start = get_global_mouse_position()
+		startV = start * 2
 		isDragging = true
+		return
 	
 	if isDragging:
-		end = mousePosGlobal
-		endV = mousePos
+		end = get_global_mouse_position()
+		endV = end * 2
 		draw_area()
 	
 	
 	if Input.is_action_just_released("LeftClick"):
-		if startV.distance_to(mousePos) > 20:
-			end = mousePosGlobal
-			endV = mousePos
+		end = get_global_mouse_position()
+		endV = end * 2
+
+		var dist = startV.distance_to(endV)
+
+		if dist > 20:
 			isDragging = false
 			draw_area(false)
-			emit_signal("area_selected", self)
+			# use start and end to work out top left and bottom right
+			var top_left = Vector2()
+			var bottom_right = Vector2()
+			top_left.x = min(start.x, end.x)
+			top_left.y = min(start.y, end.y)
+			bottom_right.x = max(start.x, end.x)
+			bottom_right.y = max(start.y, end.y)
+			selection.SelectArea(top_left, bottom_right)
+		elif dist > 0:
+			isDragging = false
+			draw_area(false)
+			unitManager.DeselectAll()
 		else:
 			end = start
 			isDragging = false
 			draw_area(false)
-	
-func _input(event):
-	if event is InputEventMouse:
-		mousePos = event.position
-		mousePosGlobal = get_global_mouse_position()
+
 
 func draw_area(s=true):
 	box.size = Vector2(abs(startV.x - endV.x), abs(startV.y - endV.y))
@@ -52,7 +57,3 @@ func draw_area(s=true):
 	pos.y = min(startV.y, endV.y)
 	box.position = pos
 	box.size *= int(s)
-
-func _on_area_selected(object):
-	pass
-

@@ -50,7 +50,9 @@ func GetGridPosition():
 
 func SetDestinationGrid(destination: Vector2i):
 	current_destination = destination
+	character.velocity = Vector2(0.01, 0.01)
 
 
 func SetDestinationWorld(destination: Vector2i):
 	current_destination = grid.WorldToTilePos(destination)
+	character.velocity = Vector2(0.01, 0.01)
