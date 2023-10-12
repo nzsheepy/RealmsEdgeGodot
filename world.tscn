@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=13 format=3 uid="uid://c0xyp0pttwtkw"]
 
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
-[ext_resource type="Script" path="res://world.gd" id="1_vgqhc"]
 [ext_resource type="TileSet" uid="uid://dl1tk1t06bd1q" path="res://tile_set.tres" id="2_17pu0"]
 [ext_resource type="Script" path="res://Grid.gd" id="3_q2yen"]
-[ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/unit.tscn" id="5_dlx64"]
+[ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
+[ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/Unit.tscn" id="5_dlx64"]
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="6_gbo3i"]
 [ext_resource type="Script" path="res://Buildings.gd" id="8_77uya"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
-[ext_resource type="PackedScene" uid="uid://b5c4p5xo1umf4" path="res://UI/HUD/resources.tscn" id="9_8588a"]
+[ext_resource type="Script" path="res://Selection.gd" id="10_77cnk"]
+[ext_resource type="PackedScene" uid="uid://b5c4p5xo1umf4" path="res://UI/HUD/resources.tscn" id="10_eprny"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41w8"]
 bg_color = Color(0.662745, 0.894118, 0.415686, 0.219608)
@@ -23,8 +24,10 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5xso"]
+size = Vector2(0, 0)
+
 [node name="World" type="Node2D"]
-script = ExtResource("1_vgqhc")
 
 [node name="Grid" type="TileMap" parent="."]
 tile_set = ExtResource("2_17pu0")
@@ -47,11 +50,13 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array(458765, 262144, 0, 458766, 262144, 0, 458767, 262144, 0, 524304, 262144, 0, 589840, 262144, 0, 589839, 262144, 0, 524302, 262144, 0, 524301, 262144, 0, 524300, 262144, 0, 524303, 262144, 0, 589838, 262144, 0, 589837, 262144, 0, 589836, 262144, 0, 458764, 262144, 0)
 script = ExtResource("3_q2yen")
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("selection", "unitManager")]
 zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 0
 script = ExtResource("1_aabg1")
+selection = NodePath("../Selection")
+unitManager = NodePath("../Units")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -59,9 +64,13 @@ script = ExtResource("1_aabg1")
 theme_override_styles/panel = SubResource("StyleBoxFlat_q41w8")
 
 [node name="Units" type="Node2D" parent="."]
+script = ExtResource("4_2brtq")
 
 [node name="Unit" parent="Units" instance=ExtResource("5_dlx64")]
-position = Vector2(232, 159)
+position = Vector2(273, 66)
+
+[node name="Unit2" parent="Units" instance=ExtResource("5_dlx64")]
+position = Vector2(191, 147)
 
 [node name="resourceManager" type="Node2D" parent="."]
 script = ExtResource("8_b4m7g")
@@ -71,7 +80,7 @@ stone = 100
 food = 50
 
 [node name="Building" type="Sprite2D" parent="."]
-position = Vector2(343, 123)
+position = Vector2(272, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("6_gbo3i")
 centered = false
@@ -79,11 +88,27 @@ hframes = 3
 vframes = 5
 frame = 7
 
-[node name="buildingManager" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("8_77uya")
+
+[node name="Selection" type="Node2D" parent="." node_paths=PackedStringArray("area", "collision_shape", "unitManager", "timer")]
+script = ExtResource("10_77cnk")
+area = NodePath("Area2D")
+collision_shape = NodePath("Area2D/CollisionShape2D")
+unitManager = NodePath("../Units")
+timer = NodePath("Timer")
+
+[node name="Area2D" type="Area2D" parent="Selection"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Selection/Area2D"]
+shape = SubResource("RectangleShape2D_s5xso")
+
+[node name="Timer" type="Timer" parent="Selection"]
+wait_time = 0.05
+one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("9_8588a")]
-size_flags_horizontal = 0
-size_flags_vertical = 0
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("10_eprny")]
