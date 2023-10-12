@@ -39,5 +39,5 @@ func SetState(newState: State):
 
 
 func MoveUnit(target: Vector2):
-	character.movement_component.SetDestinationWorld(target)
 	state = State.MOVING
+	character.movement_component.SetDestinationWorld(target)

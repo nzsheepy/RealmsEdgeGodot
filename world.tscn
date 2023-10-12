@@ -68,6 +68,9 @@ script = ExtResource("4_2brtq")
 [node name="Unit" parent="Units" instance=ExtResource("5_dlx64")]
 position = Vector2(176, 16)
 
+[node name="Unit2" parent="Units" instance=ExtResource("5_dlx64")]
+position = Vector2(177, 47)
+
 [node name="resourceManager" type="Node2D" parent="."]
 script = ExtResource("8_b4m7g")
 gold = 500

@@ -11,13 +11,13 @@ func _ready():
 
 
 func SelectArea(topleft: Vector2, botright: Vector2):
+	unitManager.DeselectAll()
+
 	area.position = topleft + (botright - topleft) / 2
 
 	var shape: RectangleShape2D = collision_shape.shape
 	shape.set("size", Vector2(botright.x - topleft.x, botright.y - topleft.y))
 	collision_shape.shape = shape
-
-	unitManager.DeselectAll()
 
 	timer.start()
 
