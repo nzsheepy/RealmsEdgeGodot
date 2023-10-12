@@ -1,16 +1,16 @@
 extends Node2D
 
-class_name CurrentBuilding
 var currentBuilding
 var buildmenutoggle = false
-
+@onready var resourceManager = $"../resourceManager" 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+enum { GOLD, WOOD, STONE, FOOD }
+
 func _process(delta):
-	
 	#buildingHotkey
 	if (Input.is_action_just_released("BuildMenu")):
 		buildmenutoggle = !buildmenutoggle
-		print("build",buildmenutoggle)
+		print("open build menu",buildmenutoggle)
 	
 	if (buildmenutoggle == false):
 		return
@@ -39,17 +39,30 @@ func _process(delta):
 	if (Input.is_action_just_released("TownHotkey")):
 		currentBuilding = ImportData.buildingdata["TownCenter"]
 		justPressed = true
-		
+		currentBuilding = ImportData.buildingdata["TownCenter"]
+		justPressed = true
 	#hotkey s
 	if (Input.is_action_just_released("BarracksHotkey")):
 		currentBuilding = ImportData.buildingdata["Barracks"]
 		justPressed = true
-		
-	#if (use(gold,currentBuilding["GoldCost"]) && use(wood,currentBuilding["WoodCost"]) && 
-	#use(stone,currentBuilding["StoneCost"]) && use(Food,currentBuilding["FoodCost"])):
-		#buildingPlacement(currentBuilding)
-		
+		currentBuilding = ImportData.buildingdata["Barracks"]
+		justPressed = true
+	
+	
 	if (justPressed):
 		buildmenutoggle = false
-		print (currentBuilding["BuildingGold"])
+		
+		if (resourceManager.check(resourceManager.GOLD, currentBuilding["BuildingGold"]) && 
+		resourceManager.check(resourceManager.WOOD, currentBuilding["BuildingWood"]) && 
+		resourceManager.check(resourceManager.STONE, currentBuilding["BuildingStone"]) && 
+		resourceManager.check(resourceManager.FOOD, currentBuilding["BuildingFood"])):
+			
+			print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceManager.GOLD, currentBuilding["BuildingGold"]))
+			print(" wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceManager.WOOD, currentBuilding["BuildingWood"]))
+			print(" stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceManager.STONE, currentBuilding["BuildingStone"]))
+			print(" food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceManager.FOOD, currentBuilding["BuildingFood"]))
+			#buildingPlacement(currentBuilding)
+		else: 
+			print("not enough resources")
+		
 	pass

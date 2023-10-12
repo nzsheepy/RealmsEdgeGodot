@@ -1,0 +1,158 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5c4p5xo1umf4"]
+
+[ext_resource type="Script" path="res://UI/HUD/UI_resources.gd" id="1_q3o0m"]
+[ext_resource type="Texture2D" uid="uid://c1omevbv3wad1" path="res://UI/HUD/HUD.png" id="2_1ucon"]
+[ext_resource type="Texture2D" uid="uid://c76u4bk54c4wg" path="res://UI/HUD/icons/Gold.png" id="3_n7113"]
+[ext_resource type="Texture2D" uid="uid://cmc45nl0xt2o4" path="res://UI/HUD/icons/Wood.png" id="4_15hsp"]
+[ext_resource type="Texture2D" uid="uid://bwqvyprvxyq5k" path="res://UI/HUD/icons/Stone.png" id="5_0fmqp"]
+[ext_resource type="Texture2D" uid="uid://b31qeua8ux13l" path="res://UI/HUD/icons/Food.png" id="6_2euxo"]
+[ext_resource type="Texture2D" uid="uid://cb4p8kuqj7jt0" path="res://icon.svg" id="7_b82gg"]
+[ext_resource type="Texture2D" uid="uid://bustl7i5x15w" path="res://UI/HUD/icons/Settings.png" id="8_gl4ux"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cwcsi"]
+font_size = 20
+outline_color = Color(1, 0, 0, 1)
+shadow_size = 2
+
+[sub_resource type="Theme" id="Theme_73eho"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_q3o0m")
+
+[node name="TextureHUD" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1ucon")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012
+anchor_top = 0.032
+anchor_right = 0.012
+anchor_bottom = 0.032
+offset_left = 0.639999
+offset_top = -18.04
+offset_right = 423.64
+offset_bottom = 15.96
+
+[node name="TextureGold" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 19.0
+offset_top = 2.0
+offset_right = 49.0
+offset_bottom = 32.0
+texture = ExtResource("3_n7113")
+
+[node name="LabelGold" type="Label" parent="."]
+layout_mode = 2
+offset_left = 54.0
+offset_top = 5.0
+offset_right = 123.0
+offset_bottom = 36.0
+grow_vertical = 2
+text = "999999
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="TextureWood" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 129.0
+offset_top = 2.0
+offset_right = 159.0
+offset_bottom = 32.0
+theme = SubResource("Theme_73eho")
+texture = ExtResource("4_15hsp")
+
+[node name="LabelWood" type="Label" parent="."]
+layout_mode = 2
+offset_left = 163.0
+offset_top = 5.0
+offset_right = 232.0
+offset_bottom = 36.0
+text = "999999
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="TextureStone" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 236.0
+offset_top = 2.0
+offset_right = 271.0
+offset_bottom = 37.0
+texture = ExtResource("5_0fmqp")
+
+[node name="LabelStone" type="Label" parent="."]
+layout_mode = 2
+offset_left = 271.0
+offset_top = 5.0
+offset_right = 340.0
+offset_bottom = 36.0
+text = "999999
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="TextureFood" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 348.0
+offset_top = 2.0
+offset_right = 378.0
+offset_bottom = 36.0
+texture = ExtResource("6_2euxo")
+
+[node name="LabelFood" type="Label" parent="."]
+layout_mode = 2
+offset_left = 380.0
+offset_top = 5.0
+offset_right = 449.0
+offset_bottom = 36.0
+text = "999999
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="TexturePop" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = 459.0
+offset_top = 7.0
+offset_right = 587.0
+offset_bottom = 135.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("7_b82gg")
+
+[node name="LabelPop" type="Label" parent="."]
+layout_mode = 2
+offset_left = 495.0
+offset_top = 5.0
+offset_right = 572.0
+offset_bottom = 36.0
+text = "200/200
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="TextureSettings" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1236.0
+offset_top = 5.0
+offset_right = 1284.0
+offset_bottom = 53.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_gl4ux")
