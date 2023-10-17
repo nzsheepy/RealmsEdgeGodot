@@ -88,8 +88,9 @@ hframes = 3
 vframes = 5
 frame = 7
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="building" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
 script = ExtResource("8_77uya")
+grid = NodePath("../Grid")
 
 [node name="Selection" type="Node2D" parent="." node_paths=PackedStringArray("area", "collision_shape", "unitManager", "timer")]
 script = ExtResource("10_77cnk")

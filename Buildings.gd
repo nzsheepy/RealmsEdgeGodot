@@ -1,33 +1,38 @@
 extends Node2D
 
+@export var grid : Grid
 var currentBuilding
+var res 
+var building
+var setOpacity
 var buildmenutoggle = false
-var phantom_building = []
 var buildingPreloads = {
 	"House": preload("res://Buildings/house.tscn"), 
-	
 	"LumberCamp": preload("res://Buildings/lumber_camp.tscn"),
 	"MiningCamp": preload("res://Buildings/mining_camp.tscn"),
 	"Farm": preload("res://Buildings/farm.tscn"),
 	"TownCenter": preload("res://Buildings/town_center.tscn"),
 	"Barracks": preload("res://Buildings/barracks.tscn")
 }
+
+
 @onready var resourceManager = $"../resourceManager" 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 enum { GOLD, WOOD, STONE, FOOD }
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#buildingHotkey
-
-	var res 
-
 	if (Input.is_action_just_released("BuildMenu")):
 		buildmenutoggle = !buildmenutoggle
 		print("open build menu",buildmenutoggle)
+
+		if (buildmenutoggle == false):
+			remove_child(building)
 	
 	if (buildmenutoggle == false):
 		return
+		
 	var justPressed = false
+
 	#hotkey q
 	if (Input.is_action_just_released("HouseHotkey")):
 		currentBuilding = ImportData.buildingdata["House"]
@@ -63,55 +68,42 @@ func _process(delta):
 		currentBuilding = ImportData.buildingdata["Barracks"]
 		res = buildingPreloads["Barracks"]
 		justPressed = true
-		
-	if justPressed:
-		buildmenutoggle = false
-		
-		if (resourceManager.check(resourceManager.GOLD, currentBuilding["BuildingGold"]) && 
+
+
+	if (currentBuilding != null && resourceManager.check(resourceManager.GOLD, currentBuilding["BuildingGold"]) && 
 		resourceManager.check(resourceManager.WOOD, currentBuilding["BuildingWood"]) && 
 		resourceManager.check(resourceManager.STONE, currentBuilding["BuildingStone"]) && 
-		resourceManager.check(resourceManager.FOOD, currentBuilding["BuildingFood"])):
+		resourceManager.check(resourceManager.FOOD, currentBuilding["BuildingFood"])):		
+		print("Left click to place building")
 
+		if (justPressed == true):
+			remove_child(building)
+			building = res.instantiate()
+			building.modulate = Color(1,1,1,0.5)
+			add_child(building)
+
+		# Snap to grid by converting to tile position and back
+		var tile_pos = grid.WorldToTilePos(get_global_mouse_position())
+		var new_pos = grid.TileToWorldPos(tile_pos)
+		building.position = new_pos
+
+		if (Input.is_action_just_released("LeftClick")):
+			print("left click")
 			print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceManager.GOLD, currentBuilding["BuildingGold"]))
 			print(" wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceManager.WOOD, currentBuilding["BuildingWood"]))
 			print(" stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceManager.STONE, currentBuilding["BuildingStone"]))
 			print(" food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceManager.FOOD, currentBuilding["BuildingFood"]))
-			#buildingPlacement(currentBuilding)
 
-			var building = res.instantiate()
-			building.position = get_global_mouse_position()
+			building.modulate = Color(1,1,1,1)
 			add_child(building)
+			building = null
+
+			# forget the current building
+			currentBuilding = null
+			res = null
+
+			buildmenutoggle = false
+			justPressed = false
 
 		else: 
 			print("not enough resources")
-		
-	pass
-
-# func _input(event):
-# 	if buildmenutoggle && currentBuilding:
-# 		var mouse_position = get_global_mouse_position()
-# 		phantom_building.position = mouse_position
-# 		if event.is_action_pressed("mouse_left"):
-# 			if (resourceManager.check(resourceManager.GOLD, currentBuilding["BuildingGold"]) && 
-# 				resourceManager.check(resourceManager.WOOD, currentBuilding["BuildingWood"]) && 
-# 				resourceManager.check(resourceManager.STONE, currentBuilding["BuildingStone"]) && 
-# 				resourceManager.check(resourceManager.FOOD, currentBuilding["BuildingFood"])):
-				
-# 				# Create the actual building at the position of the phantom building
-# 				var new_building = currentBuilding.instance()
-# 				new_building.position = phantom_building.position
-# 				get_parent().add_child(new_building)
-				
-# 				# Remove the phantom building
-# 				phantom_building.queue_free()
-				
-# 				# Deduct the resources
-# 				print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceManager.GOLD, currentBuilding["BuildingGold"]))
-# 				print("wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceManager.WOOD, currentBuilding["BuildingWood"]))
-# 				print("stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceManager.STONE, currentBuilding["BuildingStone"]))
-# 				print("food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceManager.FOOD, currentBuilding["BuildingFood"]))
-				
-# 			else:
-# 				print("Not enough resources")
-
-

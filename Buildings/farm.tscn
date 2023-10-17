@@ -10,11 +10,3 @@ centered = false
 hframes = 3
 vframes = 5
 frame = 3
-
-[node name="Phantombuilding" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.498039)
-texture = ExtResource("1_up8ql")
-centered = false
-hframes = 3
-vframes = 5
-frame = 3
