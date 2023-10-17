@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2dbifwujt4ve"]
+
+[ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_80efe"]
+
+[node name="house" type="Sprite2D"]
+position = Vector2(-1, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("1_80efe")
+centered = false
+hframes = 3
+vframes = 5
+frame = 7
+
+[node name="PhantomHouse" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.498039)
+texture = ExtResource("1_80efe")
+centered = false
+hframes = 3
+vframes = 5
+frame = 7

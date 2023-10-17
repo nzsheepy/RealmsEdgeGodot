@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=10 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://world.gd" id="1_vgqhc"]
 [ext_resource type="TileSet" uid="uid://dl1tk1t06bd1q" path="res://tile_set.tres" id="2_17pu0"]
 [ext_resource type="Script" path="res://Grid.gd" id="3_q2yen"]
 [ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/unit.tscn" id="5_dlx64"]
-[ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="6_gbo3i"]
 [ext_resource type="Script" path="res://Buildings.gd" id="8_77uya"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
 [ext_resource type="PackedScene" uid="uid://b5c4p5xo1umf4" path="res://UI/HUD/resources.tscn" id="9_8588a"]
@@ -65,19 +64,10 @@ position = Vector2(232, 159)
 
 [node name="resourceManager" type="Node2D" parent="."]
 script = ExtResource("8_b4m7g")
-gold = 500
-wood = 200
-stone = 100
-food = 50
-
-[node name="Building" type="Sprite2D" parent="."]
-position = Vector2(343, 123)
-scale = Vector2(2, 2)
-texture = ExtResource("6_gbo3i")
-centered = false
-hframes = 3
-vframes = 5
-frame = 7
+gold = 5000
+wood = 2000
+stone = 2000
+food = 400
 
 [node name="buildingManager" type="Node2D" parent="."]
 script = ExtResource("8_77uya")
