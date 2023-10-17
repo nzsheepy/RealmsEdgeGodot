@@ -30,13 +30,29 @@ func _process(delta):
 	character.move_and_collide(velocity * delta)
 
 
+func IsMoving():
+	return character.velocity != Vector2.ZERO
+
+
+func Stop():
+	if (current_destination == Vector2(-1, -1)):
+		return
+
+	current_destination = Vector2(-1, -1)
+	var velocity = Vector2.ZERO
+	character.velocity = velocity
+	character.move_and_collide(velocity)
+
+
 func GetGridPosition():
 	return grid.WorldToTilePos(character.global_position)
 
 
 func SetDestinationGrid(destination: Vector2i):
 	current_destination = destination
+	character.velocity = Vector2(0.01, 0.01)
 
 
 func SetDestinationWorld(destination: Vector2i):
 	current_destination = grid.WorldToTilePos(destination)
+	character.velocity = Vector2(0.01, 0.01)

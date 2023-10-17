@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dw2yyjl7t7shv"]
+[gd_scene load_steps=7 format=3 uid="uid://dw2yyjl7t7shv"]
 
 [ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="1_qp2e3"]
 [ext_resource type="Texture2D" uid="uid://bsrv5t6vopx41" path="res://MiniWorldSprites/Characters/Champions/Arthax.png" id="2_4xodr"]
+[ext_resource type="Script" path="res://Unit/StateController.gd" id="2_5pcvi"]
+[ext_resource type="Script" path="res://Unit/UnitController.gd" id="3_necqr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nenmm"]
 size = Vector2(14, 13.5)
@@ -16,18 +18,26 @@ border_color = Color(0.415686, 0.886275, 0.909804, 1)
 border_blend = true
 
 [node name="Unit" instance=ExtResource("1_qp2e3")]
+collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+[node name="StateController" type="Node2D" parent="." index="2"]
+script = ExtResource("2_5pcvi")
+
+[node name="UnitController" type="Node2D" parent="." index="3"]
+script = ExtResource("3_necqr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
 position = Vector2(8, 8.75)
 shape = SubResource("RectangleShape2D_nenmm")
 
-[node name="Arthax" type="Sprite2D" parent="." index="3"]
+[node name="Arthax" type="Sprite2D" parent="." index="5"]
 position = Vector2(8, 8)
 texture = ExtResource("2_4xodr")
 hframes = 5
 vframes = 8
 
-[node name="Box" type="Panel" parent="." index="4"]
+[node name="Box" type="Panel" parent="." index="6"]
+visible = false
 offset_right = 16.0
 offset_bottom = 16.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6crfj")
