@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0xyp0pttwtkw"]
+[gd_scene load_steps=13 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="TileSet" uid="uid://dl1tk1t06bd1q" path="res://tile_set.tres" id="2_17pu0"]
 [ext_resource type="Script" path="res://Grid.gd" id="3_q2yen"]
 [ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
-[ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/Unit.tscn" id="5_dlx64"]
+[ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/unit.tscn" id="5_dlx64"]
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="6_gbo3i"]
 [ext_resource type="Script" path="res://Buildings.gd" id="8_77uya"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
@@ -88,8 +88,9 @@ hframes = 3
 vframes = 5
 frame = 7
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="building" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
 script = ExtResource("8_77uya")
+grid = NodePath("../Grid")
 
 [node name="Selection" type="Node2D" parent="." node_paths=PackedStringArray("area", "collision_shape", "unitManager", "timer")]
 script = ExtResource("10_77cnk")

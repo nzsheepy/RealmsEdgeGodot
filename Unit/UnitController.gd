@@ -16,7 +16,7 @@ func _process(_delta):
 	if (!selected):
 		return
 
-	if (Input.is_action_just_released("LeftClick")):
+	if (Input.is_action_just_released("RightClick")):
 		stateController.MoveUnit(get_global_mouse_position())
 	
 
