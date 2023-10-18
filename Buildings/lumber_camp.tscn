@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dv6wtll2cnvvv"]
+[gd_scene load_steps=3 format=3 uid="uid://dv6wtll2cnvvv"]
 
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_6s5tb"]
+[ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_70khw"]
 
 [node name="Building" type="Sprite2D"]
 position = Vector2(-1, 0)
@@ -10,3 +11,8 @@ centered = false
 hframes = 3
 vframes = 5
 frame = 7
+script = ExtResource("2_70khw")
+buildingSize = 2
+resource = 1
+gatherAmount = 10
+gatherTime = 3

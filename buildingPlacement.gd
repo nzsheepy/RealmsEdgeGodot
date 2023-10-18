@@ -17,7 +17,8 @@ var buildingPreloads = {
 
 
 @onready var resourceManager = $"../resourceManager" 
-enum { GOLD, WOOD, STONE, FOOD }
+var resourceType = ResourceManager.ResourceType
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -70,10 +71,10 @@ func _process(delta):
 		justPressed = true
 
 
-	if (currentBuilding != null && resourceManager.check(resourceManager.GOLD, currentBuilding["BuildingGold"]) && 
-		resourceManager.check(resourceManager.WOOD, currentBuilding["BuildingWood"]) && 
-		resourceManager.check(resourceManager.STONE, currentBuilding["BuildingStone"]) && 
-		resourceManager.check(resourceManager.FOOD, currentBuilding["BuildingFood"])):		
+	if (currentBuilding != null && resourceManager.check(resourceType.GOLD, currentBuilding["BuildingGold"]) && 
+		resourceManager.check(resourceType.WOOD, currentBuilding["BuildingWood"]) && 
+		resourceManager.check(resourceType.STONE, currentBuilding["BuildingStone"]) && 
+		resourceManager.check(resourceType.FOOD, currentBuilding["BuildingFood"])):		
 		print("Left click to place building")
 
 		if (justPressed == true):
@@ -89,10 +90,10 @@ func _process(delta):
 
 		if (Input.is_action_just_released("LeftClick")):
 			print("left click")
-			print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceManager.GOLD, currentBuilding["BuildingGold"]))
-			print(" wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceManager.WOOD, currentBuilding["BuildingWood"]))
-			print(" stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceManager.STONE, currentBuilding["BuildingStone"]))
-			print(" food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceManager.FOOD, currentBuilding["BuildingFood"]))
+			print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
+			print(" wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]))
+			print(" stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceType.STONE, currentBuilding["BuildingStone"]))
+			print(" food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceType.FOOD, currentBuilding["BuildingFood"]))
 
 			building.modulate = Color(1,1,1,1)
 			add_child(building)

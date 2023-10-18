@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://caonqn6yokpwl"]
+[gd_scene load_steps=3 format=3 uid="uid://btldymmsuq2wy"]
 
 [ext_resource type="Texture2D" uid="uid://b8bnl5n6eii2k" path="res://MiniWorldSprites/Buildings/Cyan/CyanKeep.png" id="1_612h3"]
+[ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_t0sh2"]
 
 [node name="house" type="Sprite2D"]
 position = Vector2(-1, 0)
@@ -10,3 +11,4 @@ centered = false
 hframes = 3
 vframes = 2
 frame = 3
+script = ExtResource("2_t0sh2")
