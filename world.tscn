@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=12 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="TileSet" uid="uid://dl1tk1t06bd1q" path="res://tile_set.tres" id="2_17pu0"]
 [ext_resource type="Script" path="res://Grid.gd" id="3_q2yen"]
 [ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
-[ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/unit.tscn" id="5_dlx64"]
-[ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="6_gbo3i"]
+[ext_resource type="PackedScene" uid="uid://dw2yyjl7t7shv" path="res://Unit/Unit.tscn" id="5_dlx64"]
 [ext_resource type="Script" path="res://Buildings.gd" id="8_77uya"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
 [ext_resource type="Script" path="res://Selection.gd" id="10_77cnk"]
@@ -25,7 +24,7 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s5xso"]
-size = Vector2(0, 0)
+size = Vector2(2, 2)
 
 [node name="World" type="Node2D"]
 
@@ -47,7 +46,7 @@ layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(458765, 262144, 0, 458766, 262144, 0, 458767, 262144, 0, 524304, 262144, 0, 589840, 262144, 0, 589839, 262144, 0, 524302, 262144, 0, 524301, 262144, 0, 524300, 262144, 0, 524303, 262144, 0, 589838, 262144, 0, 589837, 262144, 0, 589836, 262144, 0, 458764, 262144, 0)
+layer_2/tile_data = PackedInt32Array(458765, 196610, 0, 458766, 196610, 0, 458767, 196610, 0, 524304, 196610, 0, 589840, 196610, 0, 589839, 196610, 0, 524302, 196610, 0, 524301, 196610, 0, 524300, 196610, 0, 524303, 196610, 0, 589838, 196610, 0, 589837, 196610, 0, 589836, 196610, 0, 458764, 196610, 0, 655375, 196610, 0)
 script = ExtResource("3_q2yen")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("selection", "unitManager")]
@@ -63,6 +62,10 @@ unitManager = NodePath("../Units")
 [node name="Panel" type="Panel" parent="UI"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_q41w8")
 
+[node name="Buildings" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
+script = ExtResource("8_77uya")
+grid = NodePath("../Grid")
+
 [node name="Units" type="Node2D" parent="."]
 script = ExtResource("4_2brtq")
 
@@ -70,7 +73,7 @@ script = ExtResource("4_2brtq")
 position = Vector2(273, 66)
 
 [node name="Unit2" parent="Units" instance=ExtResource("5_dlx64")]
-position = Vector2(191, 147)
+position = Vector2(160, 144)
 
 [node name="resourceManager" type="Node2D" parent="."]
 script = ExtResource("8_b4m7g")
@@ -78,19 +81,6 @@ gold = 500
 wood = 200
 stone = 100
 food = 50
-
-[node name="Building" type="Sprite2D" parent="."]
-position = Vector2(272, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("6_gbo3i")
-centered = false
-hframes = 3
-vframes = 5
-frame = 7
-
-[node name="building" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
-script = ExtResource("8_77uya")
-grid = NodePath("../Grid")
 
 [node name="Selection" type="Node2D" parent="." node_paths=PackedStringArray("area", "collision_shape", "unitManager", "timer")]
 script = ExtResource("10_77cnk")
@@ -100,6 +90,7 @@ unitManager = NodePath("../Units")
 timer = NodePath("Timer")
 
 [node name="Area2D" type="Area2D" parent="Selection"]
+position = Vector2(-1000, -1000)
 collision_layer = 0
 collision_mask = 2
 
