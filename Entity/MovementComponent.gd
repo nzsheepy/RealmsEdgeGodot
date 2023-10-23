@@ -2,9 +2,11 @@ extends Node2D
 class_name MovementComponent
 
 @export var movement_speed = 50
-@export var grid: Grid
+@export var navAgent: NavigationAgent2D
+var grid: Grid
 var character: Entity
 var current_destination: Vector2 = Vector2(-1, -1)
+var current_speed = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,27 +16,35 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if (current_destination == Vector2(-1, -1)):
+func _physics_process(_delta):
+	if (current_speed == 0):
 		return
-	
-	var world_position = grid.TileToWorldPos(current_destination)
-	var distance = character.global_position.distance_to(world_position)
-	var velocity = (world_position - character.global_position).normalized() * movement_speed
 
-	if (distance < 2):
-		velocity = Vector2.ZERO
-	
-	character.velocity = velocity
-	# TODO: Compare with move_and_slide (Don't want anything sliding)
-	character.move_and_collide(velocity * delta)
+
+	var currentLocation = character.global_position
+	var nextLocation = navAgent.get_next_path_position()
+	var newVelocity = (nextLocation - currentLocation).normalized() * current_speed
+
+	navAgent.set_velocity(newVelocity)
+
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity):
+	character.velocity = character.velocity.move_toward(safe_velocity, 100)
+	character.move_and_slide()
+
+
+func _on_navigation_agent_2d_navigation_finished():
+	current_speed = 0
 
 
 func IsMoving():
-	return character.velocity != Vector2.ZERO
+	return current_speed != 0
 
 
 func Stop():
+	if (true):
+		return
+
 	if (current_destination == Vector2(-1, -1)):
 		return
 
@@ -55,4 +65,7 @@ func SetDestinationGrid(destination: Vector2i):
 
 func SetDestinationWorld(destination: Vector2i):
 	current_destination = grid.WorldToTilePos(destination)
-	character.velocity = Vector2(0.01, 0.01)
+	var world_pos = grid.TileToWorldPos(current_destination)
+	current_speed = movement_speed
+
+	navAgent.target_position = world_pos

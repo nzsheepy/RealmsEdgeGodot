@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://Unit/StateController.gd" id="2_5pcvi"]
 [ext_resource type="Script" path="res://Unit/UnitController.gd" id="3_necqr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nenmm"]
-size = Vector2(14, 13.5)
+[sub_resource type="CircleShape2D" id="CircleShape2D_jnwvx"]
+radius = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6crfj"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -21,6 +21,9 @@ border_blend = true
 collision_layer = 2
 collision_mask = 3
 
+[node name="MovementComponent" parent="." index="1" node_paths=PackedStringArray("navAgent")]
+navAgent = NodePath("../NavigationAgent2D")
+
 [node name="StateController" type="Node2D" parent="." index="2"]
 script = ExtResource("2_5pcvi")
 
@@ -29,7 +32,7 @@ script = ExtResource("3_necqr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
 position = Vector2(8, 8.75)
-shape = SubResource("RectangleShape2D_nenmm")
+shape = SubResource("CircleShape2D_jnwvx")
 
 [node name="Arthax" type="Sprite2D" parent="." index="5"]
 position = Vector2(8, 8)
@@ -43,3 +46,15 @@ offset_right = 16.0
 offset_bottom = 16.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6crfj")
 metadata/_edit_use_anchors_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="7"]
+path_desired_distance = 1.0
+target_desired_distance = 64.0
+path_max_distance = 32.0
+avoidance_enabled = true
+radius = 8.0
+neighbor_distance = 64.0
+debug_enabled = true
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_velocity_computed"]
