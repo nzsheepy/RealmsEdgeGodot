@@ -25,6 +25,7 @@ texture = ExtResource("1_g8iut")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cfj2y"]
 texture = ExtResource("2_bct6o")
+use_texture_padding = false
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0

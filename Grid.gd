@@ -6,9 +6,26 @@ enum { INVALID = -1, GRASS = 0, TREE = 1, MOUNTAIN = 2 }
 var tiles
 var blocked_tiles
 
+var oldNavPolygon : NavigationPolygon
+var oldDuplicate : NavigationPolygon
+var navPolygons = []
+var tiledata : TileData
+
+var run_once = true
+
 # Called when the node enters the scene tree for the first time.
 func _init():
 	_buildTiles()
+
+	var atlasSource: TileSetAtlasSource = tile_set.get_source(4)
+	tiledata = atlasSource.get_tile_data(Vector2i(0, 0), 0)
+	oldNavPolygon = tiledata.get_navigation_polygon(0)
+	oldDuplicate = oldNavPolygon.duplicate()
+	for i in range(0, oldNavPolygon.get_polygon_count()):
+		navPolygons.append(oldNavPolygon.get_polygon(i))
+	
+	oldNavPolygon.clear_polygons()
+	tile_set.remove_navigation_layer(0)
 
 	var layer = 3
 	print("Starting to fill navigation layer")
@@ -19,6 +36,25 @@ func _init():
 			var y_offset = y + get_used_rect().position.y
 			if blocked_tiles[y][x] == 0:
 				set_cell(layer, Vector2i(x_offset, y_offset), 4, Vector2i(0, 0))
+
+	print("done init")
+
+
+func _process(_delta):
+	if run_once:
+		run_once = false
+		call_deferred("updateNav")
+
+
+func updateNav():
+	tile_set.add_navigation_layer(0)
+	#var newNavPolygon = oldNavPolygon.duplicate()
+
+	# for i in range(0, navPolygons.size()):
+	# 	newNavPolygon.add_polygon(navPolygons[i])
+
+	tiledata.set_navigation_polygon(0, oldDuplicate)
+	print("Navigation Updated")
 
 
 func _buildTiles():
