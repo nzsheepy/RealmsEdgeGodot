@@ -20,7 +20,6 @@ func _physics_process(_delta):
 	if (current_speed == 0):
 		return
 
-
 	var currentLocation = character.global_position
 	var nextLocation = navAgent.get_next_path_position()
 	var newVelocity = (nextLocation - currentLocation).normalized() * current_speed

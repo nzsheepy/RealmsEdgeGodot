@@ -9,6 +9,18 @@ var blocked_tiles
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_buildTiles()
+	# Use blocked tiles to generate new tilemap layer
+	var layer = get_layers_count()
+	add_layer(layer)
+	set_layer_name(layer, "Navigation")
+
+	# Fill layer with tile Navigation tile
+	for y in range(0, blocked_tiles.size()):
+		for x in range(0, blocked_tiles[y].size()):
+			var x_offset = x + get_used_rect().position.x
+			var y_offset = y + get_used_rect().position.y
+			if blocked_tiles[y][x] == 0:
+				set_cell(layer, Vector2i(x_offset, y_offset), 4, Vector2i(0, 0))
 
 
 func _buildTiles():
