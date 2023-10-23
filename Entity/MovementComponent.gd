@@ -65,6 +65,8 @@ func SetDestinationGrid(destination: Vector2i):
 func SetDestinationWorld(destination: Vector2i):
 	current_destination = grid.WorldToTilePos(destination)
 	var world_pos = grid.TileToWorldPos(current_destination)
+	# offset by 8 to get the center of the tile
+	world_pos += Vector2(8, 8)
 	current_speed = movement_speed
 
 	navAgent.target_position = world_pos

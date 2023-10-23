@@ -7,13 +7,11 @@ var tiles
 var blocked_tiles
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _init():
 	_buildTiles()
-	# Use blocked tiles to generate new tilemap layer
-	var layer = get_layers_count()
-	add_layer(layer)
-	set_layer_name(layer, "Navigation")
 
+	var layer = 3
+	print("Starting to fill navigation layer")
 	# Fill layer with tile Navigation tile
 	for y in range(0, blocked_tiles.size()):
 		for x in range(0, blocked_tiles[y].size()):
