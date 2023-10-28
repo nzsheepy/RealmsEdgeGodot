@@ -23,7 +23,7 @@ func check(resource, amount):
 	if resource == ResourceType.FOOD: 
 		return food>=amount
 	if resource == ResourceType.POP: 
-		return maxPop>=pop
+		return maxPop>pop
 		
 		
 ##add resources to current resources
@@ -36,10 +36,11 @@ func add(resource, amount):
 		stone+=amount
 	if resource == ResourceType.FOOD: 
 		food+=amount
-	if resource == ResourceType.POP: 
+	if resource == ResourceType.POP && check(resource, amount): 
 		pop+=amount
 	if resource == ResourceType.MAXPOP:
 		maxPop+=amount
+		print("maxPop",maxPop)
 		
 		
 ##minus cost from current resources
@@ -55,6 +56,12 @@ func use(resource, amount):
 		return true
 	if resource == ResourceType.FOOD && check(resource, amount): 
 		food -= amount
+		return true
+	if resource == ResourceType.POP:
+		pop-=amount
+		return true
+	if resource == ResourceType.MAXPOP:
+		maxPop-=amount
 		return true
 		
 	print("not enough",resource)

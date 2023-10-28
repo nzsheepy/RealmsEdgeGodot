@@ -1,5 +1,5 @@
 #working building manager for hotkeys but not buttons
-
+#needbuutton for build menu
 #workingcheck mark
 extends Node2D
 
@@ -101,7 +101,7 @@ func placeBuilding(tile_pos, buildingSize):
 # Define a function to handle UI button clicks
 # Define a function to handle UI button clicks
 func onBuildingButtonPressed(button_name: String):
-	var buildingKey = button_name.replace("Button", "")
+	var buildingKey = button_name
 	currentBuilding = ImportData.buildingdata[buildingKey]
 	res = buildingPreloads[buildingKey]
 	justPressed = true
@@ -110,18 +110,22 @@ func onBuildingButtonPressed(button_name: String):
 
 # Connect this function to all your building buttons
 func _on_house_button_pressed():
-	onBuildingButtonPressed("HouseButton")
+	onBuildingButtonPressed("House")
 
 func _on_lumber_camp_button_pressed():
-	onBuildingButtonPressed("LumberCampButton")
+	onBuildingButtonPressed("LumberCamp")
 
 func _on_mining_camp_button_pressed():
-	onBuildingButtonPressed("MiningCampButton")
+	onBuildingButtonPressed("MiningCamp")
 
 func _on_farm_button_pressed():
-	onBuildingButtonPressed("FarmButton")
+	onBuildingButtonPressed("Farm")
 
 func _on_town_center_button_pressed():
-	onBuildingButtonPressed("TownCenterButton")
+	onBuildingButtonPressed("TownCenter")
 
+func _on_build_menu_button_pressed():
 
+	buildmenutoggle  = !buildmenutoggle# Replace with function body.
+	if (buildmenutoggle == false):
+		remove_child(building)
