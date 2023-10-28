@@ -6,8 +6,11 @@ class_name ResourceManager
 @export var wood: int 
 @export var stone: int 
 @export var food: int 
+@export var pop: int 
+@export var maxPop: int
+
  
-enum ResourceType { GOLD, WOOD, STONE, FOOD }
+enum ResourceType { GOLD, WOOD, STONE, FOOD, POP, MAXPOP }
 
 ##Checks cost is greater then current resources
 func check(resource, amount):
@@ -19,6 +22,8 @@ func check(resource, amount):
 		return stone>=amount
 	if resource == ResourceType.FOOD: 
 		return food>=amount
+	if resource == ResourceType.POP: 
+		return maxPop>=pop
 		
 		
 ##add resources to current resources
@@ -31,6 +36,10 @@ func add(resource, amount):
 		stone+=amount
 	if resource == ResourceType.FOOD: 
 		food+=amount
+	if resource == ResourceType.POP: 
+		pop+=amount
+	if resource == ResourceType.MAXPOP:
+		maxPop+=amount
 		
 		
 ##minus cost from current resources
@@ -50,6 +59,8 @@ func use(resource, amount):
 		
 	print("not enough",resource)
 	return false
+
+
 	
 	
 

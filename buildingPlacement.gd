@@ -1,13 +1,17 @@
+#working building manager for hotkeys but not buttons
+
+#workingcheck mark
 extends Node2D
 
 @export var grid : Grid
 var currentBuilding
-var res 
+var res
 var building
 var setOpacity
 var buildmenutoggle = false
+var justPressed = false
 var buildingPreloads = {
-	"House": preload("res://Buildings/house.tscn"), 
+	"House": preload("res://Buildings/house.tscn"),
 	"LumberCamp": preload("res://Buildings/lumber_camp.tscn"),
 	"MiningCamp": preload("res://Buildings/mining_camp.tscn"),
 	"Farm": preload("res://Buildings/farm.tscn"),
@@ -15,96 +19,109 @@ var buildingPreloads = {
 	"Barracks": preload("res://Buildings/barracks.tscn")
 }
 
-
-@onready var resourceManager = $"../resourceManager" 
+var buttonToHotkeyMap = {
+	"HouseButton": "HouseHotkey",
+	"LumberCampButton": "LumberCampHotkey",
+	"MiningCampButton": "MiningCampHotkey",
+	"FarmButton": "FarmHotkey",
+	"TownCenterButton": "TownCenterHotkey",
+	"BarracksButton": "BarracksHotkey"
+}
+@onready var mouseHandle = $"../mouseHandle"
+@onready var resourceManager = $"../resourceManager"
 var resourceType = ResourceManager.ResourceType
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if (Input.is_action_just_released("BuildMenu")):
 		buildmenutoggle = !buildmenutoggle
-		print("open build menu",buildmenutoggle)
+		print("open build menu", buildmenutoggle)
 
 		if (buildmenutoggle == false):
 			remove_child(building)
-	
+
 	if (buildmenutoggle == false):
 		return
-		
-	var justPressed = false
 
-	#hotkey q
-	if (Input.is_action_just_released("HouseHotkey")):
-		currentBuilding = ImportData.buildingdata["House"]
-		res = buildingPreloads["House"]
-		justPressed = true
-		
-	#hotkey w
-	if (Input.is_action_just_released("LumberHotkey")):
-		currentBuilding = ImportData.buildingdata["LumberCamp"]
-		res = buildingPreloads["LumberCamp"]
-		justPressed = true
-		
-	#hotkey e
-	if (Input.is_action_just_released("MiningHotkey")):
-		currentBuilding = ImportData.buildingdata["MiningCamp"]
-		res = buildingPreloads["MiningCamp"]
-		justPressed = true
-		
-	#hotkey r
-	if (Input.is_action_just_released("FarmHotkey")):
-		currentBuilding = ImportData.buildingdata["Farm"]
-		res = buildingPreloads["Farm"]
-		justPressed = true
-		
-	#hotkey a
-	if (Input.is_action_just_released("TownHotkey")):
-		currentBuilding = ImportData.buildingdata["TownCenter"]
-		res = buildingPreloads["TownCenter"]
-		justPressed = true
-		
-	#hotkey s
-	if (Input.is_action_just_released("BarracksHotkey")):
-		currentBuilding = ImportData.buildingdata["Barracks"]
-		res = buildingPreloads["Barracks"]
-		justPressed = true
+	processHotkeys()
+	displayBuildingPreview()
+	# Check for left-click to place the building
 
+func processHotkeys():
+	for button_name in buttonToHotkeyMap.keys():
+		if Input.is_action_just_released(buttonToHotkeyMap[button_name]):
+			var buildingKey = button_name.replace("Button", "")
+			currentBuilding = ImportData.buildingdata[buildingKey]
+			res = buildingPreloads[buildingKey]
+			justPressed = true
 
-	if (currentBuilding != null && resourceManager.check(resourceType.GOLD, currentBuilding["BuildingGold"]) && 
-		resourceManager.check(resourceType.WOOD, currentBuilding["BuildingWood"]) && 
-		resourceManager.check(resourceType.STONE, currentBuilding["BuildingStone"]) && 
-		resourceManager.check(resourceType.FOOD, currentBuilding["BuildingFood"])):		
+func displayBuildingPreview():
+	if (mouseHandle.mouseBlocked):
+		print ("mouseBlocked")
+		return
+	
+	if (currentBuilding != null && resourceManager.check(resourceType.GOLD, currentBuilding["BuildingGold"]) &&
+		resourceManager.check(resourceType.WOOD, currentBuilding["BuildingWood"]) &&
+		resourceManager.check(resourceType.STONE, currentBuilding["BuildingStone"]) &&
+		resourceManager.check(resourceType.FOOD, currentBuilding["BuildingFood"])):
 		print("Left click to place building")
 
-		if (justPressed == true):
+		if justPressed:
 			remove_child(building)
 			building = res.instantiate()
-			building.modulate = Color(1,1,1,0.5)
+			building.modulate = Color(1, 1, 1, 0.5)
 			add_child(building)
-
-		# Snap to grid by converting to tile position and back
-		var tile_pos = grid.WorldToTilePos(get_global_mouse_position())
-		var new_pos = grid.TileToWorldPos(tile_pos)
+		#var offset = (building.buildingSize/2.0) * 16
+		var tile_pos = grid.WorldToTilePos(get_global_mouse_position()) 
+		var new_pos = grid.TileToWorldPos(tile_pos) #- Vector2(offset, offset) 
 		building.position = new_pos
 
-		if (Input.is_action_just_released("LeftClick")):
-			print("left click")
-			print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
-			print(" wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]))
-			print(" stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceType.STONE, currentBuilding["BuildingStone"]))
-			print(" food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceType.FOOD, currentBuilding["BuildingFood"]))
+		if Input.is_action_just_released("LeftClick"):
+			placeBuilding(tile_pos, building.buildingSize) 
 
-			building.modulate = Color(1,1,1,1)
-			add_child(building)
-			building = null
+func placeBuilding(tile_pos, buildingSize):
+	if currentBuilding != null && grid.GetTilesTypeRange(tile_pos, tile_pos + Vector2(buildingSize -1,buildingSize - 1)) == currentBuilding["BuildingTerrain"]:
+		print("Left click to place building")
+		print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
+		print("wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]))
+		print("stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceType.STONE, currentBuilding["BuildingStone"]))
+		print("food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceType.FOOD, currentBuilding["BuildingFood"]))
 
-			# forget the current building
-			currentBuilding = null
-			res = null
+		building.modulate = Color(1, 1, 1, 1)
+		add_child(building)
+		building = null
 
-			buildmenutoggle = false
-			justPressed = false
+		currentBuilding = null
+		res = null
 
-		else: 
-			print("not enough resources")
+		buildmenutoggle = false
+		justPressed = false
+
+
+# Define a function to handle UI button clicks
+# Define a function to handle UI button clicks
+func onBuildingButtonPressed(button_name: String):
+	var buildingKey = button_name.replace("Button", "")
+	currentBuilding = ImportData.buildingdata[buildingKey]
+	res = buildingPreloads[buildingKey]
+	justPressed = true
+
+	displayBuildingPreview()
+
+# Connect this function to all your building buttons
+func _on_house_button_pressed():
+	onBuildingButtonPressed("HouseButton")
+
+func _on_lumber_camp_button_pressed():
+	onBuildingButtonPressed("LumberCampButton")
+
+func _on_mining_camp_button_pressed():
+	onBuildingButtonPressed("MiningCampButton")
+
+func _on_farm_button_pressed():
+	onBuildingButtonPressed("FarmButton")
+
+func _on_town_center_button_pressed():
+	onBuildingButtonPressed("TownCenterButton")
+
+

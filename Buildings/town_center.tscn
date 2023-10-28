@@ -3,8 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b8bnl5n6eii2k" path="res://MiniWorldSprites/Buildings/Cyan/CyanKeep.png" id="1_612h3"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_t0sh2"]
 
-[node name="house" type="Sprite2D"]
-position = Vector2(-1, 0)
+[node name="towncenter" type="Sprite2D"]
 scale = Vector2(4, 4)
 texture = ExtResource("1_612h3")
 centered = false
@@ -12,3 +11,8 @@ hframes = 3
 vframes = 2
 frame = 3
 script = ExtResource("2_t0sh2")
+buildingSize = 8
+resource = 4
+gatherAmount = 1
+gatherTime = 2
+buildingType = "TownCenter"

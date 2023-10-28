@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw2yyjl7t7shv"]
+[gd_scene load_steps=8 format=3 uid="uid://dw2yyjl7t7shv"]
 
 [ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="1_qp2e3"]
 [ext_resource type="Texture2D" uid="uid://bsrv5t6vopx41" path="res://MiniWorldSprites/Characters/Champions/Arthax.png" id="2_4xodr"]
@@ -7,6 +7,8 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nenmm"]
 size = Vector2(14, 13.5)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1pghp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6crfj"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -31,6 +33,7 @@ position = Vector2(8, 8.75)
 shape = SubResource("RectangleShape2D_nenmm")
 
 [node name="Arthax" type="Sprite2D" parent="." index="5"]
+material = SubResource("CanvasItemMaterial_1pghp")
 position = Vector2(8, 8)
 texture = ExtResource("2_4xodr")
 hframes = 5

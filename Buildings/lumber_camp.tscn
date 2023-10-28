@@ -4,7 +4,6 @@
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_70khw"]
 
 [node name="Building" type="Sprite2D"]
-position = Vector2(-1, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("1_6s5tb")
 centered = false
