@@ -12,18 +12,15 @@ extends Node2D
 #var whosThere = 
 var loadUnit = preload("res://Unit/unit.tscn")
 var unit
-
+var firstloop = true
 # Variable to keep track of time since the last resource gathering event
 var elapsedTime = 0
 
-func _ready():
-	if buildingType == "House":
-		# Increase max population by 5 for each house
+func _process(delta):
+	if firstloop and buildingType == "House":
 		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 5)
 		print("Added 5 to max population")
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-
-func _process(delta):
+		firstloop = false
 	# Update the elapsed time
 	elapsedTime += delta
 

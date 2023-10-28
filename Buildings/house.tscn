@@ -13,3 +13,4 @@ script = ExtResource("2_4hh16")
 buildingSize = 1
 gatherAmount = 10
 gatherTime = 2
+buildingType = "House"

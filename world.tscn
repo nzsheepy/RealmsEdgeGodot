@@ -279,8 +279,18 @@ offset_bottom = 241.0
 size_flags_horizontal = 0
 icon = ExtResource("16_xsw8a")
 
+[node name="buildMenu_button" type="Button" parent="HUD/HUD"]
+offset_left = 1035.0
+offset_top = 571.0
+offset_right = 1171.0
+offset_bottom = 707.0
+icon = ExtResource("16_xsw8a")
+
 [connection signal="mouse_entered" from="HUD/HUD/Control" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_entered" from="HUD/HUD/house_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/house_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/house_button" to="buildingPlacement" method="_on_house_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/buildMenu_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/buildMenu_button" to="mouseHandle" method="_on_exit"]
+[connection signal="pressed" from="HUD/HUD/buildMenu_button" to="buildingPlacement" method="_on_build_menu_button_pressed"]
