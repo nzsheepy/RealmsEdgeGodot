@@ -7,6 +7,7 @@ var resourceManager
 @onready var goldLabel = $LabelGold
 @onready var stoneLabel = $LabelStone
 @onready var foodLabel = $LabelFood
+@onready var popLabel = $LabelPop
 
 func _ready():
 	# Find and store a reference to the ResourceManager script
@@ -18,3 +19,4 @@ func _process(delta):
 	goldLabel.text = str(resourceManager.gold)
 	foodLabel.text = str(resourceManager.food)
 	stoneLabel.text = str(resourceManager.stone)
+	popLabel.text = str(resourceManager.pop) + " / " + str(resourceManager.maxPop)
