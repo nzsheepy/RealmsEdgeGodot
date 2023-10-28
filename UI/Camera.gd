@@ -73,10 +73,9 @@ func _process(_delta):
 
 func handle_camera_grip(_delta):
 	var current_mouse_position = get_global_mouse_position()
-	var offset = last_middle_mouse_position - current_mouse_position
-	offset_camera(offset)
+	var edgeoffset = last_middle_mouse_position - current_mouse_position
+	offset_camera(edgeoffset)
 	last_middle_mouse_position = get_global_mouse_position()
-	print("Camera Grip Position: ", position)
 
 func handle_camera_movement(_delta):
 	var camera_offset = Vector2(0, 0)
@@ -119,11 +118,11 @@ func handle_edge_panning(_delta):
 
 func _input(event):
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and event.pressed:
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and !event.pressed:
 			zoom -= Vector2(zoom_speed, zoom_speed)
 			zoom.x = clamp(zoom.x, min_zoom, max_zoom)
 			zoom.y = clamp(zoom.y, min_zoom, max_zoom)
-		elif event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP and !event.pressed:
 			zoom += Vector2(zoom_speed, zoom_speed)
 			zoom.x = clamp(zoom.x, min_zoom, max_zoom)
 			zoom.y = clamp(zoom.y, min_zoom, max_zoom)
@@ -144,9 +143,13 @@ func draw_area(s=true):
 	box.position = pos
 	box.size *= int(s)
 
-	# Function to move the camera
-func offset_camera(offset):
-	position += offset
+# Function to move the camera
+func offset_camera(edgeoffset):
+	position += edgeoffset
 	position = position.round()
+
+	position.x = clamp(position.x, limit_left, limit_right)
+	position.y = clamp(position.y, limit_top, limit_bottom)
+
 	force_update_scroll()
 
