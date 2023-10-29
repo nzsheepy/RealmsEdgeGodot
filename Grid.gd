@@ -91,3 +91,8 @@ func TileToWorldPos(tile_pos):
 	var x = tile_pos.x * tile_size + offset.x
 	var y = tile_pos.y * tile_size + offset.y
 	return Vector2(x, y)
+
+
+func TileBlocked(tile_pos):
+	var tile_type = GetTileType(tile_pos)
+	return tile_type != GRASS

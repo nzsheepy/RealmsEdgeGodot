@@ -41,16 +41,9 @@ func IsMoving():
 
 
 func Stop():
-	if (true):
-		return
-
-	if (current_destination == Vector2(-1, -1)):
-		return
-
-	current_destination = Vector2(-1, -1)
+	navAgent.target_position = character.global_position
 	var velocity = Vector2.ZERO
-	character.velocity = velocity
-	character.move_and_collide(velocity)
+	navAgent.set_velocity(velocity)
 
 
 func GetGridPosition():

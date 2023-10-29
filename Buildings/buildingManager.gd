@@ -3,45 +3,137 @@
 extends Node2D
 
 @onready var resourceManager = $"../../resourceManager"
+@onready var grid : Grid = $"../../Grid"
 
 @export var buildingSize: int
 @export var resource: ResourceManager.ResourceType
 @export var gatherAmount: int
 @export var gatherTime: int
 @export var buildingType : String
-#var whosThere = 
 var loadUnit = preload("res://Unit/unit.tscn")
-var unit
 var firstloop = true
+
 # Variable to keep track of time since the last resource gathering event
 var elapsedTime = 0
+var unitsGathering = []
+var unitMask = 0
 
 func _process(delta):
+	elapsedTime += delta
 	if firstloop and buildingType == "House":
 		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 5)
-		print("Added 5 to max population")
 		firstloop = false
-	# Update the elapsed time
-	elapsedTime += delta
+	
 
 	# Check if enough time has passed for resource gathering
 	if elapsedTime >= gatherTime:
 		elapsedTime = 0  # Reset the timer
-		# Calculate the total resource to gather based on buildingSize and gatherAmount
-		var totalResource = gatherAmount
+		# Calculate the total resource to gather based on amount of units gathering
+		var totalResource = gatherAmount * unitsGathering.size()
 
 		if buildingType == "TownCenter" && resourceManager.check(resource,1):
-			print("im a towncenter and i should make a unit now")
-			#resourceManager.add("Population", 1)
-			unit = loadUnit.instantiate()
+			# Only add 1 unit
+			totalResource = 1
 
+			if unitsGathering.size() >= buildingSize * buildingSize:
+				return
+
+			var new_pos = GetNewUnitPosition()
+
+			if new_pos.x == -1 || new_pos.y == -1:
+				return
+
+			var unit = loadUnit.instantiate()
 			get_node("../../Units").add_child(unit)
-			unit.global_position = global_position
-			resourceManager.add(resource, totalResource)
+			AddUnitToBuilding(unit)
+			unit.get_node("StateController").SetState(StateController.State.MOVING)
 		
-		else:
-			print ("resource added", totalResource)
-			# Add the resource to the player's inventory
-			resourceManager.add(resource, totalResource)
+		# Add the resource to the player's inventory
+		resourceManager.add(resource, totalResource)
 
 
+func GetNewUnitPosition():
+	if unitsGathering.size() >= buildingSize * buildingSize:
+		return Vector2(-1, -1)
+
+	var tile_pos = Vector2(unitsGathering.size() % buildingSize, unitsGathering.size() / buildingSize)
+
+	return global_position + tile_pos * 16 + Vector2(8, 8)
+
+
+func AddUnitToBuilding(newUnit):
+	# Save old unit mask
+	unitMask = newUnit.collision_mask
+
+	if unitsGathering.size() >= buildingSize * buildingSize:
+		return
+
+	var new_pos = GetNewUnitPosition()
+
+	if new_pos.x == -1 || new_pos.y == -1:
+		return
+
+	var unitController: UnitController = newUnit.get_node("UnitController")
+
+	if !unitController.CanEnterBuilding():
+		return
+
+	if newUnit.has_node("StateController"):
+		unitsGathering.append(newUnit)
+
+		var stateController: StateController = newUnit.get_node("StateController")
+		stateController.SetState(StateController.State.GATHERING)
+
+		unitController.set_selected(false)
+		unitController.SetBuilding(self)
+
+		# Disable layermasks
+		newUnit.collision_mask = 0
+
+		# Disable NavAgent
+		var navAgent : NavigationAgent2D = newUnit.get_node("NavigationAgent2D")
+		navAgent.avoidance_enabled = false
+		newUnit.position = new_pos
+
+
+func RemoveUnitFromBuilding(unit):
+	# Find new safe position for unit outside of building
+	var new_pos = Vector2(0, 0)
+	var found = false
+
+	for x in range(-1, buildingSize + 2):
+		for y in range(-1, buildingSize + 2):
+			var pos = global_position + Vector2(x, y) * 16 + Vector2(8, 8)
+			var tile_pos = grid.WorldToTilePos(pos)
+			if grid.TileBlocked(tile_pos):
+				continue
+			else:
+				new_pos = pos
+				found = true
+				break
+
+		if found:
+			break
+
+
+	unit.position = new_pos
+
+	unitsGathering.erase(unit)
+	unit.collision_mask = unitMask
+
+	var stateController: StateController = unit.get_node("StateController")
+	stateController.SetState(StateController.State.MOVING)
+
+	# Enable NavAgent
+	var navAgent : NavigationAgent2D = unit.get_node("NavigationAgent2D")
+	navAgent.avoidance_enabled = true
+
+	# Reset position of current units
+	for i in range(unitsGathering.size()):
+		var tile_pos = Vector2(i % buildingSize, i / buildingSize)
+		unitsGathering[i].position = global_position + tile_pos * 16 + Vector2(8, 8)
+
+
+func _on_enter_area_body_entered(body:Node2D):
+	if body.has_node("StateController"):
+		AddUnitToBuilding(body)

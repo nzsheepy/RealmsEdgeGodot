@@ -51,9 +51,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_6crfj")
 metadata/_edit_use_anchors_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="7"]
-path_desired_distance = 1.0
-target_desired_distance = 64.0
+path_desired_distance = 16.0
+target_desired_distance = 30.0
 path_max_distance = 32.0
+path_postprocessing = 1
 avoidance_enabled = true
 radius = 8.0
 neighbor_distance = 64.0
