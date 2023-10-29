@@ -65,11 +65,12 @@ func _process(_delta):
 		elif dist > 0:
 			isDragging = false
 			draw_area(false)
-			unitManager.DeselectAll()
+			selection.SelectSingleUnit(get_global_mouse_position())
 		else:
 			end = start
 			isDragging = false
 			draw_area(false)
+			selection.SelectSingleUnit(get_global_mouse_position())
 
 func handle_camera_grip(_delta):
 	var current_mouse_position = get_global_mouse_position()

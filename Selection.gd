@@ -22,6 +22,18 @@ func SelectArea(topleft: Vector2, botright: Vector2):
 	timer.start()
 
 
+func SelectSingleUnit(mousePosition):
+	unitManager.DeselectAll()
+
+	area.position = mousePosition
+
+	var shape: RectangleShape2D = collision_shape.shape
+	shape.set("size", Vector2(2, 2))
+	collision_shape.shape = shape
+
+	timer.start()
+
+
 func OnTimeOut():
 	var bodies = area.get_overlapping_bodies()
 	for body in bodies:
