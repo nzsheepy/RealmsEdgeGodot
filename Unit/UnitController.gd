@@ -39,7 +39,7 @@ func set_selected(value):
 
 
 func CanEnterBuilding():
-	if (enterBuildingTimer < enterBuildingCooldown):
+	if (enterBuildingTimer < enterBuildingCooldown || occupyingBuilding != null):
 		return false
 
 	return true
