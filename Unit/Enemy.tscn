@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://byxq7mctkx34p"]
+
+[ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="1_8feul"]
+[ext_resource type="Script" path="res://Unit/EnemyController.gd" id="3_kqb05"]
+[ext_resource type="PackedScene" uid="uid://8xtp8aj45q2" path="res://Character Animations/enemy_char.tscn" id="4_xmksm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jnwvx"]
+radius = 6.0
+
+[node name="Enemy" instance=ExtResource("1_8feul")]
+collision_layer = 2
+collision_mask = 3
+
+[node name="HealthComponent" parent="." index="0"]
+position = Vector2(0, 0)
+
+[node name="MovementComponent" parent="." index="1" node_paths=PackedStringArray("navAgent")]
+position = Vector2(0, 0)
+navAgent = NodePath("../NavigationAgent2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_jnwvx")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="3"]
+path_desired_distance = 16.0
+target_desired_distance = 30.0
+path_max_distance = 32.0
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 8.0
+neighbor_distance = 64.0
+
+[node name="Enemy_char" parent="." index="4" instance=ExtResource("4_xmksm")]
+
+[node name="Node2D" type="Node2D" parent="." index="5"]
+script = ExtResource("3_kqb05")
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_velocity_computed"]

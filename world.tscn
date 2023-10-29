@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=21 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
 [ext_resource type="Script" path="res://mouseHandle.gd" id="6_0kifu"]
+[ext_resource type="PackedScene" uid="uid://byxq7mctkx34p" path="res://Unit/Enemy.tscn" id="7_mg0xf"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
 [ext_resource type="Script" path="res://buildingPlacement.gd" id="8_hhrwk"]
 [ext_resource type="Script" path="res://Selection.gd" id="10_77cnk"]
@@ -73,6 +74,11 @@ script = ExtResource("6_0kifu")
 
 [node name="Units" type="Node2D" parent="."]
 script = ExtResource("4_2brtq")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("7_mg0xf")]
+position = Vector2(618, 344)
 
 [node name="Selection" type="Node2D" parent="." node_paths=PackedStringArray("area", "collision_shape", "unitManager", "timer")]
 script = ExtResource("10_77cnk")
