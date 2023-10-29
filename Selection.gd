@@ -28,7 +28,7 @@ func SelectSingleUnit(mousePosition):
 	area.position = mousePosition
 
 	var shape: RectangleShape2D = collision_shape.shape
-	shape.set("size", Vector2(2, 2))
+	shape.set("size", Vector2(1, 1))
 	collision_shape.shape = shape
 
 	timer.start()

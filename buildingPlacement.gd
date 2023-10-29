@@ -64,7 +64,6 @@ func displayBuildingPreview():
 		resourceManager.check(resourceType.WOOD, currentBuilding["BuildingWood"]) &&
 		resourceManager.check(resourceType.STONE, currentBuilding["BuildingStone"]) &&
 		resourceManager.check(resourceType.FOOD, currentBuilding["BuildingFood"])):
-		print("Left click to place building")
 
 		if justPressed:
 			remove_child(building)
