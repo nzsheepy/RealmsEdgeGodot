@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpoufwlcsabg8"]
+[gd_scene load_steps=5 format=3 uid="uid://cpoufwlcsabg8"]
 
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_v2ccy"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_f1gyv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o4exr"]
+size = Vector2(32, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jejk7"]
+size = Vector2(16, 32)
 
 [node name="building" type="Sprite2D"]
 position = Vector2(-2, -2)
@@ -16,3 +22,17 @@ buildingSize = 2
 resource = 2
 gatherAmount = 5
 gatherTime = 3
+
+[node name="EnterArea" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 2
+
+[node name="Left" type="CollisionShape2D" parent="EnterArea"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_o4exr")
+
+[node name="Top" type="CollisionShape2D" parent="EnterArea"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_jejk7")
+
+[connection signal="body_entered" from="EnterArea" to="." method="_on_enter_area_body_entered"]

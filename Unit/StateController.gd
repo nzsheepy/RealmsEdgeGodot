@@ -16,9 +16,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if (state != State.MOVING):
-		character.movement_component.Stop()
-
 	if (state == State.MOVING):
 		# not moving then set state to idle
 		if (!character.movement_component.IsMoving()):
@@ -39,5 +36,5 @@ func SetState(newState: State):
 
 
 func MoveUnit(target: Vector2):
-	state = State.MOVING
+	SetState(State.MOVING)
 	character.movement_component.SetDestinationWorld(target)
