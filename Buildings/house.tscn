@@ -14,3 +14,4 @@ buildingSize = 1
 gatherAmount = 10
 gatherTime = 2
 buildingType = "House"
+noUnitsRequired = true

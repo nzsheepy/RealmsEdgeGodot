@@ -11,6 +11,7 @@ class_name Building
 @export var gatherAmount: int
 @export var gatherTime: int
 @export var buildingType : String
+@export var noUnitsRequired : bool = false
 var loadUnit = preload("res://Unit/unit.tscn")
 var firstloop = true
 
@@ -34,6 +35,9 @@ func _process(delta):
 		elapsedTime = 0  # Reset the timer
 		# Calculate the total resource to gather based on amount of units gathering
 		var totalResource = gatherAmount * unitsGathering.size()
+
+		if noUnitsRequired:
+			totalResource = gatherAmount
 
 		if buildingType == "TownCenter" && resourceManager.check(resource,1):
 			# Only add 1 unit

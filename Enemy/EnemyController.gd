@@ -12,8 +12,11 @@ var target
 var attackTarget
 
 var reacquireTargetWaitTime = 1.5
+var reacquireCurrentWaitTime = 1.5
 var reacquireTargetDeviation = 0.5
 var reacquireTargetTimer = 0.0
+
+var visibleTargets = []
 
 @export var attackDamage: float = 25.0
 @export var attackWaitTime = 1.0
@@ -27,16 +30,9 @@ func _ready():
 
 func _physics_process(_delta):
 	reacquireTargetTimer += _delta
-	
-	if target == null:
-		return
-
-	if ValidTarget(target) == false:
-		target = null
-		FindAndMoveTownCenter()
-		return
 
 	if state == State.ATTACKING:
+		character.movement_component.Stop()
 		attackTimer += _delta
 
 		if attackTarget == null:
@@ -53,7 +49,7 @@ func _physics_process(_delta):
 
 		return
 
-	if reacquireTargetTimer > reacquireTargetWaitTime:
+	if reacquireTargetTimer > reacquireCurrentWaitTime:
 		MoveToTarget()
 
 
@@ -76,13 +72,38 @@ func MoveUnit(newTarget: Vector2):
 
 
 func MoveToTarget():
+	if visibleTargets.size() == 0:
+		FindAndMoveTownCenter()
+		return
+
+	# Find closest visible target
+	var toErase = []
+	var newTarget = null
+	for visibleTarget in visibleTargets:
+		if ValidTarget(visibleTarget) == false:
+			toErase.append(visibleTarget)
+			continue
+
+		if newTarget == null:
+			newTarget = visibleTarget
+			continue
+
+		if visibleTarget.global_position.distance_to(character.global_position) <= newTarget.global_position.distance_to(character.global_position):
+			newTarget = visibleTarget
+
+	for erase in toErase:
+		visibleTargets.erase(erase)
+
+	target = newTarget
+
 	if target == null:
+		FindAndMoveTownCenter()
 		return
 
 	SetState(State.MOVING)
 	character.movement_component.SetDestinationWorld(target.global_position)
 	reacquireTargetTimer = 0.0
-	reacquireTargetWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
+	reacquireCurrentWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
 
 
 func ValidTarget(newTarget):
@@ -92,55 +113,44 @@ func ValidTarget(newTarget):
 	if newTarget.has_node("UnitController") && newTarget.get_node("UnitController").InBuilding():
 		return false
 
-	return true
+	if newTarget.has_node("UnitController") || (newTarget.has_method("IsBuilding") && newTarget.IsBuilding()):
+		return true
+
+	return false
 
 
 func _on_detection_body_entered(body: Node2D):
-	if target != null:
-		if target.global_position.distance_to(character.global_position) < body.global_position.distance_to(character.global_position):
-			return
+	if ValidTarget(body) == false:
+		return
+
+	visibleTargets.append(body)
+
+
+func _on_detection_body_exited(body):
+	if body in visibleTargets:
+		visibleTargets.erase(body)
+
+
+func _on_detection_area_entered(area):
+	var body = area.get_parent()
 
 	if ValidTarget(body) == false:
 		return
 
-	if body.has_node("UnitController"):
-		target = body
-		MoveToTarget()
-		return
+	visibleTargets.append(body)
 
 
-func _on_detection_body_exited(body):
-	if body == target:
-		target = null
-		FindAndMoveTownCenter()
+func _on_detection_area_exited(area):
+	var body = area.get_parent()
+
+	if body in visibleTargets:
+		visibleTargets.erase(body)
 
 
 func _on_attack_range_body_entered(body:Node2D):
 	if body.has_node("UnitController"):
 		attackTarget = body
 		SetState(State.ATTACKING)
-	
-
-
-func _on_detection_area_entered(area):
-	var body = area.get_parent()
-
-	if target != null:
-		if target.global_position.distance_to(character.global_position) < body.global_position.distance_to(character.global_position):
-			return
-
-	if body.has_method("IsBuilding") && body.IsBuilding():
-		SetState(State.ATTACKING)
-		target = body
-		MoveToTarget()
-		return
-
-
-func _on_detection_area_exited(area):
-	var body = area.get_parent()
-	if body == target:
-		target = null
-		FindAndMoveTownCenter()
 
 
 func _on_attack_range_area_entered(area):
@@ -149,3 +159,20 @@ func _on_attack_range_area_entered(area):
 	if body.has_method("IsBuilding") && body.IsBuilding():
 		attackTarget = body
 		SetState(State.ATTACKING)
+
+
+func _on_attack_range_body_exited(body:Node2D):
+	if body == attackTarget:
+		attackTarget = null
+		SetState(State.MOVING)
+		reacquireTargetTimer = reacquireTargetWaitTime + 0.1
+		return
+
+
+func _on_attack_range_area_exited(area:Area2D):
+	var body = area.get_parent()
+	if body == attackTarget:
+		attackTarget = null
+		SetState(State.MOVING)
+		reacquireTargetTimer = reacquireTargetWaitTime + 0.1
+		return

@@ -65,4 +65,6 @@ debug_color = Color(0.992157, 0, 0.254902, 0.419608)
 [connection signal="body_entered" from="Detection" to="EnemyController" method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="EnemyController" method="_on_detection_body_exited"]
 [connection signal="area_entered" from="AttackRange" to="EnemyController" method="_on_attack_range_area_entered"]
+[connection signal="area_exited" from="AttackRange" to="EnemyController" method="_on_attack_range_area_exited"]
 [connection signal="body_entered" from="AttackRange" to="EnemyController" method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="EnemyController" method="_on_attack_range_body_exited"]
