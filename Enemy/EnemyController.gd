@@ -9,9 +9,15 @@ enum State {
 
 var state = State.MOVING
 var target : Entity
+var attackTarget : Entity
+
 var reacquireTargetWaitTime = 1.5
 var reacquireTargetDeviation = 0.5
 var reacquireTargetTimer = 0.0
+
+@export var attackDamage: float = 30.0
+@export var attackWaitTime = 1.0
+var attackTimer = 0.0
 @onready var character: Entity = get_parent()
 
 # Called when the node enters the scene tree for the first time.
@@ -23,6 +29,15 @@ func _physics_process(_delta):
 	reacquireTargetTimer += _delta
 	
 	if target == null:
+		return
+
+	if state == State.ATTACKING:
+		attackTimer += _delta
+
+		if attackTimer > attackWaitTime:
+			attackTimer = 0.0
+			attackTarget.get_node("HealthComponent").TakeDamage(attackDamage)
+
 		return
 
 	if reacquireTargetTimer > reacquireTargetWaitTime:
@@ -63,3 +78,10 @@ func _on_detection_body_exited(body):
 	if body == target:
 		target = null
 		MoveUnit(Vector2(230, 200))
+
+
+func _on_attack_range_body_entered(body:Node2D):
+	if body.has_node("UnitController"):
+		attackTarget = body
+		SetState(State.ATTACKING)
+	
