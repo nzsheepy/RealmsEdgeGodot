@@ -1,6 +1,7 @@
 #current buildingManger
 
 extends Node2D
+class_name Building
 
 @onready var resourceManager = $"../../resourceManager"
 @onready var grid : Grid = $"../../Grid"
@@ -17,6 +18,9 @@ var firstloop = true
 var elapsedTime = 0
 var unitsGathering = []
 var unitMask = 0
+
+@export var buildingHealth: int = 1000
+@onready var currentHealth: int = buildingHealth
 
 func _process(delta):
 	elapsedTime += delta
@@ -137,3 +141,22 @@ func RemoveUnitFromBuilding(unit):
 func _on_enter_area_body_entered(body:Node2D):
 	if body.has_node("StateController"):
 		AddUnitToBuilding(body)
+
+
+func IsBuilding():
+	return true
+
+
+func Heal(amount):
+	currentHealth += amount
+	if currentHealth > buildingHealth:
+		currentHealth = buildingHealth
+
+
+func TakeDamage(damage):
+	currentHealth -= damage
+	if currentHealth <= 0:
+		for unit in unitsGathering:
+			unit.Destroy()
+		
+		queue_free()

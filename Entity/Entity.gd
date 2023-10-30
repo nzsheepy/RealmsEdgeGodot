@@ -3,7 +3,13 @@ class_name Entity
 
 @export var movement_component: MovementComponent
 @export var health_component: HealthComponent
+@export var isUnit : bool = false
+
+@onready var resourceManager : ResourceManager = get_node("../../resourceManager")
 
 func Destroy():
 	# TODO: dereference all references to this object
 	queue_free()
+
+	if isUnit:
+		resourceManager.use(resourceManager.ResourceType.POP, 1)

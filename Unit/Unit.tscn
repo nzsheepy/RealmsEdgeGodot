@@ -20,6 +20,7 @@ border_blend = true
 [node name="Unit" instance=ExtResource("1_qp2e3")]
 collision_layer = 2
 collision_mask = 7
+isUnit = true
 
 [node name="HealthComponent" parent="." index="0"]
 position = Vector2(0, 0)

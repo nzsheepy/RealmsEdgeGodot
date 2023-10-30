@@ -8,8 +8,8 @@ enum State {
 
 
 var state = State.MOVING
-var target : Entity
-var attackTarget : Entity
+var target
+var attackTarget
 
 var reacquireTargetWaitTime = 1.5
 var reacquireTargetDeviation = 0.5
@@ -22,13 +22,18 @@ var attackTimer = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	MoveUnit(Vector2(230, 200))
+	FindAndMoveTownCenter()
 
 
 func _physics_process(_delta):
 	reacquireTargetTimer += _delta
 	
 	if target == null:
+		return
+
+	if ValidTarget(target) == false:
+		target = null
+		FindAndMoveTownCenter()
 		return
 
 	if state == State.ATTACKING:
@@ -41,7 +46,10 @@ func _physics_process(_delta):
 
 		if attackTimer > attackWaitTime:
 			attackTimer = 0.0
-			attackTarget.get_node("HealthComponent").TakeDamage(attackDamage)
+			if attackTarget.has_node("HealthComponent"):
+				attackTarget.get_node("HealthComponent").TakeDamage(attackDamage)
+			else:
+				attackTarget.TakeDamage(attackDamage)
 
 		return
 
@@ -51,6 +59,15 @@ func _physics_process(_delta):
 
 func SetState(newState: State):
 	state = newState
+
+
+func FindAndMoveTownCenter():
+	# TODO: Find town center
+	# var townCenter = Vector2(230, 200)
+	# if townCenter == null:
+	# 	return
+
+	MoveUnit(Vector2(230, 200))
 
 
 func MoveUnit(newTarget: Vector2):
@@ -68,21 +85,34 @@ func MoveToTarget():
 	reacquireTargetWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
 
 
+func ValidTarget(newTarget):
+	if newTarget == null:
+		return false
+
+	if newTarget.has_node("UnitController") && newTarget.get_node("UnitController").InBuilding():
+		return false
+
+	return true
+
+
 func _on_detection_body_entered(body: Node2D):
+	if target != null:
+		if target.global_position.distance_to(character.global_position) < body.global_position.distance_to(character.global_position):
+			return
+
+	if ValidTarget(body) == false:
+		return
+
 	if body.has_node("UnitController"):
-		if target != null:
-			if body.global_position.distance_to(character.global_position) < target.global_position.distance_to(character.global_position):
-				return
-		
-		SetState(State.ATTACKING)
 		target = body
 		MoveToTarget()
+		return
 
 
 func _on_detection_body_exited(body):
 	if body == target:
 		target = null
-		MoveUnit(Vector2(230, 200))
+		FindAndMoveTownCenter()
 
 
 func _on_attack_range_body_entered(body:Node2D):
@@ -90,3 +120,32 @@ func _on_attack_range_body_entered(body:Node2D):
 		attackTarget = body
 		SetState(State.ATTACKING)
 	
+
+
+func _on_detection_area_entered(area):
+	var body = area.get_parent()
+
+	if target != null:
+		if target.global_position.distance_to(character.global_position) < body.global_position.distance_to(character.global_position):
+			return
+
+	if body.has_method("IsBuilding") && body.IsBuilding():
+		SetState(State.ATTACKING)
+		target = body
+		MoveToTarget()
+		return
+
+
+func _on_detection_area_exited(area):
+	var body = area.get_parent()
+	if body == target:
+		target = null
+		FindAndMoveTownCenter()
+
+
+func _on_attack_range_area_entered(area):
+	var body = area.get_parent()
+
+	if body.has_method("IsBuilding") && body.IsBuilding():
+		attackTarget = body
+		SetState(State.ATTACKING)

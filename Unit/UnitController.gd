@@ -47,3 +47,7 @@ func CanEnterBuilding():
 
 func SetBuilding(building):
 	occupyingBuilding = building
+
+
+func InBuilding():
+	return occupyingBuilding != null
