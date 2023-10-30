@@ -6,10 +6,12 @@ enum State {
 	MOVING, ATTACKING
 }
 
+@onready var buildingPlacement = get_node("../../../buildingPlacement")
 
 var state = State.MOVING
 var target
 var attackTarget
+var townCenterTarget
 
 var reacquireTargetWaitTime = 1.5
 var reacquireCurrentWaitTime = 1.5
@@ -62,18 +64,23 @@ func FindTargetCenter():
 	if target.has_node("UnitController"):
 		return targetCenter
 
-	if target.has_method("IsBuilding") && target.IsBuilding():
+	if target is Building:
 		var center = (target.buildingSize / 2.0 * 16)
 		return targetCenter + Vector2(center, center)
 
 
 func FindAndMoveTownCenter():
-	# TODO: Find town center
-	# var townCenter = Vector2(230, 200)
-	# if townCenter == null:
-	# 	return
+	if townCenterTarget != null:
+		MoveUnit(townCenterTarget.global_position)
+		return
 
-	MoveUnit(Vector2(230, 200))
+	var townCenters = buildingPlacement.GetBuildingsOfType("TownCenter")
+	if townCenters.size() == 0:
+		character.movement_component.Stop()
+		return
+
+	townCenterTarget = townCenters[randi() % townCenters.size()]
+	MoveUnit(townCenterTarget.global_position)
 
 
 func MoveUnit(newTarget: Vector2):
@@ -123,7 +130,7 @@ func ValidTarget(newTarget):
 	if newTarget.has_node("UnitController") && newTarget.get_node("UnitController").InBuilding():
 		return false
 
-	if newTarget.has_node("UnitController") || (newTarget.has_method("IsBuilding") && newTarget.IsBuilding()):
+	if newTarget.has_node("UnitController") || newTarget is Building:
 		return true
 
 	return false
@@ -166,7 +173,7 @@ func _on_attack_range_body_entered(body:Node2D):
 func _on_attack_range_area_entered(area):
 	var body = area.get_parent()
 
-	if body.has_method("IsBuilding") && body.IsBuilding():
+	if body is Building:
 		attackTarget = body
 		SetState(State.ATTACKING)
 

@@ -55,6 +55,22 @@ func processHotkeys():
 			res = buildingPreloads[buildingKey]
 			justPressed = true
 
+func GetBuildings():
+	var buildings = []
+	for child in get_children():
+		if child is Building:
+			buildings.append(child)
+
+	return buildings
+
+func GetBuildingsOfType(buildingType):
+	var buildings = []
+	for child in get_children():
+		if child is Building and child.buildingType == buildingType:
+			buildings.append(child)
+
+	return buildings
+
 func displayBuildingPreview():
 	if (mouseHandle.mouseBlocked):
 		print ("mouseBlocked")

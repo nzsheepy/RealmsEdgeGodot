@@ -147,10 +147,6 @@ func _on_enter_area_body_entered(body:Node2D):
 		AddUnitToBuilding(body)
 
 
-func IsBuilding():
-	return true
-
-
 func Heal(amount):
 	currentHealth += amount
 	if currentHealth > buildingHealth:
