@@ -5,7 +5,7 @@ var startV = Vector2()
 var end = Vector2()
 var endV = Vector2()
 var isDragging = false
-var edge_threshold = 10
+var edge_threshold = 15
 var edge_scroll_speed = 1000
 var mouse_scroll_speed = 1
 var arrow_key_scroll_speed = 200
@@ -33,6 +33,7 @@ func _process(_delta):
 		handle_camera_movement(_delta)
 		handle_edge_panning(_delta)
 	
+	#start dragbox location
 	if Input.is_action_just_pressed("LeftClick"):
 		start = get_global_mouse_position()
 		startV = start * 2
@@ -44,7 +45,7 @@ func _process(_delta):
 		endV = end * 2
 		draw_area()
 
-
+	#end dragbox location
 	if Input.is_action_just_released("LeftClick"):
 		end = get_global_mouse_position()
 		endV = end * 2

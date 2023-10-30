@@ -39,3 +39,4 @@ func OnTimeOut():
 	for body in bodies:
 		if body.has_node("UnitController"):
 			body.get_node("UnitController").set_selected(true)
+	unitManager.unitSelected()

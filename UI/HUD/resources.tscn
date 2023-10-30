@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5c4p5xo1umf4"]
+[gd_scene load_steps=17 format=3 uid="uid://b5c4p5xo1umf4"]
 
 [ext_resource type="Script" path="res://UI/HUD/UI_resources.gd" id="1_q3o0m"]
 [ext_resource type="Texture2D" uid="uid://c1omevbv3wad1" path="res://UI/HUD/HUD.png" id="2_1ucon"]
@@ -8,6 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://b31qeua8ux13l" path="res://UI/HUD/icons/Food.png" id="6_2euxo"]
 [ext_resource type="Texture2D" uid="uid://cb4p8kuqj7jt0" path="res://icon.svg" id="7_b82gg"]
 [ext_resource type="Texture2D" uid="uid://bustl7i5x15w" path="res://UI/HUD/icons/Settings.png" id="8_gl4ux"]
+[ext_resource type="Texture2D" uid="uid://dtlgyk6qyos3l" path="res://UI/HUD/Command Card/HouseCCIcon.png" id="9_t6npg"]
+[ext_resource type="Texture2D" uid="uid://co4avl7ly60lh" path="res://UI/HUD/Command Card/LumberCampCCIcon.png" id="10_jbjv5"]
+[ext_resource type="Texture2D" uid="uid://dtlkvacwb26sd" path="res://UI/HUD/Command Card/MiningCampCCIcon.png" id="11_a6g4m"]
+[ext_resource type="Texture2D" uid="uid://d0mtanrtxnxcu" path="res://UI/HUD/Command Card/FarmCCIcon.png" id="12_4t742"]
+[ext_resource type="Texture2D" uid="uid://bafeyhp5wk5x8" path="res://UI/HUD/Command Card/TownCenterCCIcon.png" id="13_7cogs"]
+[ext_resource type="Texture2D" uid="uid://bqc0lawdwl7pw" path="res://UI/HUD/Command Card/BarracksCCIcon.png" id="14_r5ug0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cwcsi"]
 font_size = 20
@@ -163,11 +169,41 @@ offset_right = 1284.0
 offset_bottom = 133.0
 texture = ExtResource("8_gl4ux")
 
-[node name="house_button" type="Button" parent="."]
+[node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 2
 offset_left = 1048.0
 offset_top = 511.0
-offset_right = 1184.0
-offset_bottom = 647.0
+offset_right = 2322.0
+offset_bottom = 1333.0
+scale = Vector2(0.165, 0.165)
+columns = 3
+
+[node name="house_button" type="Button" parent="GridContainer"]
+layout_mode = 2
 size_flags_horizontal = 0
-icon = ExtResource("7_b82gg")
+icon = ExtResource("9_t6npg")
+
+[node name="lumber_camp_button" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("10_jbjv5")
+
+[node name="mining_camp_button" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("11_a6g4m")
+
+[node name="farm_button" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("12_4t742")
+
+[node name="town_center_button" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("13_7cogs")
+
+[node name="barracks_button" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("14_r5ug0")
