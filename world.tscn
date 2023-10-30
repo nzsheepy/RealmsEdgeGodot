@@ -280,6 +280,7 @@ size_flags_horizontal = 0
 icon = ExtResource("16_xsw8a")
 
 [node name="buildMenu_button" type="Button" parent="HUD/HUD"]
+layout_mode = 0
 offset_left = 1035.0
 offset_top = 571.0
 offset_right = 1171.0

@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7curl3qmx4sf"]
+
+[ext_resource type="Texture2D" uid="uid://bqcjpt24lk1qj" path="res://UI/Options Menu/InGameMenuBLANK.png" id="1_nwu0x"]
+[ext_resource type="Texture2D" uid="uid://dye5wxpflfgb3" path="res://UI/Options Menu/MainMenuButton.png" id="2_jn6ai"]
+[ext_resource type="Texture2D" uid="uid://bqkrsyqrvcu0j" path="res://UI/Options Menu/MainMenuButtonHover.png" id="3_3illw"]
+[ext_resource type="Texture2D" uid="uid://b0f84dwpdswa7" path="res://UI/Options Menu/QuitButton.png" id="4_awwv6"]
+[ext_resource type="Texture2D" uid="uid://t4hhrpltayeu" path="res://UI/Options Menu/QuitButtonHover.png" id="5_d310m"]
+
+[node name="Main Menu Options" type="TextureRect"]
+offset_left = 32.0
+offset_top = 7.99997
+offset_right = 1952.0
+offset_bottom = 1088.0
+scale = Vector2(0.628811, 0.62402)
+texture = ExtResource("1_nwu0x")
+
+[node name="VBoxContainer Menu Buttons" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 481.862
+offset_top = 310.887
+offset_right = 1062.86
+offset_bottom = 704.887
+scale = Vector2(0.64, 0.64)
+theme_override_constants/separation = 30
+
+[node name="Main Menu" type="TextureButton" parent="VBoxContainer Menu Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("2_jn6ai")
+texture_hover = ExtResource("3_3illw")
+
+[node name="Quit" type="TextureButton" parent="VBoxContainer Menu Buttons"]
+layout_mode = 2
+texture_normal = ExtResource("4_awwv6")
+texture_hover = ExtResource("5_d310m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 1016.2
+offset_top = 322.105
+offset_right = 1056.2
+offset_bottom = 362.105
+scale = Vector2(11.1957, 12.3774)
