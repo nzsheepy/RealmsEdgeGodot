@@ -15,7 +15,7 @@ var reacquireTargetWaitTime = 1.5
 var reacquireTargetDeviation = 0.5
 var reacquireTargetTimer = 0.0
 
-@export var attackDamage: float = 30.0
+@export var attackDamage: float = 25.0
 @export var attackWaitTime = 1.0
 var attackTimer = 0.0
 @onready var character: Entity = get_parent()
@@ -33,6 +33,11 @@ func _physics_process(_delta):
 
 	if state == State.ATTACKING:
 		attackTimer += _delta
+
+		if attackTarget == null:
+			SetState(State.MOVING)
+			reacquireTargetTimer = reacquireTargetWaitTime + 0.1
+			return
 
 		if attackTimer > attackWaitTime:
 			attackTimer = 0.0
