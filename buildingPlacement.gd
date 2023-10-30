@@ -31,14 +31,19 @@ var buttonToHotkeyMap = {
 @onready var resourceManager = $"../resourceManager"
 var resourceType = ResourceManager.ResourceType
 
+func _ready():
+	button_hide()
+	get_node("../HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse").visible = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if (Input.is_action_just_released("BuildMenu")):
 		buildmenutoggle = !buildmenutoggle
 		print("open build menu", buildmenutoggle)
-
+		if buildmenutoggle == true:
+			button_show()#
 		if (buildmenutoggle == false):
 			remove_child(building)
+			button_hide()
 
 	if (buildmenutoggle == false):
 		return
@@ -94,6 +99,7 @@ func placeBuilding(tile_pos, buildingSize):
 		res = null
 
 		buildmenutoggle = false
+		button_hide()
 		justPressed = false
 
 
@@ -123,8 +129,36 @@ func _on_farm_button_pressed():
 func _on_town_center_button_pressed():
 	onBuildingButtonPressed("TownCenter")
 
-func _on_build_menu_button_pressed():
+func _on_barracks_button_pressed():
+	onBuildingButtonPressed("Barracks")
 
-	buildmenutoggle  = !buildmenutoggle# Replace with function body.
+func _on_build_menu_button_pressed():
+	buildmenutoggle  = !buildmenutoggle
+	if buildmenutoggle == true:
+		button_show()# Replace with function body.
 	if (buildmenutoggle == false):
 		remove_child(building)
+		button_hide()
+	
+func button_show():
+	get_node("../HUD/HUD/BuildingGridContainer/house_button").show()
+	get_node("../HUD/HUD/BuildingGridContainer/lumber_camp_button").show()
+	get_node("../HUD/HUD/BuildingGridContainer/mining_camp_button").show()
+	get_node("../HUD/HUD/BuildingGridContainer/farm_button").show()
+	get_node("../HUD/HUD/BuildingGridContainer/town_center_button").show()
+	get_node("../HUD/HUD/BuildingGridContainer/barracks_button").show()
+
+
+func button_hide():
+	get_node("../HUD/HUD/BuildingGridContainer/house_button").hide()
+	get_node("../HUD/HUD/BuildingGridContainer/lumber_camp_button").hide()
+	get_node("../HUD/HUD/BuildingGridContainer/mining_camp_button").hide()
+	get_node("../HUD/HUD/BuildingGridContainer/farm_button").hide()
+	get_node("../HUD/HUD/BuildingGridContainer/town_center_button").hide()
+	get_node("../HUD/HUD/BuildingGridContainer/barracks_button").hide()
+
+func _on_house_button_mouse_entered():
+	get_node("../HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse").visible = true
+
+func _on_house_button_mouse_exited():
+	get_node("../HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse").visible = false
