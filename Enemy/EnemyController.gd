@@ -57,6 +57,16 @@ func SetState(newState: State):
 	state = newState
 
 
+func FindTargetCenter():
+	var targetCenter = target.global_position
+	if target.has_node("UnitController"):
+		return targetCenter
+
+	if target.has_method("IsBuilding") && target.IsBuilding():
+		var center = (target.buildingSize / 2.0 * 16)
+		return targetCenter + Vector2(center, center)
+
+
 func FindAndMoveTownCenter():
 	# TODO: Find town center
 	# var townCenter = Vector2(230, 200)
@@ -101,7 +111,7 @@ func MoveToTarget():
 		return
 
 	SetState(State.MOVING)
-	character.movement_component.SetDestinationWorld(target.global_position)
+	character.movement_component.SetDestinationWorld(FindTargetCenter())
 	reacquireTargetTimer = 0.0
 	reacquireCurrentWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
 
