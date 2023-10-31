@@ -100,7 +100,20 @@ func displayBuildingPreview():
 			placeBuilding(tile_pos, building.buildingSize) 
 
 func placeBuilding(tile_pos, buildingSize):
-	if currentBuilding != null && grid.GetTilesTypeRange(tile_pos, tile_pos + Vector2(buildingSize -1,buildingSize - 1)) == currentBuilding["BuildingTerrain"]:
+	if currentBuilding == null || building == null:
+		return
+
+	var buildingArea = building.get_node("BuildingArea")
+	buildingArea.position += Vector2(0.1, 0.1)
+
+	print(buildingArea.get_overlapping_areas().size())
+
+	var overlappingAreas = building.get_node("BuildingArea").get_overlapping_areas()
+	for area in overlappingAreas:
+		if area.get_parent() is Building:
+			return
+
+	if grid.GetTilesTypeRange(tile_pos, tile_pos + Vector2(buildingSize -1,buildingSize - 1)) == currentBuilding["BuildingTerrain"]:
 		print("Left click to place building")
 		print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
 		print("wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]))
