@@ -128,6 +128,7 @@ func placeBuilding(tile_pos, buildingSize):
 
 		building.modulate = Color(1, 1, 1, 1)
 		building.built = true
+		building.startBuild()
 		add_child(building)
 		building = null
 

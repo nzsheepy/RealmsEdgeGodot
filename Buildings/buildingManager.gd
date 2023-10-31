@@ -15,17 +15,42 @@ class_name Building
 var loadUnit = preload("res://Unit/unit.tscn")
 var firstloop = true
 @export var built = false
+var isFoundation = false
+@export var buildTime : int = 10
 
 # Variable to keep track of time since the last resource gathering event
 var elapsedTime = 0
+var buildingTime = 0
 var unitsGathering = []
 var unitMask = 0
 
 @export var buildingHealth: int = 1000
 @onready var currentHealth: int = buildingHealth
 
+
+func startBuild():
+	isFoundation = true
+	self_modulate = Color(1, 1, 1, 0)
+	var foundation = get_node("Foundation")
+	if foundation:
+		foundation.visible = true
+
+
 func _process(delta):
 	if !built:
+		return
+
+	buildingTime += delta
+	
+	if isFoundation && buildingTime >= buildTime:
+		built = true
+		isFoundation = false
+		self_modulate = Color(1, 1, 1, 1)
+		var foundation = get_node("Foundation")
+		if foundation:
+			foundation.visible = false
+
+	if isFoundation:
 		return
 
 	elapsedTime += delta
