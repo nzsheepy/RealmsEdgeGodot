@@ -19,7 +19,6 @@ resource = 4
 gatherAmount = 1
 gatherTime = 2
 buildingType = "TownCenter"
-buildingHealth = 100
 
 [node name="BuildingArea" type="Area2D" parent="."]
 collision_layer = 8

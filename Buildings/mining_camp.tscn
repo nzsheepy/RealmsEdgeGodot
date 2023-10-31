@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpoufwlcsabg8"]
+[gd_scene load_steps=6 format=3 uid="uid://cpoufwlcsabg8"]
 
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_v2ccy"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_f1gyv"]
@@ -9,8 +9,10 @@ size = Vector2(32, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jejk7"]
 size = Vector2(16, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1shcx"]
+size = Vector2(16, 16)
+
 [node name="building" type="Sprite2D"]
-position = Vector2(-2, -2)
 scale = Vector2(2, 2)
 texture = ExtResource("1_v2ccy")
 centered = false
@@ -34,5 +36,13 @@ shape = SubResource("RectangleShape2D_o4exr")
 [node name="Top" type="CollisionShape2D" parent="EnterArea"]
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_jejk7")
+
+[node name="BuildingArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingArea"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_1shcx")
 
 [connection signal="body_entered" from="EnterArea" to="." method="_on_enter_area_body_entered"]

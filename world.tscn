@@ -78,6 +78,8 @@ script = ExtResource("4_2brtq")
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(888, 415)
 script = ExtResource("7_uaekl")
+waveWaitTime = 60.0
+singleWaitTime = 10.0
 
 [node name="Selection" type="Node2D" parent="." node_paths=PackedStringArray("area", "collision_shape", "unitManager", "timer")]
 script = ExtResource("10_77cnk")

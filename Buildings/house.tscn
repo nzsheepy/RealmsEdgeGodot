@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://usestnj534go"]
+[gd_scene load_steps=4 format=3 uid="uid://usestnj534go"]
 
 [ext_resource type="Texture2D" uid="uid://uktbpk78njih" path="res://MiniWorldSprites/Buildings/Cyan/CyanHouses.png" id="1_4sav3"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_4hh16"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35m27"]
+size = Vector2(16, 16)
 
 [node name="house" type="Sprite2D"]
 texture = ExtResource("1_4sav3")
@@ -15,3 +18,11 @@ gatherAmount = 10
 gatherTime = 2
 buildingType = "House"
 noUnitsRequired = true
+
+[node name="BuildingArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingArea"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_35m27")
