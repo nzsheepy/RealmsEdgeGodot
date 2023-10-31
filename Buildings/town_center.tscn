@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://btldymmsuq2wy"]
+[gd_scene load_steps=4 format=3 uid="uid://btldymmsuq2wy"]
 
 [ext_resource type="Texture2D" uid="uid://b8bnl5n6eii2k" path="res://MiniWorldSprites/Buildings/Cyan/CyanKeep.png" id="1_612h3"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_t0sh2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ljc4g"]
+size = Vector2(32, 32)
 
 [node name="towncenter" type="Sprite2D"]
 scale = Vector2(4, 4)
@@ -16,3 +19,11 @@ resource = 4
 gatherAmount = 1
 gatherTime = 2
 buildingType = "TownCenter"
+
+[node name="BuildingArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingArea"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_ljc4g")

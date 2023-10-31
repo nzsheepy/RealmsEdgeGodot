@@ -1,6 +1,7 @@
 #current buildingManger
 
 extends Node2D
+class_name Building
 
 @onready var resourceManager = $"../../resourceManager"
 @onready var grid : Grid = $"../../Grid"
@@ -10,6 +11,7 @@ extends Node2D
 @export var gatherAmount: int
 @export var gatherTime: int
 @export var buildingType : String
+@export var noUnitsRequired : bool = false
 var loadUnit = preload("res://Unit/unit.tscn")
 var firstloop = true
 
@@ -17,6 +19,9 @@ var firstloop = true
 var elapsedTime = 0
 var unitsGathering = []
 var unitMask = 0
+
+@export var buildingHealth: int = 1000
+@onready var currentHealth: int = buildingHealth
 
 func _process(delta):
 	elapsedTime += delta
@@ -30,6 +35,9 @@ func _process(delta):
 		elapsedTime = 0  # Reset the timer
 		# Calculate the total resource to gather based on amount of units gathering
 		var totalResource = gatherAmount * unitsGathering.size()
+
+		if noUnitsRequired:
+			totalResource = gatherAmount
 
 		if buildingType == "TownCenter" && resourceManager.check(resource,1):
 			# Only add 1 unit
@@ -137,3 +145,18 @@ func RemoveUnitFromBuilding(unit):
 func _on_enter_area_body_entered(body:Node2D):
 	if body.has_node("StateController"):
 		AddUnitToBuilding(body)
+
+
+func Heal(amount):
+	currentHealth += amount
+	if currentHealth > buildingHealth:
+		currentHealth = buildingHealth
+
+
+func TakeDamage(damage):
+	currentHealth -= damage
+	if currentHealth <= 0:
+		for unit in unitsGathering:
+			unit.Destroy()
+		
+		queue_free()

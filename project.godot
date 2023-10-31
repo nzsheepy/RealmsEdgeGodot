@@ -102,6 +102,8 @@ move_camera_down={
 [layer_names]
 
 2d_physics/layer_2="Unit"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Building"
 2d_physics/layer_9="BuildingEntering"
 
 [rendering]
