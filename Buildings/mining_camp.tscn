@@ -39,7 +39,7 @@ shape = SubResource("RectangleShape2D_jejk7")
 
 [node name="BuildingArea" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingArea"]
 position = Vector2(8, 8)

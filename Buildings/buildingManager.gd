@@ -14,6 +14,7 @@ class_name Building
 @export var noUnitsRequired : bool = false
 var loadUnit = preload("res://Unit/unit.tscn")
 var firstloop = true
+@export var built = false
 
 # Variable to keep track of time since the last resource gathering event
 var elapsedTime = 0
@@ -24,6 +25,9 @@ var unitMask = 0
 @onready var currentHealth: int = buildingHealth
 
 func _process(delta):
+	if !built:
+		return
+
 	elapsedTime += delta
 	if firstloop and buildingType == "House":
 		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 5)
