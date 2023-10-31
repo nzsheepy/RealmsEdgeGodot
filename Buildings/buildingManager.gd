@@ -29,6 +29,10 @@ var unitMask = 0
 
 
 func startBuild():
+	# Prevent units from entering the building
+	var area :Area2D = get_node("EnterArea")
+	area.set("scale", Vector2(0, 0))
+
 	isFoundation = true
 	self_modulate = Color(1, 1, 1, 0)
 	var foundation = get_node("Foundation")
@@ -43,6 +47,10 @@ func _process(delta):
 	buildingTime += delta
 	
 	if isFoundation && buildingTime >= buildTime:
+		# Allow units to enter again
+		var area = get_node("EnterArea")
+		area.set("scale", Vector2(1, 1))
+
 		built = true
 		isFoundation = false
 		self_modulate = Color(1, 1, 1, 1)
