@@ -86,11 +86,11 @@ script = ExtResource("8_hhrwk")
 grid = NodePath("../Grid")
 
 [node name="towncenter" parent="buildingPlacement" instance=ExtResource("5_usv12")]
-position = Vector2(256, 78)
+position = Vector2(256, 80)
 built = true
 
 [node name="house" parent="buildingPlacement" instance=ExtResource("6_kppvx")]
-position = Vector2(391, 151)
+position = Vector2(400, 160)
 built = true
 
 [node name="mouseHandle" type="Node2D" parent="."]

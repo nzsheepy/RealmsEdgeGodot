@@ -105,7 +105,18 @@ func placeBuilding(tile_pos, buildingSize):
 		return
 
 	# TODO: Raycast check per tile of building size
+	var space_state = get_world_2d().direct_space_state
+	var build_pos = building.global_position
+	var query = PhysicsPointQueryParameters2D.new()
+	query.position = build_pos
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+	query.collision_mask = 8
+	query.exclude = [building.get_node("BuildingArea")]
+	var result = space_state.intersect_point(query)
 
+	if result:
+		return
 
 	if grid.GetTilesTypeRange(tile_pos, tile_pos + Vector2(buildingSize -1,buildingSize - 1)) == currentBuilding["BuildingTerrain"]:
 		print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
