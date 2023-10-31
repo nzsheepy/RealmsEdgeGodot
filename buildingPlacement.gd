@@ -34,8 +34,9 @@ var resourceType = ResourceManager.ResourceType
 func _ready():
 	button_hide()
 	get_node("../HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse").visible = false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(_delta):
 	if (Input.is_action_just_released("BuildMenu")):
 		buildmenutoggle = !buildmenutoggle
 		print("open build menu", buildmenutoggle)
@@ -103,24 +104,17 @@ func placeBuilding(tile_pos, buildingSize):
 	if currentBuilding == null || building == null:
 		return
 
-	var buildingArea = building.get_node("BuildingArea")
-	buildingArea.position += Vector2(0.1, 0.1)
+	# TODO: Raycast check per tile of building size
 
-	print(buildingArea.get_overlapping_areas().size())
-
-	var overlappingAreas = building.get_node("BuildingArea").get_overlapping_areas()
-	for area in overlappingAreas:
-		if area.get_parent() is Building:
-			return
 
 	if grid.GetTilesTypeRange(tile_pos, tile_pos + Vector2(buildingSize -1,buildingSize - 1)) == currentBuilding["BuildingTerrain"]:
-		print("Left click to place building")
 		print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
 		print("wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]))
 		print("stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceType.STONE, currentBuilding["BuildingStone"]))
 		print("food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceType.FOOD, currentBuilding["BuildingFood"]))
 
 		building.modulate = Color(1, 1, 1, 1)
+		building.built = true
 		add_child(building)
 		building = null
 
