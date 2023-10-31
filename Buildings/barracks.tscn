@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2dbifwujt4ve"]
+[gd_scene load_steps=7 format=3 uid="uid://b2dbifwujt4ve"]
 
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_80efe"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_eheku"]
+[ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="3_1bfv0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvtx2"]
 size = Vector2(16, 16)
@@ -50,5 +51,9 @@ shape = SubResource("RectangleShape2D_de240")
 [node name="Top" type="CollisionShape2D" parent="EnterArea"]
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_5r24o")
+
+[node name="Foundation" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("3_1bfv0")
 
 [connection signal="body_entered" from="EnterArea" to="." method="_on_enter_area_body_entered"]

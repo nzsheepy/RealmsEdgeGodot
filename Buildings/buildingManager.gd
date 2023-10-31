@@ -28,6 +28,11 @@ var unitMask = 0
 @onready var currentHealth: int = buildingHealth
 
 
+func _ready():
+	var foundation = get_node("Foundation")
+	if foundation:
+		foundation.visible = false
+
 func startBuild():
 	# Prevent units from entering the building
 	var area :Area2D = get_node("EnterArea")
