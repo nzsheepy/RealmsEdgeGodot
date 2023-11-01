@@ -14,16 +14,63 @@ class_name Building
 @export var noUnitsRequired : bool = false
 var loadUnit = preload("res://Unit/unit.tscn")
 var firstloop = true
+@export var built = false
+var isFoundation = false
+@export var buildTime : int = 10
 
 # Variable to keep track of time since the last resource gathering event
 var elapsedTime = 0
+var buildingTime = 0
 var unitsGathering = []
 var unitMask = 0
 
 @export var buildingHealth: int = 1000
 @onready var currentHealth: int = buildingHealth
 
+@export_group("Barracks")
+@export var isBarracks : bool = false
+
+
+func _ready():
+	var foundation = get_node("Foundation")
+	if foundation:
+		foundation.visible = false
+
+func startBuild():
+	# Prevent units from entering the building
+	var area :Area2D = get_node("EnterArea")
+	if area:
+		area.set("scale", Vector2(0, 0))
+
+	isFoundation = true
+	self_modulate = Color(1, 1, 1, 0)
+	var foundation = get_node("Foundation")
+	if foundation:
+		foundation.visible = true
+
+
 func _process(delta):
+	if !built:
+		return
+
+	buildingTime += delta
+	
+	if isFoundation && buildingTime >= buildTime:
+		# Allow units to enter again
+		var area = get_node("EnterArea")
+		if area:
+			area.set("scale", Vector2(1, 1))
+
+		built = true
+		isFoundation = false
+		self_modulate = Color(1, 1, 1, 1)
+		var foundation = get_node("Foundation")
+		if foundation:
+			foundation.visible = false
+
+	if isFoundation:
+		return
+
 	elapsedTime += delta
 	if firstloop and buildingType == "House":
 		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 5)

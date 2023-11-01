@@ -1,9 +1,9 @@
 extends Camera2D
 
 var start = Vector2()
-var startV = Vector2()
 var end = Vector2()
-var endV = Vector2()
+var startViewport = Vector2()
+var endViewport = Vector2()
 var isDragging = false
 var edge_threshold = 15
 var edge_scroll_speed = 1000
@@ -36,21 +36,21 @@ func _process(_delta):
 	#start dragbox location
 	if Input.is_action_just_pressed("LeftClick"):
 		start = get_global_mouse_position()
-		startV = start * 2
+		startViewport = get_local_mouse_position()
 		isDragging = true
 		return
 
 	if isDragging:
 		end = get_global_mouse_position()
-		endV = end * 2
+		endViewport = get_local_mouse_position()
 		draw_area()
 
 	#end dragbox location
 	if Input.is_action_just_released("LeftClick"):
 		end = get_global_mouse_position()
-		endV = end * 2
+		endViewport = get_local_mouse_position()
 
-		var dist = startV.distance_to(endV)
+		var dist = start.distance_to(end)
 
 		if dist > 20:
 			isDragging = false
@@ -138,11 +138,12 @@ func _input(event):
 
 
 func draw_area(s=true):
-	box.size = Vector2(abs(startV.x - endV.x), abs(startV.y - endV.y))
+	box.size = Vector2(abs(startViewport.x - endViewport.x), abs(startViewport.y - endViewport.y))
 	var pos = Vector2()
-	pos.x = min(startV.x, endV.x)
-	pos.y = min(startV.y, endV.y)
-	box.position = pos
+	pos.x = min(startViewport.x, endViewport.x)
+	pos.y = min(startViewport.y, endViewport.y)
+
+	box.position = pos + global_position
 	box.size *= int(s)
 
 # Function to move the camera
