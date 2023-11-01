@@ -79,7 +79,6 @@ func GetBuildingsOfType(buildingType):
 
 func displayBuildingPreview():
 	if (mouseHandle.mouseBlocked):
-		print ("mouseBlocked")
 		return
 	
 	if (currentBuilding != null && resourceManager.check(resourceType.GOLD, currentBuilding["BuildingGold"]) &&

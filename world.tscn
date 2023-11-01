@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=30 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://usestnj534go" path="res://Buildings/house.tscn" id="6_kppvx"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
 [ext_resource type="Script" path="res://buildingPlacement.gd" id="8_hhrwk"]
+[ext_resource type="PackedScene" uid="uid://r3pvtf2drju" path="res://Unit/Soldier.tscn" id="9_apxpq"]
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="9_biqw0"]
 [ext_resource type="Script" path="res://Selection.gd" id="10_77cnk"]
 [ext_resource type="Script" path="res://UI/HUD/UI_resources.gd" id="10_hxk5g"]
@@ -98,6 +99,9 @@ script = ExtResource("6_0kifu")
 
 [node name="Units" type="Node2D" parent="."]
 script = ExtResource("4_2brtq")
+
+[node name="Soldier" parent="Units" instance=ExtResource("9_apxpq")]
+position = Vector2(153, 232)
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(894, 405)
