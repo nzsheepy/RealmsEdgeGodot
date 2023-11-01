@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://caoqum3t2pwc2"]
 
 [ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="1_dfvg3"]
-[ext_resource type="Theme" uid="uid://cgwskli2lrgq6" path="res://UI/Dialogue Box/fontDark.tres" id="1_lklj6"]
+[ext_resource type="Theme" path="res://UI/Dialogue Box/fontDark.tres" id="1_lklj6"]
 [ext_resource type="Texture2D" uid="uid://bqkgs7vunc5bu" path="res://UI/Textbox/GreyFlag.png" id="2_x6sv5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5o3y"]

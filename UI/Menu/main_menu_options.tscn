@@ -1,11 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7curl3qmx4sf"]
+[gd_scene load_steps=14 format=3 uid="uid://c7curl3qmx4sf"]
 
 [ext_resource type="Texture2D" uid="uid://bqcjpt24lk1qj" path="res://UI/Options Menu/InGameMenuBLANK.png" id="1_nwu0x"]
+[ext_resource type="Texture2D" uid="uid://cibi3ygy6u3xu" path="res://UI/Options Menu/SaveButton.png" id="2_bhotv"]
 [ext_resource type="Texture2D" uid="uid://dye5wxpflfgb3" path="res://UI/Options Menu/MainMenuButton.png" id="2_jn6ai"]
 [ext_resource type="Texture2D" uid="uid://bqkrsyqrvcu0j" path="res://UI/Options Menu/MainMenuButtonHover.png" id="3_3illw"]
+[ext_resource type="Texture2D" uid="uid://05xvsu54h78m" path="res://UI/Options Menu/SaveButtonHover.png" id="3_farrf"]
 [ext_resource type="Texture2D" uid="uid://b0f84dwpdswa7" path="res://UI/Options Menu/QuitButton.png" id="4_awwv6"]
 [ext_resource type="Texture2D" uid="uid://t4hhrpltayeu" path="res://UI/Options Menu/QuitButtonHover.png" id="5_d310m"]
 [ext_resource type="Texture2D" uid="uid://csr28gimoi7v8" path="res://UI/Options Menu/SliderButton.png" id="6_4bd1b"]
+[ext_resource type="LabelSettings" uid="uid://bulmn4gfafjhj" path="res://UI/Dialogue Box/labelDefaultTtileGOLF.tres" id="6_71igs"]
+[ext_resource type="LabelSettings" uid="uid://by1svl0hn7wb2" path="res://UI/Dialogue Box/16pxWhite.tres" id="7_auto7"]
 [ext_resource type="Texture2D" uid="uid://cm55iqd2mqjn6" path="res://UI/Options Menu/SliderBar.png" id="7_fpv03"]
 
 [sub_resource type="Theme" id="Theme_j8c08"]
@@ -23,6 +27,16 @@ offset_right = 1952.0
 offset_bottom = 1088.0
 scale = Vector2(0.628811, 0.62402)
 texture = ExtResource("1_nwu0x")
+
+[node name="Save Button" type="TextureButton" parent="."]
+layout_mode = 2
+offset_left = 1165.69
+offset_top = 815.679
+offset_right = 1698.69
+offset_bottom = 1094.68
+scale = Vector2(0.222951, 0.21538)
+texture_normal = ExtResource("2_bhotv")
+texture_hover = ExtResource("3_farrf")
 
 [node name="VBoxContainer Menu Buttons" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -46,21 +60,24 @@ texture_hover = ExtResource("5_d310m")
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 1021.0
-offset_top = 357.0
-offset_right = 1355.0
-offset_bottom = 460.0
+offset_top = 293.0
+offset_right = 1423.0
+offset_bottom = 888.0
 
 [node name="Screen Size" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Screen Size"
+label_settings = ExtResource("6_71igs")
 
 [node name="Screen Size2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Fullscreen"
+label_settings = ExtResource("7_auto7")
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Difficulty"
+label_settings = ExtResource("6_71igs")
 
 [node name="HSlider" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
@@ -74,14 +91,17 @@ theme_override_styles/slider = SubResource("StyleBoxTexture_ey6as")
 [node name="Label2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Easy                         Medium                             Hard"
+label_settings = ExtResource("7_auto7")
 
 [node name="Label3" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Camera Speed"
+label_settings = ExtResource("6_71igs")
 
 [node name="Label4" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Edge Pan"
+label_settings = ExtResource("7_auto7")
 
 [node name="HSlider2" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
@@ -95,6 +115,7 @@ theme_override_styles/slider = SubResource("StyleBoxTexture_ey6as")
 [node name="Label5" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Camera Grip"
+label_settings = ExtResource("7_auto7")
 
 [node name="HSlider3" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
@@ -108,6 +129,7 @@ theme_override_styles/slider = SubResource("StyleBoxTexture_ey6as")
 [node name="Label6" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Arrow Keys"
+label_settings = ExtResource("7_auto7")
 
 [node name="HSlider4" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2

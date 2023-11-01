@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cqr7r55xkk5cy"
-path="res://.godot/imported/VictoryScreen.png-73ff9d2aee7dfc8a709424d6bcb71859.ctex"
+path="res://.godot/imported/VictoryScreen.png-7e98e5a9cb55d58eb8a34184114f2bf2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Avatars/Win Lose Screen/VictoryScreen.png"
-dest_files=["res://.godot/imported/VictoryScreen.png-73ff9d2aee7dfc8a709424d6bcb71859.ctex"]
+source_file="res://Avatars/Win Lose Screen]/VictoryScreen.png"
+dest_files=["res://.godot/imported/VictoryScreen.png-7e98e5a9cb55d58eb8a34184114f2bf2.ctex"]
 
 [params]
 

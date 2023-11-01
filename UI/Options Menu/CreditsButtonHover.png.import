@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dntcyrcr01gwj"
-path="res://.godot/imported/MainMenuPlay.png-217d42430452068d6d3d60a755f57d22.ctex"
+uid="uid://brdc65ssx61fg"
+path="res://.godot/imported/CreditsButtonHover.png-04811ef475f584dcfed52c0f16b0ebdc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Menu/MainMenuPlay.png"
-dest_files=["res://.godot/imported/MainMenuPlay.png-217d42430452068d6d3d60a755f57d22.ctex"]
+source_file="res://UI/Options Menu/CreditsButtonHover.png"
+dest_files=["res://.godot/imported/CreditsButtonHover.png-04811ef475f584dcfed52c0f16b0ebdc.ctex"]
 
 [params]
 

@@ -22,11 +22,11 @@
 [ext_resource type="Texture2D" uid="uid://d0mtanrtxnxcu" path="res://UI/HUD/Command Card/FarmCCIcon.png" id="20_54sq1"]
 [ext_resource type="Texture2D" uid="uid://bafeyhp5wk5x8" path="res://UI/HUD/Command Card/TownCenterCCIcon.png" id="21_837yj"]
 [ext_resource type="Texture2D" uid="uid://bqc0lawdwl7pw" path="res://UI/HUD/Command Card/BarracksCCIcon.png" id="22_na7hp"]
-[ext_resource type="Theme" uid="uid://cgwskli2lrgq6" path="res://UI/Dialogue Box/fontDark.tres" id="23_f74y2"]
-[ext_resource type="StyleBox" uid="uid://cnack2eerg6rw" path="res://UI/Dialogue Box/new_style_box_flat.tres" id="23_fki64"]
+[ext_resource type="Theme" path="res://UI/Dialogue Box/fontDark.tres" id="23_f74y2"]
+[ext_resource type="StyleBox" path="res://UI/Dialogue Box/new_style_box_flat.tres" id="23_fki64"]
 [ext_resource type="Script" path="res://GameTimer.gd" id="23_ledid"]
-[ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="25_1dimv"]
-[ext_resource type="LabelSettings" uid="uid://bora3sdd8dkry" path="res://UI/Dialogue Box/labelDefault.tres" id="25_r72wb"]
+[ext_resource type="LabelSettings" uid="uid://bulmn4gfafjhj" path="res://UI/Dialogue Box/labelDefaultTtileGOLF.tres" id="24_j7lq5"]
+[ext_resource type="LabelSettings" uid="uid://by1svl0hn7wb2" path="res://UI/Dialogue Box/16pxWhite.tres" id="25_5o5rm"]
 [ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="27_j1mkb"]
 [ext_resource type="FontFile" uid="uid://cwqu3cfuskrrs" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Regular.ttf" id="27_s7wou"]
 [ext_resource type="Texture2D" uid="uid://bqkgs7vunc5bu" path="res://UI/Textbox/GreyFlag.png" id="30_2ddyc"]
@@ -110,7 +110,6 @@ grid = NodePath("../Grid")
 
 [node name="towncenter" parent="buildingPlacement" instance=ExtResource("5_usv12")]
 position = Vector2(256, 78)
-built = true
 
 [node name="mouseHandle" type="Node2D" parent="."]
 script = ExtResource("6_0kifu")
@@ -346,7 +345,7 @@ theme_override_colors/font_shadow_color = Color(0.741176, 0.741176, 0.741176, 1)
 theme_override_constants/line_spacing = -5
 theme_override_font_sizes/font_size = 18
 text = "Building Name + Hotkey"
-label_settings = ExtResource("25_1dimv")
+label_settings = ExtResource("24_j7lq5")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
@@ -367,7 +366,7 @@ theme = ExtResource("23_f74y2")
 theme_type_variation = &"HeaderSmall"
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "000"
-label_settings = ExtResource("25_r72wb")
+label_settings = ExtResource("25_5o5rm")
 
 [node name="TextureWood" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -378,7 +377,7 @@ stretch_mode = 5
 [node name="Label_wood" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "000"
-label_settings = ExtResource("25_r72wb")
+label_settings = ExtResource("25_5o5rm")
 
 [node name="TextureStone" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -388,7 +387,7 @@ stretch_mode = 5
 [node name="Label_stone" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "000"
-label_settings = ExtResource("25_r72wb")
+label_settings = ExtResource("25_5o5rm")
 
 [node name="TextureFood" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -398,13 +397,13 @@ stretch_mode = 5
 [node name="Label_food" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "000"
-label_settings = ExtResource("25_r72wb")
+label_settings = ExtResource("25_5o5rm")
 
 [node name="LabelBuildingDescription" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Building Description"
-label_settings = ExtResource("25_r72wb")
+label_settings = ExtResource("25_5o5rm")
 horizontal_alignment = 1
 autowrap_mode = 3
 
