@@ -20,15 +20,19 @@ var attackTimer = 0.0
 
 var attackTarget
 var moveTargetLoc = null
+var enemyTarget
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var reacquireTargetWaitTime = 1.5
+var reacquireCurrentWaitTime = 1.5
+var reacquireTargetDeviation = 0.5
+var reacquireTargetTimer = 0.0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if state == State.ATTACKING:
+	reacquireTargetTimer += delta
+
+	if state == State.ATTACKING && isSoldier:
 		if !tryAttack:
 			return
 
@@ -54,6 +58,9 @@ func _process(delta):
 		if (!character.movement_component.IsMoving()):
 			state = State.IDLE
 			moveTargetLoc = null
+
+	if isSoldier && reacquireTargetTimer > reacquireCurrentWaitTime:
+		MoveToTarget()
 	
 	if state == State.IDLE:
 		if isSoldier:
@@ -77,6 +84,40 @@ func MoveUnit(target: Vector2):
 	SetState(State.MOVING)
 	moveTargetLoc = target
 	character.movement_component.SetDestinationWorld(target)
+
+
+func MoveToTarget():
+	if visibleTargets.size() == 0:
+		if moveTargetLoc != null:
+			MoveUnit(moveTargetLoc)
+
+		SetState(State.IDLE)
+		return
+
+	# Find closest visible target
+	var newTarget = null
+	for visibleTarget in visibleTargets:
+
+		if newTarget == null:
+			newTarget = visibleTarget
+			continue
+
+		if visibleTarget.global_position.distance_to(character.global_position) <= newTarget.global_position.distance_to(character.global_position):
+			newTarget = visibleTarget
+
+	enemyTarget = newTarget
+
+	if enemyTarget == null:
+		if moveTargetLoc != null:
+			MoveUnit(moveTargetLoc)
+
+		SetState(State.IDLE)
+		return
+
+	SetState(State.MOVING)
+	MoveUnit(enemyTarget.global_position)
+	reacquireTargetTimer = 0.0
+	reacquireCurrentWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
 
 
 func _on_detection_body_entered(body:Node2D):
