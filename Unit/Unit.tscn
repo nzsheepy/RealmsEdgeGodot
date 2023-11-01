@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://dw2yyjl7t7shv"]
+
+[ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="1_qp2e3"]
+[ext_resource type="Script" path="res://Unit/StateController.gd" id="2_5pcvi"]
+[ext_resource type="Script" path="res://Unit/UnitController.gd" id="3_necqr"]
+[ext_resource type="PackedScene" uid="uid://gilsut3dvvbo" path="res://Character Animations/worker_char.tscn" id="4_og7cl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jnwvx"]
+radius = 6.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6crfj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.886275, 0.909804, 1)
+border_blend = true
+
+[node name="Unit" instance=ExtResource("1_qp2e3")]
+collision_layer = 2
+collision_mask = 7
+isUnit = true
+
+[node name="HealthComponent" parent="." index="0"]
+position = Vector2(0, 0)
+
+[node name="MovementComponent" parent="." index="1" node_paths=PackedStringArray("navAgent")]
+position = Vector2(0, 0)
+navAgent = NodePath("../NavigationAgent2D")
+
+[node name="StateController" type="Node2D" parent="." index="2"]
+script = ExtResource("2_5pcvi")
+
+[node name="UnitController" type="Node2D" parent="." index="3"]
+script = ExtResource("3_necqr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+shape = SubResource("CircleShape2D_jnwvx")
+
+[node name="Worker_Char" parent="." index="5" instance=ExtResource("4_og7cl")]
+
+[node name="Box" type="Panel" parent="." index="6"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6crfj")
+metadata/_edit_use_anchors_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="7"]
+path_desired_distance = 16.0
+target_desired_distance = 30.0
+path_max_distance = 32.0
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 8.0
+neighbor_distance = 64.0
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_velocity_computed"]

@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=3 uid="uid://caoqum3t2pwc2"]
+
+[ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="1_dfvg3"]
+[ext_resource type="Theme" uid="uid://cgwskli2lrgq6" path="res://UI/Dialogue Box/fontDark.tres" id="1_lklj6"]
+[ext_resource type="Texture2D" uid="uid://bqkgs7vunc5bu" path="res://UI/Textbox/GreyFlag.png" id="2_x6sv5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5o3y"]
+bg_color = Color(0.909804, 0.862745, 0.721569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.768627, 0.603922, 0.341176, 1)
+
+[node name="Text_for_scroll" type="CanvasLayer"]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -262.0
+offset_top = -752.0
+offset_right = -262.0
+offset_bottom = -498.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 50
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y5o3y")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel" type="Panel" parent="MarginContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("1_lklj6")
+theme_override_colors/font_color = Color(0.415686, 0.309804, 0.145098, 1)
+theme_override_colors/font_shadow_color = Color(0.203922, 0.203922, 0.203922, 1)
+theme_override_constants/outline_size = 1
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("1_dfvg3")
+theme_override_font_sizes/font_size = 16
+text = "Placeholder text."
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="Flag" type="TextureRect" parent="."]
+modulate = Color(0.890196, 0.184314, 0.270588, 1)
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 423.0
+offset_bottom = 423.0
+scale = Vector2(0.579365, 0.602694)
+texture = ExtResource("2_x6sv5")
+expand_mode = 2

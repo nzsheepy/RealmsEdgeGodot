@@ -1,84 +1,540 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0xyp0pttwtkw"]
+[gd_scene load_steps=37 format=3 uid="uid://cc5gby6fsnn4w"]
 
+[ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
-[ext_resource type="Script" path="res://world.gd" id="1_vgqhc"]
-[ext_resource type="TileSet" uid="uid://dl1tk1t06bd1q" path="res://tile_set.tres" id="2_17pu0"]
-[ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Unit/unit.tscn" id="2_o6aqm"]
-[ext_resource type="Script" path="res://Grid.gd" id="3_q2yen"]
-[ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="6_gbo3i"]
+[ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
+[ext_resource type="PackedScene" uid="uid://btldymmsuq2wy" path="res://Buildings/town_center.tscn" id="5_usv12"]
+[ext_resource type="Script" path="res://mouseHandle.gd" id="6_0kifu"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
+[ext_resource type="Script" path="res://buildingPlacement.gd" id="8_hhrwk"]
+[ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="9_biqw0"]
+[ext_resource type="Script" path="res://Selection.gd" id="10_77cnk"]
+[ext_resource type="Script" path="res://UI/HUD/UI_resources.gd" id="10_hxk5g"]
+[ext_resource type="Texture2D" uid="uid://c1omevbv3wad1" path="res://UI/HUD/HUD.png" id="11_oca1s"]
+[ext_resource type="Texture2D" uid="uid://c76u4bk54c4wg" path="res://UI/HUD/icons/Gold.png" id="12_67fed"]
+[ext_resource type="Texture2D" uid="uid://cmc45nl0xt2o4" path="res://UI/HUD/icons/Wood.png" id="13_lkvij"]
+[ext_resource type="Texture2D" uid="uid://bwqvyprvxyq5k" path="res://UI/HUD/icons/Stone.png" id="14_3myer"]
+[ext_resource type="Texture2D" uid="uid://b31qeua8ux13l" path="res://UI/HUD/icons/Food.png" id="15_3ae74"]
+[ext_resource type="Texture2D" uid="uid://cvoyjvihp7lu" path="res://UI/HUD/Command Card/HammerCCIcon.png" id="16_qjdfr"]
+[ext_resource type="Texture2D" uid="uid://dtlgyk6qyos3l" path="res://UI/HUD/Command Card/HouseCCIcon.png" id="17_ywhs7"]
+[ext_resource type="Texture2D" uid="uid://co4avl7ly60lh" path="res://UI/HUD/Command Card/LumberCampCCIcon.png" id="18_6f8hp"]
+[ext_resource type="Texture2D" uid="uid://dtlkvacwb26sd" path="res://UI/HUD/Command Card/MiningCampCCIcon.png" id="19_bn1ym"]
+[ext_resource type="Texture2D" uid="uid://d0mtanrtxnxcu" path="res://UI/HUD/Command Card/FarmCCIcon.png" id="20_54sq1"]
+[ext_resource type="Texture2D" uid="uid://bafeyhp5wk5x8" path="res://UI/HUD/Command Card/TownCenterCCIcon.png" id="21_837yj"]
+[ext_resource type="Texture2D" uid="uid://bqc0lawdwl7pw" path="res://UI/HUD/Command Card/BarracksCCIcon.png" id="22_na7hp"]
+[ext_resource type="Theme" uid="uid://cgwskli2lrgq6" path="res://UI/Dialogue Box/fontDark.tres" id="23_f74y2"]
+[ext_resource type="StyleBox" uid="uid://cnack2eerg6rw" path="res://UI/Dialogue Box/new_style_box_flat.tres" id="23_fki64"]
+[ext_resource type="Script" path="res://GameTimer.gd" id="23_ledid"]
+[ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="25_1dimv"]
+[ext_resource type="LabelSettings" uid="uid://bora3sdd8dkry" path="res://UI/Dialogue Box/labelDefault.tres" id="25_r72wb"]
+[ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="27_j1mkb"]
+[ext_resource type="FontFile" uid="uid://cwqu3cfuskrrs" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Regular.ttf" id="27_s7wou"]
+[ext_resource type="Texture2D" uid="uid://bqkgs7vunc5bu" path="res://UI/Textbox/GreyFlag.png" id="30_2ddyc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41w8"]
-bg_color = Color(0.662745, 0.894118, 0.415686, 0.219608)
+bg_color = Color(0, 0.933333, 0.843137, 0.219608)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.913725, 0.784314, 0.498039, 1)
+border_color = Color(0.133333, 0.917647, 0.862745, 1)
 border_blend = true
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5xso"]
+size = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cwcsi"]
+font_size = 20
+outline_color = Color(1, 0, 0, 1)
+shadow_size = 2
+
+[sub_resource type="Theme" id="Theme_73eho"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_liug8"]
+line_spacing = 0.0
+font = ExtResource("27_s7wou")
+font_size = 20
+font_color = Color(0.415686, 0.309804, 0.145098, 0.584314)
+outline_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0.313726, 0.313726, 0.313726, 0.427451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5o3y"]
+bg_color = Color(0.909804, 0.862745, 0.721569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.768627, 0.603922, 0.341176, 1)
+
 [node name="World" type="Node2D"]
-script = ExtResource("1_vgqhc")
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("2_17pu0")
-format = 2
-layer_0/name = "grass"
-layer_0/tile_data = PackedInt32Array(11, 65536, 0, 12, 65536, 0, 13, 65536, 0, 14, 65536, 0, 65550, 65536, 0, 65549, 65536, 0, 65548, 65536, 0, 65547, 65536, 0, 131084, 65536, 0, 131085, 65536, 0, 131086, 65536, 0, 131083, 65536, 0, 196619, 65536, 0, 196620, 65536, 0, 196621, 65536, 0, 196622, 65536, 0, 15, 65536, 0, 196623, 65536, 0, 131087, 65536, 0, 65551, 65536, 0, 65552, 65536, 0, 16, 65536, 0, 131088, 65536, 0, 196624, 65536, 0, 262155, 65536, 0, 262156, 65536, 0, 262157, 65536, 0, 262158, 65536, 0, 262159, 65536, 0, 262160, 65536, 0, 327691, 65536, 0, 327692, 65536, 0, 327693, 65536, 0, 327694, 65536, 0, 327695, 65536, 0, 327696, 65536, 0, 327697, 65536, 0, 262161, 65536, 0, 196625, 65536, 0, 131089, 65536, 0, 65553, 65536, 0, 17, 65536, 0, 18, 65536, 0, 65554, 65536, 0, 131090, 65536, 0, 196626, 65536, 0, 262162, 65536, 0, 327698, 65536, 0, 393234, 65536, 0, 393233, 65536, 0, 393232, 65536, 0, 393231, 65536, 0, 393230, 65536, 0, 393229, 65536, 0, 393228, 65536, 0, 393227, 65536, 0, 458763, 65536, 0, 458764, 65536, 0, 458765, 65536, 0, 458766, 65536, 0, 458767, 65536, 0, 458768, 65536, 0, 458769, 65536, 0, 458770, 65536, 0, 19, 65536, 0, 65555, 65536, 0, 131091, 65536, 0, 196627, 65536, 0, 262163, 65536, 0, 327699, 65536, 0, 393235, 65536, 0, 458771, 65536, 0, 524307, 65536, 0, 524306, 65536, 0, 524305, 65536, 0, 524304, 65536, 0, 524303, 65536, 0, 524302, 65536, 0, 524301, 65536, 0, 524300, 65536, 0, 524299, 65536, 0, 524308, 65536, 0, 458772, 65536, 0, 393236, 65536, 0, 327700, 65536, 0, 262164, 65536, 0, 196628, 65536, 0, 131092, 65536, 0, 65556, 65536, 0, 20, 65536, 0, 25, 65536, 0, 65561, 65536, 0, 65562, 65536, 0, 131098, 65536, 0, 196634, 65536, 0, 262170, 65536, 0, 327706, 65536, 0, 393242, 65536, 0, 458778, 65536, 0, 524314, 65536, 0, 524313, 65536, 0, 589849, 65536, 0, 655385, 65536, 0, 26, 65536, 0, 327705, 65536, 0, 393241, 65536, 0, 458777, 65536, 0, 589850, 65536, 0, 655386, 65536, 0, 720922, 65536, 0, 720921, 65536, 0, 720920, 65536, 0, 720919, 65536, 0, 720918, 65536, 0, 720917, 65536, 0, 720916, 65536, 0, 720915, 65536, 0, 720914, 65536, 0, 720913, 65536, 0, 720912, 65536, 0, 720911, 65536, 0, 720910, 65536, 0, 720909, 65536, 0, 720908, 65536, 0, 720907, 65536, 0, 655371, 65536, 0, 589835, 65536, 0, 589836, 65536, 0, 524309, 65536, 0, 524310, 65536, 0, 524311, 65536, 0, 524312, 65536, 0, 589848, 65536, 0, 655384, 65536, 0, 655383, 65536, 0, 589847, 65536, 0, 655382, 65536, 0, 589846, 65536, 0, 589845, 65536, 0, 655381, 65536, 0, 655380, 65536, 0, 655379, 65536, 0, 655378, 65536, 0, 655377, 65536, 0, 655376, 65536, 0, 655375, 65536, 0, 655374, 65536, 0, 655373, 65536, 0, 655372, 65536, 0, 589837, 65536, 0, 589838, 65536, 0, 589839, 65536, 0, 589840, 65536, 0, 589841, 65536, 0, 589842, 65536, 0, 589843, 65536, 0, 589844, 65536, 0, 458773, 65536, 0, 458774, 65536, 0, 458775, 65536, 0, 458776, 65536, 0, 393240, 65536, 0, 393239, 65536, 0, 393238, 65536, 0, 393237, 65536, 0, 327701, 65536, 0, 327702, 65536, 0, 327703, 65536, 0, 327704, 65536, 0, 262168, 65536, 0, 262169, 65536, 0, 196633, 65536, 0, 131097, 65536, 0, 65560, 65536, 0, 24, 65536, 0, 23, 65536, 0, 22, 65536, 0, 21, 65536, 0, 65557, 65536, 0, 65558, 65536, 0, 65559, 65536, 0, 131094, 65536, 0, 131093, 65536, 0, 131095, 65536, 0, 131096, 65536, 0, 196631, 65536, 0, 196630, 65536, 0, 262166, 65536, 0, 196629, 65536, 0, 196632, 65536, 0, 262167, 65536, 0, 262165, 65536, 0, 786443, 65536, 0, 786444, 65536, 0, 786445, 65536, 0, 786446, 65536, 0, 786447, 65536, 0, 786448, 65536, 0, 786449, 65536, 0, 786450, 65536, 0, 786451, 65536, 0, 786452, 65536, 0, 786453, 65536, 0, 786454, 65536, 0, 786455, 65536, 0, 786456, 65536, 0, 786457, 65536, 0, 786458, 65536, 0, 851979, 65536, 0, 851980, 65536, 0, 851981, 65536, 0, 851982, 65536, 0, 851983, 65536, 0, 851984, 65536, 0, 851985, 65536, 0, 851986, 65536, 0, 851987, 65536, 0, 851988, 65536, 0, 851989, 65536, 0, 851990, 65536, 0, 851991, 65536, 0, 851992, 65536, 0, 851993, 65536, 0, 851994, 65536, 0, 917515, 65536, 0, 917516, 65536, 0, 917517, 65536, 0, 917518, 65536, 0, 917519, 65536, 0, 917520, 65536, 0, 917521, 65536, 0, 917522, 65536, 0, 917523, 65536, 0, 917524, 65536, 0, 917525, 65536, 0, 917526, 65536, 0, 917527, 65536, 0, 917528, 65536, 0, 917529, 65536, 0, 917530, 65536, 0, 983051, 65536, 0, 983052, 65536, 0, 983053, 65536, 0, 983054, 65536, 0, 983055, 65536, 0, 983056, 65536, 0, 983057, 65536, 0, 983058, 65536, 0, 983059, 65536, 0, 983060, 65536, 0, 983061, 65536, 0, 983062, 65536, 0, 983063, 65536, 0, 983064, 65536, 0, 983065, 65536, 0, 983066, 65536, 0)
-layer_1/name = "trees"
-layer_1/enabled = true
-layer_1/modulate = Color(1, 1, 1, 1)
-layer_1/y_sort_enabled = false
-layer_1/y_sort_origin = 0
-layer_1/z_index = 0
-layer_1/tile_data = PackedInt32Array(131089, 131073, 0, 65553, 131073, 0, 65554, 131073, 0, 131090, 131073, 0, 196626, 131073, 0, 196625, 131073, 0, 262162, 131073, 0, 327698, 131073, 0, 17, 131073, 0, 18, 131073, 0)
-layer_2/name = "mountain"
-layer_2/enabled = true
-layer_2/modulate = Color(1, 1, 1, 1)
-layer_2/y_sort_enabled = false
-layer_2/y_sort_origin = 0
-layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(458765, 262144, 0, 458766, 262144, 0, 458767, 262144, 0, 524304, 262144, 0, 589840, 262144, 0, 589839, 262144, 0, 524302, 262144, 0, 524301, 262144, 0, 524300, 262144, 0, 524303, 262144, 0, 589838, 262144, 0, 589837, 262144, 0, 589836, 262144, 0, 458764, 262144, 0)
-script = ExtResource("3_q2yen")
+[node name="Grid" parent="." instance=ExtResource("1_6nfbs")]
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("selection", "unitManager")]
+anchor_mode = 0
 zoom = Vector2(2, 2)
 limit_left = 0
 limit_top = 0
 script = ExtResource("1_aabg1")
+selection = NodePath("../Selection")
+unitManager = NodePath("../Units")
 
 [node name="UI" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="Panel" type="Panel" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1280.0
+offset_bottom = -720.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q41w8")
-
-[node name="Units" type="Node2D" parent="."]
-
-[node name="Unit" parent="Units" groups=["units"] instance=ExtResource("2_o6aqm")]
-position = Vector2(134, 74)
-
-[node name="Unit2" parent="Units" groups=["units"] instance=ExtResource("2_o6aqm")]
-position = Vector2(247, 88)
 
 [node name="resourceManager" type="Node2D" parent="."]
 script = ExtResource("8_b4m7g")
 gold = 500
 wood = 200
 stone = 100
-food = 50
+food = 100
 
-[node name="Building" type="Sprite2D" parent="."]
-position = Vector2(272, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("6_gbo3i")
-centered = false
-hframes = 3
-vframes = 5
-frame = 7
+[node name="buildingPlacement" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
+script = ExtResource("8_hhrwk")
+grid = NodePath("../Grid")
 
-[connection signal="input_event" from="Units/Unit" to="." method="_on_unit_input_event"]
-[connection signal="input_event" from="Units/Unit2" to="." method="_on_unit_input_event"]
+[node name="towncenter" parent="buildingPlacement" instance=ExtResource("5_usv12")]
+position = Vector2(256, 78)
+built = true
+
+[node name="mouseHandle" type="Node2D" parent="."]
+script = ExtResource("6_0kifu")
+
+[node name="Units" type="Node2D" parent="."]
+script = ExtResource("4_2brtq")
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+position = Vector2(894, 405)
+script = ExtResource("9_biqw0")
+
+[node name="Selection" type="Node2D" parent="." node_paths=PackedStringArray("area", "collision_shape", "unitManager", "timer")]
+script = ExtResource("10_77cnk")
+area = NodePath("Area2D")
+collision_shape = NodePath("Area2D/CollisionShape2D")
+unitManager = NodePath("../Units")
+timer = NodePath("Timer")
+
+[node name="Area2D" type="Area2D" parent="Selection"]
+position = Vector2(-1000, -1000)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Selection/Area2D"]
+shape = SubResource("RectangleShape2D_s5xso")
+
+[node name="Timer" type="Timer" parent="Selection"]
+wait_time = 0.05
+one_shot = true
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("10_hxk5g")
+
+[node name="Control" type="Control" parent="HUD/HUD"]
+anchors_preset = 0
+offset_left = 1006.0
+offset_top = 471.0
+offset_right = 1048.0
+offset_bottom = 510.0
+scale = Vector2(6.46184, 6.56698)
+
+[node name="TextureHUD" type="TextureRect" parent="HUD/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_oca1s")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="TextureGold" type="TextureRect" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 19.0
+offset_top = -3.0
+offset_right = 49.0
+offset_bottom = 37.0
+texture = ExtResource("12_67fed")
+stretch_mode = 5
+
+[node name="LabelGold" type="Label" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 54.0
+offset_top = 4.0
+offset_right = 123.0
+offset_bottom = 35.0
+grow_vertical = 2
+text = "999999
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="TextureWood" type="TextureRect" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 130.0
+offset_top = -1.0
+offset_right = 160.0
+offset_bottom = 39.0
+theme = SubResource("Theme_73eho")
+texture = ExtResource("13_lkvij")
+stretch_mode = 5
+
+[node name="LabelWood" type="Label" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 164.0
+offset_top = 4.0
+offset_right = 233.0
+offset_bottom = 35.0
+text = "999999
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="TextureStone" type="TextureRect" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 238.0
+offset_right = 268.0
+offset_bottom = 40.0
+texture = ExtResource("14_3myer")
+stretch_mode = 5
+
+[node name="LabelStone" type="Label" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 272.0
+offset_top = 4.0
+offset_right = 341.0
+offset_bottom = 35.0
+text = "999999
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="TextureFood" type="TextureRect" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 349.0
+offset_right = 379.0
+offset_bottom = 40.0
+texture = ExtResource("15_3ae74")
+stretch_mode = 5
+
+[node name="LabelFood" type="Label" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 381.0
+offset_top = 4.0
+offset_right = 450.0
+offset_bottom = 35.0
+text = "999999
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="Texturepop" type="TextureRect" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 457.0
+offset_right = 487.0
+offset_bottom = 40.0
+texture = ExtResource("15_3ae74")
+stretch_mode = 5
+
+[node name="LabelPop" type="Label" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 490.0
+offset_top = 4.0
+offset_right = 567.0
+offset_bottom = 35.0
+text = "200/200
+"
+label_settings = SubResource("LabelSettings_cwcsi")
+horizontal_alignment = 1
+
+[node name="BuildingGridContainer" type="GridContainer" parent="HUD/HUD"]
+layout_mode = 0
+offset_left = 1044.0
+offset_top = 510.0
+offset_right = 2318.0
+offset_bottom = 1745.0
+scale = Vector2(0.165, 0.165)
+columns = 3
+
+[node name="house_button" type="Button" parent="HUD/HUD/BuildingGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("17_ywhs7")
+
+[node name="lumber_camp_button" type="Button" parent="HUD/HUD/BuildingGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("18_6f8hp")
+
+[node name="mining_camp_button" type="Button" parent="HUD/HUD/BuildingGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("19_bn1ym")
+
+[node name="farm_button" type="Button" parent="HUD/HUD/BuildingGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("20_54sq1")
+
+[node name="town_center_button" type="Button" parent="HUD/HUD/BuildingGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("21_837yj")
+
+[node name="barracks_button" type="Button" parent="HUD/HUD/BuildingGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+icon = ExtResource("22_na7hp")
+
+[node name="CommandCardBuildingTips" type="Control" parent="HUD/HUD"]
+anchors_preset = 0
+offset_left = 490.0
+offset_top = 4.0
+offset_right = 530.0
+offset_bottom = 44.0
+
+[node name="PanelContainerBuildingTips" type="PanelContainer" parent="HUD/HUD/CommandCardBuildingTips"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 491.0
+offset_top = 313.0
+offset_right = 749.85
+offset_bottom = 449.025
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("23_f74y2")
+theme_override_styles/panel = ExtResource("23_fki64")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips"]
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="LabelBuildingName" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.415686, 0.309804, 0.145098, 1)
+theme_override_colors/font_shadow_color = Color(0.741176, 0.741176, 0.741176, 1)
+theme_override_constants/line_spacing = -5
+theme_override_font_sizes/font_size = 18
+text = "Building Name + Hotkey"
+label_settings = ExtResource("25_1dimv")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("23_f74y2")
+theme_override_constants/separation = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureGold" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_67fed")
+stretch_mode = 5
+
+[node name="Label_gold" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("23_f74y2")
+theme_type_variation = &"HeaderSmall"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "000"
+label_settings = ExtResource("25_r72wb")
+
+[node name="TextureWood" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_73eho")
+texture = ExtResource("13_lkvij")
+stretch_mode = 5
+
+[node name="Label_wood" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "000"
+label_settings = ExtResource("25_r72wb")
+
+[node name="TextureStone" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("14_3myer")
+stretch_mode = 5
+
+[node name="Label_stone" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "000"
+label_settings = ExtResource("25_r72wb")
+
+[node name="TextureFood" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("15_3ae74")
+stretch_mode = 5
+
+[node name="Label_food" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "000"
+label_settings = ExtResource("25_r72wb")
+
+[node name="LabelBuildingDescription" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Building Description"
+label_settings = ExtResource("25_r72wb")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="build_menu_button" type="Button" parent="HUD/HUD"]
+layout_mode = 2
+offset_left = 1044.0
+offset_top = 646.29
+offset_right = 1466.0
+offset_bottom = 1055.29
+scale = Vector2(0.165, 0.165)
+icon = ExtResource("16_qjdfr")
+
+[node name="UnitGridContainer" type="GridContainer" parent="HUD/HUD"]
+layout_mode = 0
+offset_left = 241.0
+offset_top = 577.0
+offset_right = 2911.3
+offset_bottom = 1014.1
+scale = Vector2(0.29, 0.29)
+columns = 20
+
+[node name="PanelContainerWaveTimer" type="PanelContainer" parent="HUD/HUD"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -307.0
+offset_right = 257.76
+offset_bottom = -197.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("23_f74y2")
+theme_override_styles/panel = ExtResource("23_fki64")
+
+[node name="LabelTimer" type="Label" parent="HUD/HUD/PanelContainerWaveTimer"]
+layout_mode = 2
+text = "  Next Wave in:
+  time"
+label_settings = SubResource("LabelSettings_liug8")
+autowrap_mode = 3
+script = ExtResource("23_ledid")
+
+[node name="WaveTimer" type="Timer" parent="HUD/HUD/PanelContainerWaveTimer/LabelTimer"]
+wait_time = 300.0
+autostart = true
+
+[node name="Text_for_scroll" type="CanvasLayer" parent="HUD/HUD"]
+
+[node name="text_Scroll" type="Control" parent="HUD/HUD/Text_for_scroll"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelPopText" type="Panel" parent="HUD/HUD/Text_for_scroll/text_Scroll"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 40.0
+offset_right = 572.0
+offset_bottom = 130.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_y5o3y")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText"]
+layout_mode = 2
+offset_left = -4.0
+offset_top = -1.0
+offset_right = 452.61
+offset_bottom = 99.305
+
+[node name="LabelPopText" type="Label" parent="HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("23_f74y2")
+theme_override_colors/font_color = Color(0.415686, 0.309804, 0.145098, 1)
+theme_override_colors/font_shadow_color = Color(0.509804, 0.509804, 0.509804, 1)
+theme_override_constants/outline_size = 1
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("27_j1mkb")
+theme_override_font_sizes/font_size = 14
+text = "Placeholder text."
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="Flag" type="TextureRect" parent="HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText"]
+modulate = Color(0.890196, 0.184314, 0.270588, 1)
+layout_mode = 0
+offset_left = -180.0
+offset_top = -38.0
+offset_right = 244.0
+offset_bottom = 386.0
+scale = Vector2(0.579365, 0.602694)
+texture = ExtResource("30_2ddyc")
+expand_mode = 2
+
+[connection signal="mouse_entered" from="HUD/HUD/Control" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/Control" to="mouseHandle" method="_on_exit"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/house_button" to="buildingPlacement" method="_on_house_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/house_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/house_button" to="buildingPlacement" method="_on_house_button_mouse_exited"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/house_button" to="mouseHandle" method="_on_exit"]
+[connection signal="pressed" from="HUD/HUD/BuildingGridContainer/house_button" to="buildingPlacement" method="_on_house_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="buildingPlacement" method="_on_lumber_camp_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="buildingPlacement" method="_on_lumber_camp_button_mouse_exited"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="mouseHandle" method="_on_exit"]
+[connection signal="pressed" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="buildingPlacement" method="_on_lumber_camp_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="buildingPlacement" method="_on_mining_camp_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="buildingPlacement" method="_on_mining_camp_button_mouse_exited"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="mouseHandle" method="_on_exit"]
+[connection signal="pressed" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="buildingPlacement" method="_on_mining_camp_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/farm_button" to="buildingPlacement" method="_on_farm_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/farm_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/farm_button" to="buildingPlacement" method="_on_farm_button_mouse_exited"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/farm_button" to="mouseHandle" method="_on_exit"]
+[connection signal="pressed" from="HUD/HUD/BuildingGridContainer/farm_button" to="buildingPlacement" method="_on_farm_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/town_center_button" to="buildingPlacement" method="_on_town_center_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/town_center_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/town_center_button" to="buildingPlacement" method="_on_town_center_button_mouse_exited"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/town_center_button" to="mouseHandle" method="_on_exit"]
+[connection signal="pressed" from="HUD/HUD/BuildingGridContainer/town_center_button" to="buildingPlacement" method="_on_town_center_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/barracks_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_mouse_exited"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="mouseHandle" method="_on_entered"]
+[connection signal="pressed" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_exit"]
+[connection signal="pressed" from="HUD/HUD/build_menu_button" to="buildingPlacement" method="_on_build_menu_button_pressed"]
+[connection signal="timeout" from="HUD/HUD/PanelContainerWaveTimer/LabelTimer/WaveTimer" to="HUD/HUD/PanelContainerWaveTimer/LabelTimer" method="_on_wave_timer_timeout"]
