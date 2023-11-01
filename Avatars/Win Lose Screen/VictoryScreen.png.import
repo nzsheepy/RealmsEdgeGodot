@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dntcyrcr01gwj"
-path="res://.godot/imported/MainMenuPlay.png-217d42430452068d6d3d60a755f57d22.ctex"
+uid="uid://cqr7r55xkk5cy"
+path="res://.godot/imported/VictoryScreen.png-73ff9d2aee7dfc8a709424d6bcb71859.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Menu/MainMenuPlay.png"
-dest_files=["res://.godot/imported/MainMenuPlay.png-217d42430452068d6d3d60a755f57d22.ctex"]
+source_file="res://Avatars/Win Lose Screen/VictoryScreen.png"
+dest_files=["res://.godot/imported/VictoryScreen.png-73ff9d2aee7dfc8a709424d6bcb71859.ctex"]
 
 [params]
 

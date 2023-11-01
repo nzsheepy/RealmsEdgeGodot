@@ -1,10 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7curl3qmx4sf"]
+[gd_scene load_steps=10 format=3 uid="uid://c7curl3qmx4sf"]
 
 [ext_resource type="Texture2D" uid="uid://bqcjpt24lk1qj" path="res://UI/Options Menu/InGameMenuBLANK.png" id="1_nwu0x"]
 [ext_resource type="Texture2D" uid="uid://dye5wxpflfgb3" path="res://UI/Options Menu/MainMenuButton.png" id="2_jn6ai"]
 [ext_resource type="Texture2D" uid="uid://bqkrsyqrvcu0j" path="res://UI/Options Menu/MainMenuButtonHover.png" id="3_3illw"]
 [ext_resource type="Texture2D" uid="uid://b0f84dwpdswa7" path="res://UI/Options Menu/QuitButton.png" id="4_awwv6"]
 [ext_resource type="Texture2D" uid="uid://t4hhrpltayeu" path="res://UI/Options Menu/QuitButtonHover.png" id="5_d310m"]
+[ext_resource type="Texture2D" uid="uid://csr28gimoi7v8" path="res://UI/Options Menu/SliderButton.png" id="6_4bd1b"]
+[ext_resource type="Texture2D" uid="uid://cm55iqd2mqjn6" path="res://UI/Options Menu/SliderBar.png" id="7_fpv03"]
+
+[sub_resource type="Theme" id="Theme_j8c08"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ey6as"]
+texture = ExtResource("7_fpv03")
+texture_margin_left = 10.0
+texture_margin_top = 1.0
+texture_margin_bottom = 5.0
 
 [node name="Main Menu Options" type="TextureRect"]
 offset_left = 32.0
@@ -35,8 +45,75 @@ texture_hover = ExtResource("5_d310m")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 1016.2
-offset_top = 322.105
-offset_right = 1056.2
-offset_bottom = 362.105
-scale = Vector2(11.1957, 12.3774)
+offset_left = 1021.0
+offset_top = 357.0
+offset_right = 1355.0
+offset_bottom = 460.0
+
+[node name="Screen Size" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Screen Size"
+
+[node name="Screen Size2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Difficulty"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_j8c08")
+theme_override_constants/center_grabber = 0
+theme_override_constants/grabber_offset = 0
+theme_override_icons/grabber = ExtResource("6_4bd1b")
+theme_override_icons/grabber_highlight = ExtResource("6_4bd1b")
+theme_override_styles/slider = SubResource("StyleBoxTexture_ey6as")
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Easy                         Medium                             Hard"
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Camera Speed"
+
+[node name="Label4" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Edge Pan"
+
+[node name="HSlider2" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_j8c08")
+theme_override_constants/center_grabber = 0
+theme_override_constants/grabber_offset = 0
+theme_override_icons/grabber = ExtResource("6_4bd1b")
+theme_override_icons/grabber_highlight = ExtResource("6_4bd1b")
+theme_override_styles/slider = SubResource("StyleBoxTexture_ey6as")
+
+[node name="Label5" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Camera Grip"
+
+[node name="HSlider3" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_j8c08")
+theme_override_constants/center_grabber = 0
+theme_override_constants/grabber_offset = 0
+theme_override_icons/grabber = ExtResource("6_4bd1b")
+theme_override_icons/grabber_highlight = ExtResource("6_4bd1b")
+theme_override_styles/slider = SubResource("StyleBoxTexture_ey6as")
+
+[node name="Label6" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Arrow Keys"
+
+[node name="HSlider4" type="HSlider" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_j8c08")
+theme_override_constants/center_grabber = 0
+theme_override_constants/grabber_offset = 0
+theme_override_icons/grabber = ExtResource("6_4bd1b")
+theme_override_icons/grabber_highlight = ExtResource("6_4bd1b")
+theme_override_styles/slider = SubResource("StyleBoxTexture_ey6as")
