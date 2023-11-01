@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw2yyjl7t7shv"]
+[gd_scene load_steps=7 format=3 uid="uid://r3pvtf2drju"]
 
-[ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="1_qp2e3"]
-[ext_resource type="Script" path="res://Unit/StateController.gd" id="2_5pcvi"]
-[ext_resource type="Script" path="res://Unit/UnitController.gd" id="3_necqr"]
-[ext_resource type="PackedScene" uid="uid://gilsut3dvvbo" path="res://Character Animations/worker_char.tscn" id="4_og7cl"]
+[ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="1_oeo8f"]
+[ext_resource type="Script" path="res://Unit/StateController.gd" id="2_tejvs"]
+[ext_resource type="Script" path="res://Unit/UnitController.gd" id="3_4i2hj"]
+[ext_resource type="PackedScene" uid="uid://e2lbnc21lu1q" path="res://Character Animations/soldier_char.tscn" id="4_tutgw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jnwvx"]
 radius = 6.0
@@ -17,7 +17,7 @@ border_width_bottom = 2
 border_color = Color(0.415686, 0.886275, 0.909804, 1)
 border_blend = true
 
-[node name="Unit" instance=ExtResource("1_qp2e3")]
+[node name="Unit" instance=ExtResource("1_oeo8f")]
 collision_layer = 2
 collision_mask = 7
 isUnit = true
@@ -30,15 +30,15 @@ position = Vector2(0, 0)
 navAgent = NodePath("../NavigationAgent2D")
 
 [node name="StateController" type="Node2D" parent="." index="2"]
-script = ExtResource("2_5pcvi")
+script = ExtResource("2_tejvs")
 
 [node name="UnitController" type="Node2D" parent="." index="3"]
-script = ExtResource("3_necqr")
+script = ExtResource("3_4i2hj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
 shape = SubResource("CircleShape2D_jnwvx")
 
-[node name="Worker_Char" parent="." index="5" instance=ExtResource("4_og7cl")]
+[node name="Soldier_char" parent="." index="5" instance=ExtResource("4_tutgw")]
 
 [node name="Box" type="Panel" parent="." index="6"]
 offset_left = -8.0

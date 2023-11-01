@@ -27,6 +27,9 @@ var unitMask = 0
 @export var buildingHealth: int = 1000
 @onready var currentHealth: int = buildingHealth
 
+@export_group("Barracks")
+@export var isBarracks : bool = false
+
 
 func _ready():
 	var foundation = get_node("Foundation")
@@ -36,7 +39,8 @@ func _ready():
 func startBuild():
 	# Prevent units from entering the building
 	var area :Area2D = get_node("EnterArea")
-	area.set("scale", Vector2(0, 0))
+	if area:
+		area.set("scale", Vector2(0, 0))
 
 	isFoundation = true
 	self_modulate = Color(1, 1, 1, 0)
@@ -54,7 +58,8 @@ func _process(delta):
 	if isFoundation && buildingTime >= buildTime:
 		# Allow units to enter again
 		var area = get_node("EnterArea")
-		area.set("scale", Vector2(1, 1))
+		if area:
+			area.set("scale", Vector2(1, 1))
 
 		built = true
 		isFoundation = false
