@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://70eit8yb72d8"]
+[gd_scene load_steps=8 format=3 uid="uid://70eit8yb72d8"]
 
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_up8ql"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_bfytj"]
-[ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="3_af61f"]
+[ext_resource type="Texture2D" uid="uid://bimn70kcq04j4" path="res://MiniWorldSprites/Nature/Wheatfield.png" id="3_jaqvi"]
+[ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="4_o71gt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5xh55"]
 size = Vector2(16, 16)
@@ -46,8 +47,290 @@ shape = SubResource("RectangleShape2D_h2dpt")
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_r36tp")
 
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D48" type="Sprite2D" parent="Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D51" type="Sprite2D" parent="Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D52" type="Sprite2D" parent="Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D26" type="Sprite2D" parent="Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D33" type="Sprite2D" parent="Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D36" type="Sprite2D" parent="Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D27" type="Sprite2D" parent="Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D41" type="Sprite2D" parent="Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D58" type="Sprite2D" parent="Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D59" type="Sprite2D" parent="Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D25" type="Sprite2D" parent="Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D61" type="Sprite2D" parent="Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D64" type="Sprite2D" parent="Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D66" type="Sprite2D" parent="Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D69" type="Sprite2D" parent="Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D70" type="Sprite2D" parent="Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D44" type="Sprite2D" parent="Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D63" type="Sprite2D" parent="Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D72" type="Sprite2D" parent="Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D73" type="Sprite2D" parent="Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D55" type="Sprite2D" parent="Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D56" type="Sprite2D" parent="Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D80" type="Sprite2D" parent="Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D81" type="Sprite2D" parent="Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D82" type="Sprite2D" parent="Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D83" type="Sprite2D" parent="Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D84" type="Sprite2D" parent="Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D87" type="Sprite2D" parent="Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D89" type="Sprite2D" parent="Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D90" type="Sprite2D" parent="Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D92" type="Sprite2D" parent="Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D93" type="Sprite2D" parent="Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D94" type="Sprite2D" parent="Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D97" type="Sprite2D" parent="Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D22" type="Sprite2D" parent="Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D28" type="Sprite2D" parent="Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D29" type="Sprite2D" parent="Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D39" type="Sprite2D" parent="Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D40" type="Sprite2D" parent="Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
+[node name="Sprite2D43" type="Sprite2D" parent="Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("3_jaqvi")
+hframes = 4
+frame = 2
+
 [node name="Foundation" type="Sprite2D" parent="."]
 position = Vector2(8, 8)
-texture = ExtResource("3_af61f")
+texture = ExtResource("4_o71gt")
 
 [connection signal="body_entered" from="EnterArea" to="." method="_on_enter_area_body_entered"]

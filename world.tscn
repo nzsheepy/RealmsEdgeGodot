@@ -1,11 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=37 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
 [ext_resource type="PackedScene" uid="uid://btldymmsuq2wy" path="res://Buildings/town_center.tscn" id="5_usv12"]
 [ext_resource type="Script" path="res://mouseHandle.gd" id="6_0kifu"]
-[ext_resource type="PackedScene" uid="uid://usestnj534go" path="res://Buildings/house.tscn" id="6_kppvx"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
 [ext_resource type="Script" path="res://buildingPlacement.gd" id="8_hhrwk"]
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="9_biqw0"]
@@ -23,7 +22,14 @@
 [ext_resource type="Texture2D" uid="uid://d0mtanrtxnxcu" path="res://UI/HUD/Command Card/FarmCCIcon.png" id="20_54sq1"]
 [ext_resource type="Texture2D" uid="uid://bafeyhp5wk5x8" path="res://UI/HUD/Command Card/TownCenterCCIcon.png" id="21_837yj"]
 [ext_resource type="Texture2D" uid="uid://bqc0lawdwl7pw" path="res://UI/HUD/Command Card/BarracksCCIcon.png" id="22_na7hp"]
+[ext_resource type="Theme" uid="uid://cgwskli2lrgq6" path="res://UI/Dialogue Box/fontDark.tres" id="23_f74y2"]
+[ext_resource type="StyleBox" uid="uid://cnack2eerg6rw" path="res://UI/Dialogue Box/new_style_box_flat.tres" id="23_fki64"]
 [ext_resource type="Script" path="res://GameTimer.gd" id="23_ledid"]
+[ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="25_1dimv"]
+[ext_resource type="LabelSettings" uid="uid://bora3sdd8dkry" path="res://UI/Dialogue Box/labelDefault.tres" id="25_r72wb"]
+[ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="27_j1mkb"]
+[ext_resource type="FontFile" uid="uid://cwqu3cfuskrrs" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Regular.ttf" id="27_s7wou"]
+[ext_resource type="Texture2D" uid="uid://bqkgs7vunc5bu" path="res://UI/Textbox/GreyFlag.png" id="30_2ddyc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41w8"]
 bg_color = Color(0, 0.933333, 0.843137, 0.219608)
@@ -47,6 +53,23 @@ outline_color = Color(1, 0, 0, 1)
 shadow_size = 2
 
 [sub_resource type="Theme" id="Theme_73eho"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_liug8"]
+line_spacing = 0.0
+font = ExtResource("27_s7wou")
+font_size = 20
+font_color = Color(0.415686, 0.309804, 0.145098, 0.584314)
+outline_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0.313726, 0.313726, 0.313726, 0.427451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5o3y"]
+bg_color = Color(0.909804, 0.862745, 0.721569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.768627, 0.603922, 0.341176, 1)
 
 [node name="World" type="Node2D"]
 
@@ -86,11 +109,7 @@ script = ExtResource("8_hhrwk")
 grid = NodePath("../Grid")
 
 [node name="towncenter" parent="buildingPlacement" instance=ExtResource("5_usv12")]
-position = Vector2(256, 80)
-built = true
-
-[node name="house" parent="buildingPlacement" instance=ExtResource("6_kppvx")]
-position = Vector2(400, 160)
+position = Vector2(256, 78)
 built = true
 
 [node name="mouseHandle" type="Node2D" parent="."]
@@ -299,53 +318,95 @@ offset_top = 4.0
 offset_right = 530.0
 offset_bottom = 44.0
 
-[node name="PanelContainerTipHouse" type="PanelContainer" parent="HUD/HUD/CommandCardBuildingTips"]
-layout_mode = 0
-offset_left = 535.0
-offset_top = 357.0
-offset_right = 790.0
-offset_bottom = 482.0
+[node name="PanelContainerBuildingTips" type="PanelContainer" parent="HUD/HUD/CommandCardBuildingTips"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 491.0
+offset_top = 313.0
+offset_right = 749.85
+offset_bottom = 449.025
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("23_f74y2")
+theme_override_styles/panel = ExtResource("23_fki64")
 
-[node name="RichTextLabelHouse" type="RichTextLabel" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips"]
 layout_mode = 2
-text = "House Blah"
+theme_override_constants/separation = -5
 
-[node name="TextureGold" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse/RichTextLabelHouse"]
-layout_mode = 0
-offset_left = 131.0
-offset_top = 27.0
-offset_right = 161.0
-offset_bottom = 67.0
+[node name="LabelBuildingName" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.415686, 0.309804, 0.145098, 1)
+theme_override_colors/font_shadow_color = Color(0.741176, 0.741176, 0.741176, 1)
+theme_override_constants/line_spacing = -5
+theme_override_font_sizes/font_size = 18
+text = "Building Name + Hotkey"
+label_settings = ExtResource("25_1dimv")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("23_f74y2")
+theme_override_constants/separation = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureGold" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("12_67fed")
 stretch_mode = 5
 
-[node name="TextureWood" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse/RichTextLabelHouse"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 27.0
-offset_right = 33.0
-offset_bottom = 67.0
+[node name="Label_gold" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("23_f74y2")
+theme_type_variation = &"HeaderSmall"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "000"
+label_settings = ExtResource("25_r72wb")
+
+[node name="TextureWood" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 theme = SubResource("Theme_73eho")
 texture = ExtResource("13_lkvij")
 stretch_mode = 5
 
-[node name="TextureStone" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse/RichTextLabelHouse"]
-layout_mode = 0
-offset_left = 69.0
-offset_top = 29.0
-offset_right = 99.0
-offset_bottom = 69.0
+[node name="Label_wood" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "000"
+label_settings = ExtResource("25_r72wb")
+
+[node name="TextureStone" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("14_3myer")
 stretch_mode = 5
 
-[node name="TextureFood" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse/RichTextLabelHouse"]
-layout_mode = 0
-offset_left = 198.0
-offset_top = 29.0
-offset_right = 228.0
-offset_bottom = 69.0
+[node name="Label_stone" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "000"
+label_settings = ExtResource("25_r72wb")
+
+[node name="TextureFood" type="TextureRect" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("15_3ae74")
 stretch_mode = 5
+
+[node name="Label_food" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "000"
+label_settings = ExtResource("25_r72wb")
+
+[node name="LabelBuildingDescription" type="Label" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Building Description"
+label_settings = ExtResource("25_r72wb")
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="build_menu_button" type="Button" parent="HUD/HUD"]
 layout_mode = 2
@@ -358,26 +419,88 @@ icon = ExtResource("16_qjdfr")
 
 [node name="UnitGridContainer" type="GridContainer" parent="HUD/HUD"]
 layout_mode = 0
-offset_left = 271.0
-offset_top = 601.0
-offset_right = 2817.0
-offset_bottom = 1089.0
+offset_left = 241.0
+offset_top = 577.0
+offset_right = 2911.3
+offset_bottom = 1014.1
 scale = Vector2(0.29, 0.29)
-columns = 8
+columns = 20
 
-[node name="LabelTimer" type="Label" parent="HUD"]
-offset_left = 911.0
-offset_top = 570.0
-offset_right = 1018.0
-offset_bottom = 622.0
-text = "Next Wave in:
-time"
-horizontal_alignment = 2
+[node name="PanelContainerWaveTimer" type="PanelContainer" parent="HUD/HUD"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -307.0
+offset_right = 257.76
+offset_bottom = -197.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("23_f74y2")
+theme_override_styles/panel = ExtResource("23_fki64")
+
+[node name="LabelTimer" type="Label" parent="HUD/HUD/PanelContainerWaveTimer"]
+layout_mode = 2
+text = "  Next Wave in:
+  time"
+label_settings = SubResource("LabelSettings_liug8")
+autowrap_mode = 3
 script = ExtResource("23_ledid")
 
-[node name="Timer" type="Timer" parent="HUD/LabelTimer"]
+[node name="WaveTimer" type="Timer" parent="HUD/HUD/PanelContainerWaveTimer/LabelTimer"]
 wait_time = 300.0
 autostart = true
+
+[node name="Text_for_scroll" type="CanvasLayer" parent="HUD/HUD"]
+
+[node name="text_Scroll" type="Control" parent="HUD/HUD/Text_for_scroll"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelPopText" type="Panel" parent="HUD/HUD/Text_for_scroll/text_Scroll"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 40.0
+offset_right = 572.0
+offset_bottom = 130.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_y5o3y")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText"]
+layout_mode = 2
+offset_left = -4.0
+offset_top = -1.0
+offset_right = 452.61
+offset_bottom = 99.305
+
+[node name="LabelPopText" type="Label" parent="HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("23_f74y2")
+theme_override_colors/font_color = Color(0.415686, 0.309804, 0.145098, 1)
+theme_override_colors/font_shadow_color = Color(0.509804, 0.509804, 0.509804, 1)
+theme_override_constants/outline_size = 1
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("27_j1mkb")
+theme_override_font_sizes/font_size = 14
+text = "Placeholder text."
+horizontal_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="Flag" type="TextureRect" parent="HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText"]
+modulate = Color(0.890196, 0.184314, 0.270588, 1)
+layout_mode = 0
+offset_left = -180.0
+offset_top = -38.0
+offset_right = 244.0
+offset_bottom = 386.0
+scale = Vector2(0.579365, 0.602694)
+texture = ExtResource("30_2ddyc")
+expand_mode = 2
 
 [connection signal="mouse_entered" from="HUD/HUD/Control" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control" to="mouseHandle" method="_on_exit"]
@@ -386,22 +509,32 @@ autostart = true
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/house_button" to="buildingPlacement" method="_on_house_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/house_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/house_button" to="buildingPlacement" method="_on_house_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="buildingPlacement" method="_on_lumber_camp_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="buildingPlacement" method="_on_lumber_camp_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/lumber_camp_button" to="buildingPlacement" method="_on_lumber_camp_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="buildingPlacement" method="_on_mining_camp_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="buildingPlacement" method="_on_mining_camp_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/mining_camp_button" to="buildingPlacement" method="_on_mining_camp_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/farm_button" to="buildingPlacement" method="_on_farm_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/farm_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/farm_button" to="buildingPlacement" method="_on_farm_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/farm_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/farm_button" to="buildingPlacement" method="_on_farm_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/town_center_button" to="buildingPlacement" method="_on_town_center_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/town_center_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/town_center_button" to="buildingPlacement" method="_on_town_center_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/town_center_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/town_center_button" to="buildingPlacement" method="_on_town_center_button_pressed"]
+[connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/barracks_button" to="mouseHandle" method="_on_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="mouseHandle" method="_on_entered"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_pressed"]
 [connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/build_menu_button" to="buildingPlacement" method="_on_build_menu_button_pressed"]
-[connection signal="timeout" from="HUD/LabelTimer/Timer" to="HUD/LabelTimer" method="_on_timer_timeout"]
+[connection signal="timeout" from="HUD/HUD/PanelContainerWaveTimer/LabelTimer/WaveTimer" to="HUD/HUD/PanelContainerWaveTimer/LabelTimer" method="_on_wave_timer_timeout"]

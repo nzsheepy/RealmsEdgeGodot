@@ -5,16 +5,18 @@
 [ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="3_3bjm3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_35m27"]
-size = Vector2(16, 16)
+size = Vector2(24, 24)
 
 [node name="house" type="Sprite2D"]
+position = Vector2(6, 6)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_4sav3")
 centered = false
 hframes = 3
 vframes = 4
 frame = 10
 script = ExtResource("2_4hh16")
-buildingSize = 1
+buildingSize = 2
 gatherAmount = 10
 gatherTime = 2
 buildingType = "House"

@@ -19,6 +19,13 @@ var buildingPreloads = {
 	"Barracks": preload("res://Buildings/barracks.tscn")
 }
 
+@onready var labelBuildingName = $"../HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/LabelBuildingName"
+@onready var labelBuildingdescription = $"../HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/LabelBuildingDescription"
+@onready var goldLabel = $"../HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer/Label_gold"
+@onready var woodlabel = $"../HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer/Label_wood"
+@onready var stoneLabel = $"../HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer/Label_stone"
+@onready var foodLabel = $"../HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/HBoxContainer/Label_food"
+
 var buttonToHotkeyMap = {
 	"HouseButton": "HouseHotkey",
 	"LumberCampButton": "LumberCampHotkey",
@@ -33,7 +40,7 @@ var resourceType = ResourceManager.ResourceType
 
 func _ready():
 	button_hide()
-	get_node("../HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse").visible = false
+	hide_button_tips()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
@@ -193,8 +200,80 @@ func button_hide():
 	get_node("../HUD/HUD/BuildingGridContainer/town_center_button").hide()
 	get_node("../HUD/HUD/BuildingGridContainer/barracks_button").hide()
 
+func show_button_tips():
+	get_node("../HUD/HUD/CommandCardBuildingTips").visible = true
+func hide_button_tips():
+	get_node("../HUD/HUD/CommandCardBuildingTips").visible = false
+
 func _on_house_button_mouse_entered():
-	get_node("../HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse").visible = true
+	show_button_tips()
+	labelBuildingName.text = "House (hotkey 'q')" 
+	goldLabel.text = str(ImportData.buildingdata["House"]["BuildingGold"])
+	woodlabel.text = str(ImportData.buildingdata["House"]["BuildingWood"])
+	stoneLabel.text = str(ImportData.buildingdata["House"]["BuildingStone"])
+	foodLabel.text = str(ImportData.buildingdata["House"]["BuildingFood"])
+	labelBuildingdescription.text = "A house provides 5 population space for your villagers. You need houses to increase your population limit. You can build houses anywhere on the map."
 
 func _on_house_button_mouse_exited():
-	get_node("../HUD/HUD/CommandCardBuildingTips/PanelContainerTipHouse").visible = false
+	hide_button_tips()
+
+func _on_lumber_camp_button_mouse_entered():
+	show_button_tips()
+	labelBuildingName.text = "Lumber Camp (hotkey 'w')" 
+	goldLabel.text = str(ImportData.buildingdata["LumberCamp"]["BuildingGold"])
+	woodlabel.text = str(ImportData.buildingdata["LumberCamp"]["BuildingWood"])
+	stoneLabel.text = str(ImportData.buildingdata["LumberCamp"]["BuildingStone"])
+	foodLabel.text = str(ImportData.buildingdata["LumberCamp"]["BuildingFood"])
+	labelBuildingdescription.text = "A lumber camp allows your villagers to gather wood from trees. You can build lumber camps anywhere on the map."
+
+func _on_lumber_camp_button_mouse_exited():
+	hide_button_tips()
+
+func _on_mining_camp_button_mouse_entered():
+	show_button_tips()
+	labelBuildingName.text = "Mining Camp (hotkey 'e')" 
+	goldLabel.text = str(ImportData.buildingdata["MiningCamp"]["BuildingGold"])
+	woodlabel.text = str(ImportData.buildingdata["MiningCamp"]["BuildingWood"])
+	stoneLabel.text = str(ImportData.buildingdata["MiningCamp"]["BuildingStone"])
+	foodLabel.text = str(ImportData.buildingdata["MiningCamp"]["BuildingFood"])
+	labelBuildingdescription.text = "A mining camp allows your villagers to gather stone from stone mines. You can build mining camps anywhere on the map."
+
+func _on_mining_camp_button_mouse_exited():
+	hide_button_tips()
+
+func _on_farm_button_mouse_entered():
+	show_button_tips()
+	labelBuildingName.text = "Farm (hotkey 'r')" 
+	goldLabel.text = str(ImportData.buildingdata["Farm"]["BuildingGold"])
+	woodlabel.text = str(ImportData.buildingdata["Farm"]["BuildingWood"])
+	stoneLabel.text = str(ImportData.buildingdata["Farm"]["BuildingStone"])
+	foodLabel.text = str(ImportData.buildingdata["Farm"]["BuildingFood"])
+	labelBuildingdescription.text = "A farm allows your villagers to gather food from farms. You can build farms anywhere on the map."
+
+func _on_farm_button_mouse_exited():
+	hide_button_tips()
+
+func _on_town_center_button_mouse_entered():
+	show_button_tips()
+	labelBuildingName.text = "Town Center (hotkey 't')" 
+	goldLabel.text = str(ImportData.buildingdata["TownCenter"]["BuildingGold"])
+	woodlabel.text = str(ImportData.buildingdata["TownCenter"]["BuildingWood"])
+	stoneLabel.text = str(ImportData.buildingdata["TownCenter"]["BuildingStone"])
+	foodLabel.text = str(ImportData.buildingdata["TownCenter"]["BuildingFood"])
+	labelBuildingdescription.text = "A town center allows your villagers to build other buildings. You can build town centers anywhere on the map."
+
+func _on_town_center_button_mouse_exited():
+	hide_button_tips()
+
+func _on_barracks_button_mouse_entered():
+	show_button_tips()
+	labelBuildingName.text = "Barracks (hotkey 'y')" 
+	goldLabel.text = str(ImportData.buildingdata["Barracks"]["BuildingGold"])
+	woodlabel.text = str(ImportData.buildingdata["Barracks"]["BuildingWood"])
+	stoneLabel.text = str(ImportData.buildingdata["Barracks"]["BuildingStone"])
+	foodLabel.text = str(ImportData.buildingdata["Barracks"]["BuildingFood"])
+	labelBuildingdescription.text = "A barracks allows your villagers to train soldiers. You can build barracks anywhere on the map."
+
+func _on_barracks_button_mouse_exited():
+	hide_button_tips()
+

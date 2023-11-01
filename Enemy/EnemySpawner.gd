@@ -10,31 +10,30 @@ var enemy = preload("res://Enemy/Enemy.tscn")
 @export var singleWaitTime = 2.0
 
 
+
 var waveNumber = 0
 var waveTimer = 0.0
 var singleTimer = 0.0
-
+var startTrickle = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+func startwave():
+	for i in range(waveAmount):
+		var enemyInstance = enemy.instantiate()
+		add_child(enemyInstance)
+	
+	print("Wave " + str(waveNumber) + " spawned")
+	startTrickle = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	waveTimer += delta
 	singleTimer += delta
 
-	if waveTimer >= waveWaitTime:
-		waveTimer = 0.0
-		waveNumber += 1
-		for i in range(waveAmount):
-			var enemyInstance = enemy.instantiate()
-			add_child(enemyInstance)
-		
-		print("Wave " + str(waveNumber) + " spawned")
-
-	if singleTimer >= singleWaitTime:
+	if startTrickle and singleTimer >= singleWaitTime:
 		singleTimer = 0.0
 		var enemyInstance = enemy.instantiate()
 		add_child(enemyInstance)
