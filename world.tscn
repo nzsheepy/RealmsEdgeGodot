@@ -1,6 +1,6 @@
 [gd_scene load_steps=37 format=3 uid="uid://cc5gby6fsnn4w"]
 
-[ext_resource type="PackedScene" path="res://map.tscn" id="1_6nfbs"]
+[ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
 [ext_resource type="PackedScene" uid="uid://btldymmsuq2wy" path="res://Buildings/town_center.tscn" id="5_usv12"]
@@ -110,6 +110,7 @@ grid = NodePath("../Grid")
 
 [node name="towncenter" parent="buildingPlacement" instance=ExtResource("5_usv12")]
 position = Vector2(256, 78)
+built = true
 
 [node name="mouseHandle" type="Node2D" parent="."]
 script = ExtResource("6_0kifu")
