@@ -122,6 +122,7 @@ func HandleBarracks():
 			# Spawn a new soldier and add it to the building
 			var soldier = soldierPreload.instantiate()
 			get_node("../../Units").add_child(soldier)
+			resourceManager.add(ResourceManager.ResourceType.POP, 1)
 
 			soldier.get_node("UnitController").canEnterBuildings = true
 			AddUnitToBuilding(soldier)
