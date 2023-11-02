@@ -111,7 +111,6 @@ func _process(delta):
 				updateGatherRateLabel()
 
 	if isFoundation:
-		
 		return
 			
 	elapsedTime += delta
@@ -312,7 +311,7 @@ func TakeDamage(damage):
 			unit.Destroy()
 		
 		queue_free()
-		if buildingType == "House":
+		if buildingType == "House" && !isFoundation && built:
 			resourceManager.add(ResourceManager.ResourceType.MAXPOP, -5)
 
 func updateHealthPercentLabel():
