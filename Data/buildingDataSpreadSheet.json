@@ -9,7 +9,9 @@
     "BuildingFood": 400,
     "ConstructionTime": 60,
     "BuildingTerrain": 0,
-    "BuildingHelpDesciption": "Produces 1 worker every 20 seconds +1 per every 2 garrisoned"
+    "GatherAmount": 1,
+    "GatherSpeed": 10,
+    "BuildingHelpDesciption": "A town center automatically creates workers. You can only build town centers on grass and dirt."
   },
   "House": {
     "BuildingSizeX": 2,
@@ -21,7 +23,9 @@
     "BuildingFood": 25,
     "ConstructionTime": 10,
     "BuildingTerrain": 0,
-    "BuildingHelpDesciption": "Supports 5 population space, generates 10 gold"
+    "GatherAmount": 5,
+    "GatherSpeed": 20,
+    "BuildingHelpDesciption": "A house provides 5 population space. You need houses to increase your population limit. You can build houses on Dirt and Grass."
   },
   "LumberCamp": {
     "BuildingSizeX": 2,
@@ -33,7 +37,9 @@
     "BuildingFood": 0,
     "ConstructionTime": 20,
     "BuildingTerrain": 1,
-    "BuildingHelpDesciption": "Must be built on trees, garrisoned workers generate 10 wood each"
+    "GatherAmount": 10,
+    "GatherSpeed": 20,
+    "BuildingHelpDesciption": "A lumber camp allows your villagers to gather wood. You can only build lumber camps on forest"
   },
   "MiningCamp": {
     "BuildingSizeX": 2,
@@ -45,7 +51,9 @@
     "BuildingFood": 0,
     "ConstructionTime": 20,
     "BuildingTerrain": 2,
-    "BuildingHelpDesciption": "Must be built on mountain, garrisoned workers generate 10 stone each"
+    "GatherAmount": 5,
+    "GatherSpeed": 20,
+    "BuildingHelpDesciption": "A mining camp allows your villagers to gather stone. You can only build mining camps on mountains."
   },
   "Farm": {
     "BuildingSizeX": 3,
@@ -57,7 +65,9 @@
     "BuildingFood": 0,
     "ConstructionTime": 30,
     "BuildingTerrain": 0,
-    "BuildingHelpDesciption": "Must be built on grass, (2 tile radius around it becomes farm land) garrisoned workers generate 10 food each)"
+    "GatherAmount": 5,
+    "GatherSpeed": 30,
+    "BuildingHelpDesciption": "A farm allows your villagers to gather food. You can only build farms on grass."
   },
   "Barracks": {
     "BuildingSizeX": 3,
@@ -69,6 +79,8 @@
     "BuildingFood": 50,
     "ConstructionTime": 60,
     "BuildingTerrain": 0,
-    "BuildingHelpDesciption": "Garrisoned workers can become a Soldier"
+    "GatherAmount": 0,
+    "GatherSpeed": 10,
+    "BuildingHelpDesciption": "A barracks trains your villagers into train soldiers. You can build barracks on grass and dirt"
   }
 }

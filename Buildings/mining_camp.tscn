@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpoufwlcsabg8"]
+[gd_scene load_steps=10 format=3 uid="uid://cpoufwlcsabg8"]
 
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_v2ccy"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_f1gyv"]
 [ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="3_1chw2"]
+[ext_resource type="Theme" uid="uid://cgwskli2lrgq6" path="res://UI/Dialogue Box/fontDark.tres" id="4_erfbb"]
+[ext_resource type="LabelSettings" uid="uid://cq6ct73bo7dn5" path="res://Buildings/PercentFont.tres" id="5_upkfv"]
+[ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="6_2qp82"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o4exr"]
 size = Vector2(32, 16)
@@ -24,7 +27,8 @@ script = ExtResource("2_f1gyv")
 buildingSize = 2
 resource = 2
 gatherAmount = 5
-gatherTime = 3
+gatherTime = 10
+buildingType = "MiningCamp"
 
 [node name="EnterArea" type="Area2D" parent="."]
 collision_layer = 256
@@ -49,5 +53,39 @@ shape = SubResource("RectangleShape2D_1shcx")
 [node name="Foundation" type="Sprite2D" parent="."]
 position = Vector2(8, 8)
 texture = ExtResource("3_1chw2")
+
+[node name="BuildingConstructionPercent" type="Label" parent="."]
+offset_left = 3.0
+offset_top = 1.5
+offset_right = 44.0
+offset_bottom = 44.5
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_erfbb")
+text = "99%"
+label_settings = ExtResource("5_upkfv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="healthPercent" type="Label" parent="."]
+offset_top = -8.0
+offset_right = 41.0
+offset_bottom = 35.0
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_erfbb")
+text = "HP:"
+label_settings = ExtResource("6_2qp82")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GatherRate" type="Label" parent="."]
+offset_top = 14.3333
+offset_right = 41.0
+offset_bottom = 57.3333
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_erfbb")
+text = "Gathering:"
+label_settings = ExtResource("6_2qp82")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="EnterArea" to="." method="_on_enter_area_body_entered"]
