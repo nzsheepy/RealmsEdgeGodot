@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://usestnj534go"]
+[gd_scene load_steps=7 format=3 uid="uid://usestnj534go"]
 
 [ext_resource type="Texture2D" uid="uid://uktbpk78njih" path="res://MiniWorldSprites/Buildings/Cyan/CyanHouses.png" id="1_4sav3"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_4hh16"]
 [ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="3_3bjm3"]
+[ext_resource type="Theme" uid="uid://cgwskli2lrgq6" path="res://UI/Dialogue Box/fontDark.tres" id="4_bmj7q"]
+[ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="5_5hxb5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_35m27"]
 size = Vector2(24, 24)
@@ -17,8 +19,8 @@ vframes = 4
 frame = 10
 script = ExtResource("2_4hh16")
 buildingSize = 2
-gatherAmount = 10
-gatherTime = 2
+gatherAmount = 5
+gatherTime = 10
 buildingType = "House"
 noUnitsRequired = true
 
@@ -33,3 +35,38 @@ shape = SubResource("RectangleShape2D_35m27")
 [node name="Foundation" type="Sprite2D" parent="."]
 position = Vector2(8, 8)
 texture = ExtResource("3_3bjm3")
+
+[node name="BuildingConstructionPercent" type="Label" parent="."]
+offset_left = 3.33333
+offset_top = 2.0
+offset_right = 44.3333
+offset_bottom = 45.0
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_bmj7q")
+text = "99%"
+label_settings = ExtResource("5_5hxb5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="healthPercent" type="Label" parent="."]
+offset_left = -1.33333
+offset_top = -9.33333
+offset_right = 39.6667
+offset_bottom = 33.6667
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_bmj7q")
+text = "HP:"
+label_settings = ExtResource("5_5hxb5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GatherRate" type="Label" parent="."]
+offset_top = 14.3333
+offset_right = 41.0
+offset_bottom = 57.3333
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_bmj7q")
+text = "Gathering:"
+label_settings = ExtResource("5_5hxb5")
+horizontal_alignment = 1
+vertical_alignment = 1
