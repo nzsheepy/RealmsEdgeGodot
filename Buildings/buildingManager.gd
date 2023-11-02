@@ -32,10 +32,11 @@ var unitMask = 0
 @export var buildingHealth: int = 1000
 @onready var currentHealth: int = buildingHealth
 
-
 @export_group("Barracks")
-@export var isBarracks : bool = false
-
+@onready var isBarracks : bool = buildingType == "Barracks"
+@export var trainingTime : int = 10
+var unitsToTrain = {}
+var soldierPreload = preload("res://Unit/Soldier.tscn")
 
 func _ready():
 	if buildingType in ImportData.buildingdata and "ConstructionTime" in ImportData.buildingdata[buildingType]:
@@ -78,12 +79,12 @@ func startBuild():
 		area.set("scale", Vector2(0, 0))
 
 	isFoundation = true
-	
 	self_modulate = Color(1, 1, 1, 0)
 	var foundation = get_node("Foundation")
 	if foundation:
 		foundation.visible = true
 		constructionProgressLabel.show()
+
 
 func _process(delta):
 	if !built:
@@ -119,7 +120,10 @@ func _process(delta):
 	if firstloop and buildingType == "House":
 		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 5)
 		firstloop = false
-	
+
+	if isBarracks:
+		HandleBarracks()
+		return
 
 	# Check if enough time has passed for resource gathering
 	if elapsedTime >= gatherTime:
@@ -151,20 +155,46 @@ func _process(delta):
 		resourceManager.add(resource, totalResource)
 
 
+func HandleBarracks():
+	for unit in unitsToTrain:
+		if unitsToTrain[unit] <= elapsedTime:
+			# Unit is done training, add it to the building
+			RemoveUnitFromBuilding(unit)
+			unit.Destroy()
+
+			# Spawn a new soldier and add it to the building
+			var soldier = soldierPreload.instantiate()
+			get_node("../../Units").add_child(soldier)
+			resourceManager.add(ResourceManager.ResourceType.POP, 1)
+
+			soldier.get_node("UnitController").canEnterBuildings = true
+			AddUnitToBuilding(soldier)
+			
+
 func GetNewUnitPosition():
-	if unitsGathering.size() >= buildingSize * buildingSize:
+	var unitCount = unitsGathering.size()
+
+	if isBarracks:
+		unitCount = unitsToTrain.size()
+
+	if unitCount >= buildingSize * buildingSize:
 		return Vector2(-1, -1)
 
-	var tile_pos = Vector2(unitsGathering.size() % buildingSize, unitsGathering.size() / buildingSize)
+	var tile_pos = Vector2(unitCount % buildingSize, unitCount / buildingSize)
 
 	return global_position + tile_pos * 16 + Vector2(8, 8)
 
 
 func AddUnitToBuilding(newUnit):
+	var unitsCount = unitsGathering.size()
+
+	if isBarracks:
+		unitsCount = unitsToTrain.size()
+
 	# Save old unit mask
 	unitMask = newUnit.collision_mask
 
-	if unitsGathering.size() >= buildingSize * buildingSize:
+	if unitsCount >= buildingSize * buildingSize:
 		return
 
 	var new_pos = GetNewUnitPosition()
@@ -178,7 +208,10 @@ func AddUnitToBuilding(newUnit):
 		return
 
 	if newUnit.has_node("StateController"):
-		unitsGathering.append(newUnit)
+		if isBarracks:
+			unitsToTrain[newUnit] = elapsedTime + trainingTime
+		else:
+			unitsGathering.append(newUnit)
 
 		var stateController: StateController = newUnit.get_node("StateController")
 		stateController.SetState(StateController.State.GATHERING)
@@ -188,6 +221,7 @@ func AddUnitToBuilding(newUnit):
 
 		# Disable layermasks
 		newUnit.collision_mask = 0
+		newUnit.collision_layer = 512
 
 		# Disable NavAgent
 		var navAgent : NavigationAgent2D = newUnit.get_node("NavigationAgent2D")
@@ -219,8 +253,15 @@ func RemoveUnitFromBuilding(unit):
 
 	unit.position = new_pos
 
-	unitsGathering.erase(unit)
+	if isBarracks:
+		unitsToTrain.erase(unit)
+		if unit.get_node("StateController").isSoldier:
+			unit.get_node("UnitController").canEnterBuildings = false
+	else:
+		unitsGathering.erase(unit)
+	
 	unit.collision_mask = unitMask
+	unit.collision_layer = 514
 
 	var stateController: StateController = unit.get_node("StateController")
 	stateController.SetState(StateController.State.MOVING)
@@ -229,10 +270,21 @@ func RemoveUnitFromBuilding(unit):
 	var navAgent : NavigationAgent2D = unit.get_node("NavigationAgent2D")
 	navAgent.avoidance_enabled = true
 
+	var unitsCount = unitsGathering.size()
+	if isBarracks:
+		unitsCount = unitsToTrain.size()
+
 	# Reset position of current units
-	for i in range(unitsGathering.size()):
+	var units = unitsGathering
+
+	if isBarracks:
+		units = unitsToTrain
+
+	var i = 0
+	for u in units:
 		var tile_pos = Vector2(i % buildingSize, i / buildingSize)
-		unitsGathering[i].position = global_position + tile_pos * 16 + Vector2(8, 8)
+		u.position = global_position + tile_pos * 16 + Vector2(8, 8)
+		i += 1
 
 	updateGatherRateLabel()
 
@@ -251,9 +303,14 @@ func TakeDamage(damage):
 	currentHealth -= damage
 	updateHealthPercentLabel()
 
+	var units = unitsGathering
+	if isBarracks:
+		units = unitsToTrain
+
 	if currentHealth <= 0:
-		for unit in unitsGathering:
+		for unit in units:
 			unit.Destroy()
+		
 		queue_free()
 		if buildingType == "House":
 			resourceManager.add(ResourceManager.ResourceType.MAXPOP, -5)
