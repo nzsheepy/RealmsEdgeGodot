@@ -5,7 +5,8 @@ extends Label
 @onready var textScroll = $"../../../../HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText/HBoxContainer/LabelPopText"
 @onready var textPanel = $"../../../../HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText"
 var current_wave = 1
-var initial_wave_time = 10 * 60  # 10 minutes in seconds
+@export var initial_wave_time = 1 * 10  # 10 minutes in seconds
+@export var waveShortner : bool = true  # Toggle for shortening wave times
 var time_decrease_factor = 0.75  # Decrease time by 25% for each wave
 var elapsed_time = 0.0  # To accumulate the time elapsed
 var text_reveal_time = 3.0  # Time at which the text starts to reveal
@@ -18,10 +19,10 @@ var welcome_message_shown = false  # To track whether the welcome message has be
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("../../../../HUD/HUD/Text_for_scroll/text_Scroll").hide()
-	start_new_wave()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	start_new_wave()
+	textPanel.modulate.a = 0.0  # Hide the text panel
+
 func _process(delta):
 	elapsed_time += delta  # Accumulate the time elapsed
 	var total_seconds = int($WaveTimer.time_left)
@@ -59,7 +60,9 @@ func _process(delta):
 					elapsed_time = 0  # Reset elapsed time
 
 func start_new_wave():
-	var new_wave_time = initial_wave_time * pow(time_decrease_factor, current_wave - 1)
+	var new_wave_time = initial_wave_time
+	if waveShortner:
+		new_wave_time *= pow(time_decrease_factor, current_wave - 1)
 	$WaveTimer.wait_time = new_wave_time
 	$WaveTimer.start()
 

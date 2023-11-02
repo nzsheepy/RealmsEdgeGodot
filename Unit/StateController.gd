@@ -39,13 +39,7 @@ func _process(delta):
 		character.movement_component.Stop()
 		attackTimer += delta
 
-		# if attackTarget == null:
-		# 	SetState(State.MOVING)
-		# 	reacquireTargetTimer = reacquireTargetWaitTime + 0.1
-		# 	return
-
 		if attackTimer > attackWaitTime:
-			print("ATTACKING")
 			attackTimer = 0.0
 			var attackHealthComp = attackTarget.get_node("HealthComponent")
 			if attackHealthComp:

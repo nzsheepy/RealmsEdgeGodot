@@ -16,7 +16,12 @@ var loadUnit = preload("res://Unit/unit.tscn")
 var firstloop = true
 @export var built = false
 var isFoundation = false
-@export var buildTime : int = 10
+@export var buildTime : int
+
+
+@onready var constructionProgressLabel = get_node("BuildingConstructionPercent")
+@onready var healthPercent = get_node("healthPercent")
+@onready var gatherRate = get_node("GatherRate")
 
 # Variable to keep track of time since the last resource gathering event
 var elapsedTime = 0
@@ -28,13 +33,44 @@ var unitMask = 0
 @onready var currentHealth: int = buildingHealth
 
 @export_group("Barracks")
-@export var isBarracks : bool = false
-
+@onready var isBarracks : bool = buildingType == "Barracks"
+@export var trainingTime : int = 10
+var unitsToTrain = {}
+var soldierPreload = preload("res://Unit/Soldier.tscn")
 
 func _ready():
+	if buildingType in ImportData.buildingdata and "ConstructionTime" in ImportData.buildingdata[buildingType]:
+		buildTime = ImportData.buildingdata[buildingType]["ConstructionTime"]
+	else:
+		print("Warning: Building type not found or ConstructionTime not set for", buildingType)
+		buildTime = 0  # Set to a default value or handle this case as needed
+	if "BuildingHealth" in ImportData.buildingdata[buildingType]:
+		buildingHealth = ImportData.buildingdata[buildingType]["BuildingHealth"]
+		currentHealth = buildingHealth
+	else:
+		print("Warning: BuildingHealth not set for", buildingType)
+		buildingHealth = 1000  # Set to a default value or handle this case as needed
+		currentHealth = buildingHealth
+
+	if "GatherSpeed" in ImportData.buildingdata[buildingType]:
+		gatherTime = ImportData.buildingdata[buildingType]["GatherSpeed"]
+	else:
+		print("Warning: GatherSpeed not set for", buildingType)
+		gatherTime = 1.0  # Set to a default value or handle this case as needed
+
+	if "GatherAmount" in ImportData.buildingdata[buildingType]:
+		gatherAmount = ImportData.buildingdata[buildingType]["GatherAmount"]
+	else:
+		print("Warning: GatherAmount not set for", buildingType)
+		gatherAmount = 1  # Set to a default value or handle this case as needed
+
 	var foundation = get_node("Foundation")
 	if foundation:
 		foundation.visible = false
+	constructionProgressLabel.hide()
+	updateHealthPercentLabel()
+	updateGatherRateLabel()
+
 
 func startBuild():
 	# Prevent units from entering the building
@@ -47,35 +83,46 @@ func startBuild():
 	var foundation = get_node("Foundation")
 	if foundation:
 		foundation.visible = true
+		constructionProgressLabel.show()
 
 
 func _process(delta):
 	if !built:
 		return
 
-	buildingTime += delta
-	
-	if isFoundation && buildingTime >= buildTime:
-		# Allow units to enter again
-		var area = get_node("EnterArea")
-		if area:
-			area.set("scale", Vector2(1, 1))
+	if isFoundation:
+		buildingTime += delta
+		var progress = int(min(buildingTime / buildTime, 1.0) * 100)
+		constructionProgressLabel.text = str(progress) + "%" + " (" + str(buildTime) + "s)"
 
-		built = true
-		isFoundation = false
-		self_modulate = Color(1, 1, 1, 1)
-		var foundation = get_node("Foundation")
-		if foundation:
-			foundation.visible = false
+		if buildingTime >= buildTime:
+			# Allow units to enter again
+			var area = get_node("EnterArea")
+			if area:
+				area.set("scale", Vector2(1, 1))
+
+			built = true
+			isFoundation = false
+			self_modulate = Color(1, 1, 1, 1)
+			var foundation = get_node("Foundation")
+			if foundation:
+				foundation.visible = false
+				constructionProgressLabel.hide()
+				updateGatherRateLabel()
 
 	if isFoundation:
 		return
-
+			
 	elapsedTime += delta
+	updateGatherRateLabel()
+
 	if firstloop and buildingType == "House":
 		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 5)
 		firstloop = false
-	
+
+	if isBarracks:
+		HandleBarracks()
+		return
 
 	# Check if enough time has passed for resource gathering
 	if elapsedTime >= gatherTime:
@@ -107,20 +154,46 @@ func _process(delta):
 		resourceManager.add(resource, totalResource)
 
 
+func HandleBarracks():
+	for unit in unitsToTrain:
+		if unitsToTrain[unit] <= elapsedTime:
+			# Unit is done training, add it to the building
+			RemoveUnitFromBuilding(unit)
+			unit.Destroy()
+
+			# Spawn a new soldier and add it to the building
+			var soldier = soldierPreload.instantiate()
+			get_node("../../Units").add_child(soldier)
+			resourceManager.add(ResourceManager.ResourceType.POP, 1)
+
+			soldier.get_node("UnitController").canEnterBuildings = true
+			AddUnitToBuilding(soldier)
+			
+
 func GetNewUnitPosition():
-	if unitsGathering.size() >= buildingSize * buildingSize:
+	var unitCount = unitsGathering.size()
+
+	if isBarracks:
+		unitCount = unitsToTrain.size()
+
+	if unitCount >= buildingSize * buildingSize:
 		return Vector2(-1, -1)
 
-	var tile_pos = Vector2(unitsGathering.size() % buildingSize, unitsGathering.size() / buildingSize)
+	var tile_pos = Vector2(unitCount % buildingSize, unitCount / buildingSize)
 
 	return global_position + tile_pos * 16 + Vector2(8, 8)
 
 
 func AddUnitToBuilding(newUnit):
+	var unitsCount = unitsGathering.size()
+
+	if isBarracks:
+		unitsCount = unitsToTrain.size()
+
 	# Save old unit mask
 	unitMask = newUnit.collision_mask
 
-	if unitsGathering.size() >= buildingSize * buildingSize:
+	if unitsCount >= buildingSize * buildingSize:
 		return
 
 	var new_pos = GetNewUnitPosition()
@@ -134,7 +207,10 @@ func AddUnitToBuilding(newUnit):
 		return
 
 	if newUnit.has_node("StateController"):
-		unitsGathering.append(newUnit)
+		if isBarracks:
+			unitsToTrain[newUnit] = elapsedTime + trainingTime
+		else:
+			unitsGathering.append(newUnit)
 
 		var stateController: StateController = newUnit.get_node("StateController")
 		stateController.SetState(StateController.State.GATHERING)
@@ -144,11 +220,14 @@ func AddUnitToBuilding(newUnit):
 
 		# Disable layermasks
 		newUnit.collision_mask = 0
+		newUnit.collision_layer = 512
 
 		# Disable NavAgent
 		var navAgent : NavigationAgent2D = newUnit.get_node("NavigationAgent2D")
 		navAgent.avoidance_enabled = false
 		newUnit.position = new_pos
+	
+	updateGatherRateLabel()
 
 
 func RemoveUnitFromBuilding(unit):
@@ -173,8 +252,15 @@ func RemoveUnitFromBuilding(unit):
 
 	unit.position = new_pos
 
-	unitsGathering.erase(unit)
+	if isBarracks:
+		unitsToTrain.erase(unit)
+		if unit.get_node("StateController").isSoldier:
+			unit.get_node("UnitController").canEnterBuildings = false
+	else:
+		unitsGathering.erase(unit)
+	
 	unit.collision_mask = unitMask
+	unit.collision_layer = 514
 
 	var stateController: StateController = unit.get_node("StateController")
 	stateController.SetState(StateController.State.MOVING)
@@ -183,11 +269,23 @@ func RemoveUnitFromBuilding(unit):
 	var navAgent : NavigationAgent2D = unit.get_node("NavigationAgent2D")
 	navAgent.avoidance_enabled = true
 
-	# Reset position of current units
-	for i in range(unitsGathering.size()):
-		var tile_pos = Vector2(i % buildingSize, i / buildingSize)
-		unitsGathering[i].position = global_position + tile_pos * 16 + Vector2(8, 8)
+	var unitsCount = unitsGathering.size()
+	if isBarracks:
+		unitsCount = unitsToTrain.size()
 
+	# Reset position of current units
+	var units = unitsGathering
+
+	if isBarracks:
+		units = unitsToTrain
+
+	var i = 0
+	for u in units:
+		var tile_pos = Vector2(i % buildingSize, i / buildingSize)
+		u.position = global_position + tile_pos * 16 + Vector2(8, 8)
+		i += 1
+
+	updateGatherRateLabel()
 
 func _on_enter_area_body_entered(body:Node2D):
 	if body.has_node("StateController"):
@@ -202,8 +300,31 @@ func Heal(amount):
 
 func TakeDamage(damage):
 	currentHealth -= damage
+	updateHealthPercentLabel()
+
+	var units = unitsGathering
+	if isBarracks:
+		units = unitsToTrain
+
 	if currentHealth <= 0:
-		for unit in unitsGathering:
+		for unit in units:
 			unit.Destroy()
 		
 		queue_free()
+		if buildingType == "House" && !isFoundation && built:
+			resourceManager.add(ResourceManager.ResourceType.MAXPOP, -5)
+
+func updateHealthPercentLabel():
+	var health_percent = int((currentHealth / float(buildingHealth)) * 100)
+	healthPercent.text = "HP: %d/%d (%d%%)" % [currentHealth, buildingHealth, health_percent]
+
+func updateGatherRateLabel():
+	if gatherTime > 0:  # To avoid division by zero
+		var percentage_time_completed = int((elapsedTime / gatherTime) * 100)
+		var totalResourceOnceCompleted = gatherAmount * unitsGathering.size()
+		if noUnitsRequired:
+			totalResourceOnceCompleted = gatherAmount
+
+		gatherRate.text = "Progress: %d%%, + %d" % [percentage_time_completed, totalResourceOnceCompleted]
+	else:
+		gatherRate.text = "Gather time is not set."
