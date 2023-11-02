@@ -117,6 +117,12 @@ func GetNewUnitPosition():
 
 
 func AddUnitToBuilding(newUnit):
+	# Prevent soldiers entering buildings
+	if newUnit.has_node("StateController"):
+		var stateController = newUnit.get_node("StateController")
+		if stateController.isSoldier:
+			return
+
 	# Save old unit mask
 	unitMask = newUnit.collision_mask
 
