@@ -10,7 +10,7 @@ var selected = false
 var occupyingBuilding = null
 var enterBuildingCooldown = 1.5
 var enterBuildingTimer = enterBuildingCooldown + 0.1
-
+@export var canEnterBuildings = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,6 +39,9 @@ func set_selected(value):
 
 
 func CanEnterBuilding():
+	if !canEnterBuildings:
+		return false
+
 	if (enterBuildingTimer < enterBuildingCooldown || occupyingBuilding != null):
 		return false
 

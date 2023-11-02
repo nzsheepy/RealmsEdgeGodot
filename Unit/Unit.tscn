@@ -18,7 +18,7 @@ border_color = Color(0.415686, 0.886275, 0.909804, 1)
 border_blend = true
 
 [node name="Unit" instance=ExtResource("1_qp2e3")]
-collision_layer = 2
+collision_layer = 514
 collision_mask = 7
 isUnit = true
 

@@ -24,7 +24,7 @@ radius = 80.0
 radius = 20.0
 
 [node name="Soldier" instance=ExtResource("1_oeo8f")]
-collision_layer = 2
+collision_layer = 514
 collision_mask = 7
 isUnit = true
 
@@ -42,6 +42,7 @@ tryAttack = true
 
 [node name="UnitController" type="Node2D" parent="." index="3"]
 script = ExtResource("3_4i2hj")
+canEnterBuildings = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
 shape = SubResource("CircleShape2D_jnwvx")
