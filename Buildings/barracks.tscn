@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2dbifwujt4ve"]
+[gd_scene load_steps=10 format=3 uid="uid://b2dbifwujt4ve"]
 
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_80efe"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_eheku"]
 [ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="3_1bfv0"]
+[ext_resource type="Theme" uid="uid://cgwskli2lrgq6" path="res://UI/Dialogue Box/fontDark.tres" id="4_hcpch"]
+[ext_resource type="LabelSettings" uid="uid://cq6ct73bo7dn5" path="res://Buildings/PercentFont.tres" id="5_3oghk"]
+[ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="6_huokd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvtx2"]
 size = Vector2(16, 16)
@@ -47,5 +50,37 @@ shape = SubResource("RectangleShape2D_5r24o")
 [node name="Foundation" type="Sprite2D" parent="."]
 position = Vector2(8, 8)
 texture = ExtResource("3_1bfv0")
+
+[node name="BuildingConstructionPercent" type="Label" parent="."]
+offset_left = 3.0
+offset_top = 1.5
+offset_right = 44.0
+offset_bottom = 44.5
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_hcpch")
+text = "99%"
+label_settings = ExtResource("5_3oghk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="healthPercent" type="Label" parent="."]
+offset_top = -8.33333
+offset_right = 41.0
+offset_bottom = 34.6667
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_hcpch")
+text = "HP:"
+label_settings = ExtResource("6_huokd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GatherRate" type="Label" parent="."]
+offset_top = 14.3333
+offset_right = 72.0
+offset_bottom = 49.3333
+scale = Vector2(0.161827, 0.172528)
+text = "Gathering:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="EnterArea" to="." method="_on_enter_area_body_entered"]

@@ -1,10 +1,10 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cgwskli2lrgq6"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d3l76yiraqpte"]
 
 [ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="1_fvdj4"]
 
 [resource]
 default_font = ExtResource("1_fvdj4")
-default_font_size = 12
+default_font_size = 18
 /colors/color = Color(0.415686, 0.309804, 0.145098, 1)
 /colors/shadow = Color(0.258824, 0.258824, 0.258824, 1)
-/font_sizes/fontseize = 12
+/font_sizes/fontseize = 13

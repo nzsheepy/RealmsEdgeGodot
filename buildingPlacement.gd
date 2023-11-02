@@ -34,6 +34,9 @@ var buttonToHotkeyMap = {
 	"TownCenterButton": "TownCenterHotkey",
 	"BarracksButton": "BarracksHotkey"
 }
+
+
+
 @onready var mouseHandle = $"../mouseHandle"
 @onready var resourceManager = $"../resourceManager"
 var resourceType = ResourceManager.ResourceType
@@ -48,7 +51,7 @@ func _physics_process(_delta):
 		buildmenutoggle = !buildmenutoggle
 		print("open build menu", buildmenutoggle)
 		if buildmenutoggle == true:
-			button_show()#
+			button_show()
 		if (buildmenutoggle == false):
 			remove_child(building)
 			button_hide()
@@ -56,6 +59,34 @@ func _physics_process(_delta):
 	if (buildmenutoggle == false):
 		return
 
+	var building_buttons = {
+		"House": get_node("../HUD/HUD/BuildingGridContainer/house_button"),
+		"LumberCamp": get_node("../HUD/HUD/BuildingGridContainer/lumber_camp_button"),
+		"MiningCamp": get_node("../HUD/HUD/BuildingGridContainer/mining_camp_button"),
+		"Farm": get_node("../HUD/HUD/BuildingGridContainer/farm_button"),
+		"Barracks": get_node("../HUD/HUD/BuildingGridContainer/barracks_button"),
+		"TownCenter": get_node("../HUD/HUD/BuildingGridContainer/town_center_button"),
+	}
+
+	for building_name in building_buttons.keys():
+		var button = building_buttons[building_name]
+		if button:
+			var building_data = ImportData.buildingdata[building_name]
+			var has_enough_resources = (
+				resourceManager.check(resourceType.GOLD, building_data["BuildingGold"]) &&
+				resourceManager.check(resourceType.WOOD, building_data["BuildingWood"]) &&
+				resourceManager.check(resourceType.STONE, building_data["BuildingStone"]) &&
+				resourceManager.check(resourceType.FOOD, building_data["BuildingFood"])
+			)
+
+			if has_enough_resources:
+				button.modulate = Color(1, 1, 1, 1)  # Reset to default color
+			else:
+				button.modulate = Color(1, 0, 0, 1)  # Set to red
+		else:
+			print("Button for building %s is null" % building_name)
+
+			
 	processHotkeys()
 	displayBuildingPreview()
 	# Check for left-click to place the building
@@ -88,23 +119,33 @@ func displayBuildingPreview():
 	if (mouseHandle.mouseBlocked):
 		return
 	
-	if (currentBuilding != null && resourceManager.check(resourceType.GOLD, currentBuilding["BuildingGold"]) &&
+	if (currentBuilding != null): 
+		var has_enough_resources = (resourceManager.check(resourceType.GOLD, currentBuilding["BuildingGold"]) &&
 		resourceManager.check(resourceType.WOOD, currentBuilding["BuildingWood"]) &&
 		resourceManager.check(resourceType.STONE, currentBuilding["BuildingStone"]) &&
-		resourceManager.check(resourceType.FOOD, currentBuilding["BuildingFood"])):
-
-		if justPressed:
-			remove_child(building)
-			building = res.instantiate()
-			building.modulate = Color(1, 1, 1, 0.5)
-			add_child(building)
-		#var offset = (building.buildingSize/2.0) * 16
+		resourceManager.check(resourceType.FOOD, currentBuilding["BuildingFood"]))
+		
+		if has_enough_resources:
+			if justPressed:
+				remove_child(building)
+				building = res.instantiate()
+				building.modulate = Color(1, 1, 1, 0.5)
+				add_child(building)
+			#var offset = (building.buildingSize/2.0) * 16
 		var tile_pos = grid.WorldToTilePos(get_global_mouse_position()) 
-		var new_pos = grid.TileToWorldPos(tile_pos) #- Vector2(offset, offset) 
-		building.position = new_pos
+		var new_pos = grid.TileToWorldPos(tile_pos) #- Vector2(offset, offset)
+		if building != null:
+			building.position = new_pos
+		if building != null and building.buildingSize != null:
+			if canPlaceBuilding(tile_pos, building.buildingSize):
+				building.modulate = Color(0.2, 1, 0.2, 0.5)
+			else:
+				building.modulate = Color(1, 0.2, 0.2, 0.5)
 
-		if Input.is_action_just_released("LeftClick"):
-			placeBuilding(tile_pos, building.buildingSize) 
+			if Input.is_action_just_pressed("LeftClick"):
+				placeBuilding(tile_pos, building.buildingSize)
+		else:
+			justPressed = false  # Reset justPressed if the player doesn't have enough resources
 
 func placeBuilding(tile_pos, buildingSize):
 	if currentBuilding == null || building == null:
@@ -145,6 +186,29 @@ func placeBuilding(tile_pos, buildingSize):
 		button_hide()
 		justPressed = false
 
+func canPlaceBuilding(tile_pos, buildingSize):
+	if currentBuilding == null || building == null:
+		return false
+
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsPointQueryParameters2D.new()
+	query.collide_with_areas = true
+	query.collide_with_bodies = false
+	query.collision_mask = 8
+	query.exclude = [building.get_node("BuildingArea")]
+
+	for i in range(buildingSize):
+		for j in range(buildingSize):
+			var check_tile = building.global_position + Vector2(i * 16, j * 16) + Vector2(8, 8)
+			query.position = check_tile
+			var result = space_state.intersect_point(query)
+			if result:
+				return false
+
+	if grid.GetTilesTypeRange(tile_pos, tile_pos + Vector2(buildingSize -1,buildingSize - 1)) != currentBuilding["BuildingTerrain"]:
+		return false
+
+	return true
 
 # Define a function to handle UI button clicks
 # Define a function to handle UI button clicks
@@ -183,6 +247,9 @@ func _on_build_menu_button_pressed():
 		remove_child(building)
 		button_hide()
 	
+
+
+
 func button_show():
 	get_node("../HUD/HUD/BuildingGridContainer/house_button").show()
 	get_node("../HUD/HUD/BuildingGridContainer/lumber_camp_button").show()
@@ -190,6 +257,9 @@ func button_show():
 	get_node("../HUD/HUD/BuildingGridContainer/farm_button").show()
 	get_node("../HUD/HUD/BuildingGridContainer/town_center_button").show()
 	get_node("../HUD/HUD/BuildingGridContainer/barracks_button").show()
+	get_node("../HUD/HUD/HBoxContainer/unit_attack_button").hide()
+	get_node("../HUD/HUD/HBoxContainer/unit_move_button").hide()
+	get_node("../HUD/HUD/HBoxContainer/unit_stop_button").hide()
 
 
 func button_hide():
@@ -199,6 +269,9 @@ func button_hide():
 	get_node("../HUD/HUD/BuildingGridContainer/farm_button").hide()
 	get_node("../HUD/HUD/BuildingGridContainer/town_center_button").hide()
 	get_node("../HUD/HUD/BuildingGridContainer/barracks_button").hide()
+	get_node("../HUD/HUD/HBoxContainer/unit_attack_button").show()
+	get_node("../HUD/HUD/HBoxContainer/unit_move_button").show()
+	get_node("../HUD/HUD/HBoxContainer/unit_stop_button").show()
 
 func show_button_tips():
 	get_node("../HUD/HUD/CommandCardBuildingTips").visible = true
@@ -207,72 +280,72 @@ func hide_button_tips():
 
 func _on_house_button_mouse_entered():
 	show_button_tips()
-	labelBuildingName.text = "House (hotkey 'q')" 
+	labelBuildingName.text = "House (hotkey: Q)" 
 	goldLabel.text = str(ImportData.buildingdata["House"]["BuildingGold"])
 	woodlabel.text = str(ImportData.buildingdata["House"]["BuildingWood"])
 	stoneLabel.text = str(ImportData.buildingdata["House"]["BuildingStone"])
 	foodLabel.text = str(ImportData.buildingdata["House"]["BuildingFood"])
-	labelBuildingdescription.text = "A house provides 5 population space for your villagers. You need houses to increase your population limit. You can build houses anywhere on the map."
+	labelBuildingdescription.text = str(ImportData.buildingdata["House"]["BuildingHelpDesciption"])
 
 func _on_house_button_mouse_exited():
 	hide_button_tips()
 
 func _on_lumber_camp_button_mouse_entered():
 	show_button_tips()
-	labelBuildingName.text = "Lumber Camp (hotkey 'w')" 
+	labelBuildingName.text = "Lumber Camp (hotkey: W)" 
 	goldLabel.text = str(ImportData.buildingdata["LumberCamp"]["BuildingGold"])
 	woodlabel.text = str(ImportData.buildingdata["LumberCamp"]["BuildingWood"])
 	stoneLabel.text = str(ImportData.buildingdata["LumberCamp"]["BuildingStone"])
 	foodLabel.text = str(ImportData.buildingdata["LumberCamp"]["BuildingFood"])
-	labelBuildingdescription.text = "A lumber camp allows your villagers to gather wood from trees. You can build lumber camps anywhere on the map."
+	labelBuildingdescription.text = str(ImportData.buildingdata["LumberCamp"]["BuildingHelpDesciption"])
 
 func _on_lumber_camp_button_mouse_exited():
 	hide_button_tips()
 
 func _on_mining_camp_button_mouse_entered():
 	show_button_tips()
-	labelBuildingName.text = "Mining Camp (hotkey 'e')" 
+	labelBuildingName.text = "Mining Camp (hotkey: E)" 
 	goldLabel.text = str(ImportData.buildingdata["MiningCamp"]["BuildingGold"])
 	woodlabel.text = str(ImportData.buildingdata["MiningCamp"]["BuildingWood"])
 	stoneLabel.text = str(ImportData.buildingdata["MiningCamp"]["BuildingStone"])
 	foodLabel.text = str(ImportData.buildingdata["MiningCamp"]["BuildingFood"])
-	labelBuildingdescription.text = "A mining camp allows your villagers to gather stone from stone mines. You can build mining camps anywhere on the map."
+	labelBuildingdescription.text = str(ImportData.buildingdata["MiningCamp"]["BuildingHelpDesciption"])
 
 func _on_mining_camp_button_mouse_exited():
 	hide_button_tips()
 
 func _on_farm_button_mouse_entered():
 	show_button_tips()
-	labelBuildingName.text = "Farm (hotkey 'r')" 
+	labelBuildingName.text = "Farm (hotkey: A)" 
 	goldLabel.text = str(ImportData.buildingdata["Farm"]["BuildingGold"])
 	woodlabel.text = str(ImportData.buildingdata["Farm"]["BuildingWood"])
 	stoneLabel.text = str(ImportData.buildingdata["Farm"]["BuildingStone"])
 	foodLabel.text = str(ImportData.buildingdata["Farm"]["BuildingFood"])
-	labelBuildingdescription.text = "A farm allows your villagers to gather food from farms. You can build farms anywhere on the map."
+	labelBuildingdescription.text = str(ImportData.buildingdata["Farm"]["BuildingHelpDesciption"])
 
 func _on_farm_button_mouse_exited():
 	hide_button_tips()
 
 func _on_town_center_button_mouse_entered():
 	show_button_tips()
-	labelBuildingName.text = "Town Center (hotkey 't')" 
+	labelBuildingName.text = "Town Center (hotkey: S)" 
 	goldLabel.text = str(ImportData.buildingdata["TownCenter"]["BuildingGold"])
 	woodlabel.text = str(ImportData.buildingdata["TownCenter"]["BuildingWood"])
 	stoneLabel.text = str(ImportData.buildingdata["TownCenter"]["BuildingStone"])
 	foodLabel.text = str(ImportData.buildingdata["TownCenter"]["BuildingFood"])
-	labelBuildingdescription.text = "A town center allows your villagers to build other buildings. You can build town centers anywhere on the map."
+	labelBuildingdescription.text = str(ImportData.buildingdata["TownCenter"]["BuildingHelpDesciption"])
 
 func _on_town_center_button_mouse_exited():
 	hide_button_tips()
 
 func _on_barracks_button_mouse_entered():
 	show_button_tips()
-	labelBuildingName.text = "Barracks (hotkey 'y')" 
+	labelBuildingName.text = "Barracks (hotkey: D)" 
 	goldLabel.text = str(ImportData.buildingdata["Barracks"]["BuildingGold"])
 	woodlabel.text = str(ImportData.buildingdata["Barracks"]["BuildingWood"])
 	stoneLabel.text = str(ImportData.buildingdata["Barracks"]["BuildingStone"])
 	foodLabel.text = str(ImportData.buildingdata["Barracks"]["BuildingFood"])
-	labelBuildingdescription.text = "A barracks allows your villagers to train soldiers. You can build barracks anywhere on the map."
+	labelBuildingdescription.text = str(ImportData.buildingdata["Barracks"]["BuildingHelpDesciption"])
 
 func _on_barracks_button_mouse_exited():
 	hide_button_tips()
