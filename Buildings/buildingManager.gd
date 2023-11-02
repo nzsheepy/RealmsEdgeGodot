@@ -150,6 +150,7 @@ func AddUnitToBuilding(newUnit):
 
 		# Disable layermasks
 		newUnit.collision_mask = 0
+		newUnit.collision_layer = 512
 
 		# Disable NavAgent
 		var navAgent : NavigationAgent2D = newUnit.get_node("NavigationAgent2D")
@@ -181,6 +182,7 @@ func RemoveUnitFromBuilding(unit):
 
 	unitsGathering.erase(unit)
 	unit.collision_mask = unitMask
+	unit.collision_layer = 514
 
 	var stateController: StateController = unit.get_node("StateController")
 	stateController.SetState(StateController.State.MOVING)

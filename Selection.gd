@@ -40,3 +40,7 @@ func OnTimeOut():
 		if body.has_node("UnitController"):
 			body.get_node("UnitController").set_selected(true)
 	unitManager.unitSelected()
+
+	var shape: RectangleShape2D = collision_shape.shape
+	shape.set("size", Vector2(0, 0))
+	collision_shape.shape = shape
