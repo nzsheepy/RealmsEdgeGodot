@@ -162,7 +162,7 @@ func HandleBarracks():
 		if unitsToTrain[unit] <= elapsedTime:
 			# Unit is done training, add it to the building
 			RemoveUnitFromBuilding(unit)
-			unit.Destroy()
+			unit.Destroy(false)
 
 			# Spawn a new soldier and add it to the building
 			var soldier = soldierPreload.instantiate()

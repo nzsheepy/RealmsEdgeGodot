@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://237jrtmggres"]
+[gd_scene load_steps=5 format=3 uid="uid://dtsf7mhhe6q58"]
 
 [ext_resource type="Script" path="res://EnemyBuilding.gd" id="1_8owel"]
 [ext_resource type="Texture2D" uid="uid://de7yvywhlcjyt" path="res://MiniWorldSprites/Buildings/Red/RedKeep.png" id="1_826tu"]
+[ext_resource type="PackedScene" uid="uid://2f2sj4330ktk" path="res://attackable.tscn" id="3_553ny"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1t3v"]
 size = Vector2(32, 32)
@@ -20,3 +21,6 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_l1t3v")
+
+[node name="Attackable" parent="." instance=ExtResource("3_553ny")]
+maxHealth = 1000
