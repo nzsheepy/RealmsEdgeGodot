@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bimn70kcq04j4" path="res://MiniWorldSprites/Nature/Wheatfield.png" id="3_jaqvi"]
 [ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="4_o71gt"]
 [ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="5_ceesq"]
-[ext_resource type="LabelSettings" path="res://Buildings/PercentFont.tres" id="6_udikp"]
+[ext_resource type="LabelSettings" uid="uid://cq6ct73bo7dn5" path="res://Buildings/PercentFont.tres" id="6_udikp"]
 [ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="7_iq0dl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5xh55"]
