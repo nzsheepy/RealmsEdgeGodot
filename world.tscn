@@ -113,6 +113,7 @@ border_color = Color(0.768627, 0.603922, 0.341176, 1)
 [node name="World" type="Node2D"]
 
 [node name="Grid" parent="." instance=ExtResource("1_6nfbs")]
+position = Vector2(0, 1)
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("selection", "unitManager")]
 anchor_mode = 0
@@ -153,7 +154,7 @@ gatherTime = 3
 built = true
 
 [node name="EnemyBuildings" type="Node2D" parent="."]
-position = Vector2(-172, 81)
+position = Vector2(11, 0)
 
 [node name="EnemyTC" parent="EnemyBuildings" instance=ExtResource("6_mkbqr")]
 position = Vector2(1915, 220)
