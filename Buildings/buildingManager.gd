@@ -5,8 +5,10 @@ class_name Building
 
 @onready var resourceManager = $"../../resourceManager"
 @onready var grid : Grid = $"../../Grid"
+@onready var enemySpanwer = $"../../EnemySpawner"
 
 @export var buildingSize: int
+@export var overrideBuildingSize : int = -1
 @export var resource: ResourceManager.ResourceType
 @export var gatherAmount: int
 @export var gatherTime: int
@@ -17,7 +19,7 @@ var firstloop = true
 @export var built = false
 var isFoundation = false
 @export var buildTime : int
-
+var visibleUnits = []
 
 @onready var constructionProgressLabel = get_node("BuildingConstructionPercent")
 @onready var healthPercent = get_node("healthPercent")
@@ -146,6 +148,7 @@ func _process(delta):
 				return
 
 			var unit = loadUnit.instantiate()
+			unit.get_node("UnitController").pathingToBuilding = self
 			get_node("../../Units").add_child(unit)
 			AddUnitToBuilding(unit)
 			unit.get_node("StateController").SetState(StateController.State.MOVING)
@@ -163,6 +166,7 @@ func HandleBarracks():
 
 			# Spawn a new soldier and add it to the building
 			var soldier = soldierPreload.instantiate()
+			soldier.get_node("UnitController").pathingToBuilding = self
 			get_node("../../Units").add_child(soldier)
 			resourceManager.add(ResourceManager.ResourceType.POP, 1)
 
@@ -176,24 +180,41 @@ func GetNewUnitPosition():
 	if isBarracks:
 		unitCount = unitsToTrain.size()
 
-	if unitCount >= buildingSize * buildingSize:
+	var realBuildingSize = buildingSize
+	if overrideBuildingSize != -1:
+		realBuildingSize = overrideBuildingSize
+
+	if unitCount >= realBuildingSize * realBuildingSize:
 		return Vector2(-1, -1)
 
-	var tile_pos = Vector2(unitCount % buildingSize, unitCount / buildingSize)
+	var tile_pos = Vector2(unitCount % realBuildingSize, unitCount / realBuildingSize)
 
-	return global_position + tile_pos * 16 + Vector2(8, 8)
+	var offset = Vector2(0, 0)
+	if overrideBuildingSize != -1:
+		var offsetTileSize = (abs(buildingSize - realBuildingSize) / 2) * 16
+		offset = Vector2(offsetTileSize, offsetTileSize)
+
+	return global_position + tile_pos * 16 + Vector2(8, 8) + offset
 
 
 func AddUnitToBuilding(newUnit):
+	var stateController = newUnit.get_node("StateController")
 	var unitsCount = unitsGathering.size()
 
 	if isBarracks:
 		unitsCount = unitsToTrain.size()
 
+	if !stateController.isSoldier:
+		visibleUnits.append(newUnit)
+
 	# Save old unit mask
 	unitMask = newUnit.collision_mask
 
-	if unitsCount >= buildingSize * buildingSize:
+	var realBuildingSize = buildingSize
+	if overrideBuildingSize != -1:
+		realBuildingSize = overrideBuildingSize
+
+	if unitsCount >= realBuildingSize * realBuildingSize:
 		return
 
 	var new_pos = GetNewUnitPosition()
@@ -203,16 +224,15 @@ func AddUnitToBuilding(newUnit):
 
 	var unitController: UnitController = newUnit.get_node("UnitController")
 
-	if !unitController.CanEnterBuilding():
+	if !unitController.CanEnterBuilding(self):
 		return
 
-	if newUnit.has_node("StateController"):
+	if stateController:
 		if isBarracks:
 			unitsToTrain[newUnit] = elapsedTime + trainingTime
 		else:
 			unitsGathering.append(newUnit)
 
-		var stateController: StateController = newUnit.get_node("StateController")
 		stateController.SetState(StateController.State.GATHERING)
 
 		unitController.set_selected(false)
@@ -230,26 +250,56 @@ func AddUnitToBuilding(newUnit):
 	updateGatherRateLabel()
 
 
-func RemoveUnitFromBuilding(unit):
-	# Find new safe position for unit outside of building
-	var new_pos = Vector2(0, 0)
-	var found = false
+func FindSurroundingGrassTiles():
+	var grass_tiles = []
 
-	for x in range(-1, buildingSize + 2):
-		for y in range(-1, buildingSize + 2):
+	for x in range(-1, buildingSize + 1):
+		for y in range(-1, buildingSize + 1):
+			# Skip if corner
+			if (x == -1 && y == -1) || (x == -1 && y == buildingSize) || (x == buildingSize && y == -1) || (x == buildingSize && y == buildingSize):
+				continue
+
+			# Skip if tile inside
+			if x >= 0 && x < buildingSize && y >= 0 && y < buildingSize:
+				continue
+
 			var pos = global_position + Vector2(x, y) * 16 + Vector2(8, 8)
 			var tile_pos = grid.WorldToTilePos(pos)
 			if grid.TileBlocked(tile_pos):
 				continue
-			else:
-				new_pos = pos
-				found = true
-				break
 
-		if found:
-			break
+			grass_tiles.append(pos)
+
+	return grass_tiles
 
 
+func FindExitPosition():
+	var mouse_pos = get_global_mouse_position()
+	var grass_tiles = FindSurroundingGrassTiles()
+
+	if grass_tiles.size() == 0:
+		return global_position
+
+	var closest_tile = grass_tiles[0]
+	var closest_dist = (mouse_pos - closest_tile).length_squared()
+	for tile in grass_tiles:
+		var dist = (mouse_pos - tile).length_squared()
+		if dist < closest_dist:
+			closest_dist = dist
+			closest_tile = tile
+
+	return closest_tile
+
+
+func RemoveUnitFromBuilding(unit):
+	visibleUnits.erase(unit)
+
+	var realBuildingSize = buildingSize
+	if overrideBuildingSize != -1:
+		realBuildingSize = overrideBuildingSize
+
+	# Find new safe position for unit outside of building
+	var new_pos = FindExitPosition()
 	unit.position = new_pos
 
 	if isBarracks:
@@ -281,7 +331,7 @@ func RemoveUnitFromBuilding(unit):
 
 	var i = 0
 	for u in units:
-		var tile_pos = Vector2(i % buildingSize, i / buildingSize)
+		var tile_pos = Vector2(i % realBuildingSize, i / realBuildingSize)
 		u.position = global_position + tile_pos * 16 + Vector2(8, 8)
 		i += 1
 
@@ -309,10 +359,12 @@ func TakeDamage(damage):
 	if currentHealth <= 0:
 		for unit in units:
 			unit.Destroy()
-		
+		enemySpanwer.spawnEnemy(global_position)
 		queue_free()
 		if buildingType == "House" && !isFoundation && built:
 			resourceManager.add(ResourceManager.ResourceType.MAXPOP, -5)
+		
+		
 
 func updateHealthPercentLabel():
 	var health_percent = int((currentHealth / float(buildingHealth)) * 100)

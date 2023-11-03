@@ -8,29 +8,12 @@ var selected = false
 @onready var camera : Camera2D = get_node("../../../Camera")
 
 var occupyingBuilding = null
-var enterBuildingCooldown = 1.5
-var enterBuildingTimer = enterBuildingCooldown + 0.1
 @export var canEnterBuildings = true
+var pathingToBuilding = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_selected(selected)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	enterBuildingTimer += delta
-	
-	if (!selected):
-		return
-
-	if (Input.is_action_just_released("RightClick")):
-		if (occupyingBuilding != null):
-			occupyingBuilding.RemoveUnitFromBuilding(get_parent())
-			enterBuildingTimer = 0.0
-			occupyingBuilding = null
-
-		stateController.MoveUnit(get_global_mouse_position())
 	
 
 func set_selected(value):
@@ -38,11 +21,32 @@ func set_selected(value):
 	selected = value
 
 
-func CanEnterBuilding():
+func MoveCommand(pos, movingToBuilding):
+	if !selected:
+		return
+
+	if (occupyingBuilding != null):
+		occupyingBuilding.RemoveUnitFromBuilding(get_parent())
+		occupyingBuilding = null
+
+	if !stateController.isSoldier:
+		stateController.SetAgression(false)
+
+	pathingToBuilding = movingToBuilding
+	stateController.MoveUnit(pos)
+
+
+func CanEnterBuilding(building):
+	if !pathingToBuilding:
+		return false
+
+	if pathingToBuilding != building:
+		return false
+
 	if !canEnterBuildings:
 		return false
 
-	if (enterBuildingTimer < enterBuildingCooldown || occupyingBuilding != null):
+	if occupyingBuilding != null:
 		return false
 
 	return true
@@ -50,6 +54,7 @@ func CanEnterBuilding():
 
 func SetBuilding(building):
 	occupyingBuilding = building
+	pathingToBuilding = building
 
 
 func InBuilding():

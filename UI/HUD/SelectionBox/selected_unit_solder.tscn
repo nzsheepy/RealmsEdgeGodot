@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://4005e2ur1m6y"]
+
+[ext_resource type="Texture2D" uid="uid://cs0011enlxsk" path="res://Unit Selectors/UnitSelectorSOLDIER.png" id="1_gpuh6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_js8p3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.415686, 0.886275, 0.909804, 1)
+border_blend = true
+
+[node name="Control" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -592.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_gpuh6")
+
+[node name="Box" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_js8p3")
+metadata/_edit_use_anchors_ = true

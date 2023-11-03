@@ -32,8 +32,8 @@ var reacquireTargetTimer = 0.0
 func _process(delta):
 	reacquireTargetTimer += delta
 
-	if state == State.ATTACKING && isSoldier:
-		if !tryAttack:
+	if state == State.ATTACKING && tryAttack:
+		if get_node("../UnitController").InBuilding():
 			return
 
 		character.movement_component.Stop()
@@ -53,12 +53,11 @@ func _process(delta):
 			state = State.IDLE
 			moveTargetLoc = null
 
-	if isSoldier && reacquireTargetTimer > reacquireCurrentWaitTime:
+	if tryAttack && reacquireTargetTimer > reacquireCurrentWaitTime:
 		MoveToTarget()
 	
 	if state == State.IDLE:
-		if isSoldier:
-			tryAttack = true
+		tryAttack = true
 
 	if (state == State.CONSTRUCTING):
 		pass
@@ -72,6 +71,10 @@ func _process(delta):
 
 func SetState(newState: State):
 	state = newState
+
+
+func SetAgression(agressive: bool):
+	tryAttack = agressive
 
 
 func MoveUnit(target: Vector2):
