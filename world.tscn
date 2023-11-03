@@ -1,6 +1,6 @@
-[gd_scene load_steps=42 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=49 format=3 uid="uid://cc5gby6fsnn4w"]
 
-[ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
+[ext_resource type="PackedScene" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
 [ext_resource type="PackedScene" uid="uid://btldymmsuq2wy" path="res://Buildings/town_center.tscn" id="5_usv12"]
@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cmc45nl0xt2o4" path="res://UI/HUD/icons/Wood.png" id="13_lkvij"]
 [ext_resource type="Texture2D" uid="uid://bwqvyprvxyq5k" path="res://UI/HUD/icons/Stone.png" id="14_3myer"]
 [ext_resource type="Texture2D" uid="uid://b31qeua8ux13l" path="res://UI/HUD/icons/Food.png" id="15_3ae74"]
-[ext_resource type="LabelSettings" path="res://UI/HUD/icons/ResourceFont.tres" id="15_tlm4n"]
+[ext_resource type="LabelSettings" uid="uid://71ho6woepd36" path="res://UI/HUD/icons/ResourceFont.tres" id="15_tlm4n"]
 [ext_resource type="Texture2D" uid="uid://wvknjy2escn3" path="res://UI/HUD/icons/pop.png" id="16_i870m"]
 [ext_resource type="Texture2D" uid="uid://cvoyjvihp7lu" path="res://UI/HUD/Command Card/HammerCCIcon.png" id="16_qjdfr"]
 [ext_resource type="Texture2D" uid="uid://dtlgyk6qyos3l" path="res://UI/HUD/Command Card/HouseCCIcon.png" id="17_ywhs7"]
@@ -32,6 +32,14 @@
 [ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="27_j1mkb"]
 [ext_resource type="FontFile" uid="uid://cwqu3cfuskrrs" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Regular.ttf" id="27_s7wou"]
 [ext_resource type="Texture2D" uid="uid://bqkgs7vunc5bu" path="res://UI/Textbox/GreyFlag.png" id="30_2ddyc"]
+[ext_resource type="Texture2D" uid="uid://b2heqvhnertgv" path="res://UI/HUD/Command Card/MoveCCIcon.png" id="31_hmfxq"]
+[ext_resource type="Texture2D" uid="uid://cn0c1muoi8e6a" path="res://UI/HUD/Command Card/StopCCIcon.png" id="32_1xvpp"]
+[ext_resource type="Texture2D" uid="uid://ckvc7jje1i7k" path="res://UI/HUD/Selection ID/SelectionIDWorker.png" id="33_2bb86"]
+[ext_resource type="Texture2D" uid="uid://3bqpt0uilfgd" path="res://UI/HUD/Command Card/AttackCCIcon.png" id="34_potm0"]
+[ext_resource type="Texture2D" uid="uid://d03adgyuuykeo" path="res://UI/HUD/Command Card/DefenseCCIcon.png" id="35_44htd"]
+[ext_resource type="LabelSettings" uid="uid://biwjixnle6grb" path="res://UI/Font/AttackDefenceFont.tres" id="35_uddvq"]
+[ext_resource type="PackedScene" uid="uid://cygxij8t2fvly" path="res://UI/Progress Bar/texture_progress_bar.tscn" id="39_wpw1l"]
+[ext_resource type="Texture2D" uid="uid://dgqu1spwx8150" path="res://UI/HUD/Selection ID/SelectionIDSoldier.png" id="40_bkewo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41w8"]
 bg_color = Color(0, 0.933333, 0.843137, 0.219608)
@@ -75,29 +83,23 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.768627, 0.603922, 0.341176, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muu45"]
-bg_color = Color(0.803922, 0.137255, 0.196078, 0.784314)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.768627, 0.603922, 0.341176, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_yoxcv"]
+line_spacing = 0.0
+font = ExtResource("27_j1mkb")
+font_size = 50
+font_color = Color(1, 1, 1, 0.784314)
+outline_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 0
+shadow_color = Color(0.466667, 0.466667, 0.466667, 0.427451)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmjf6"]
-bg_color = Color(0.25098, 0.517647, 0.196078, 0.784314)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.768627, 0.603922, 0.341176, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1crrq"]
-bg_color = Color(0.133333, 0.490196, 0.592157, 0.784314)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.768627, 0.603922, 0.341176, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_rvedw"]
+line_spacing = 0.0
+font = ExtResource("27_j1mkb")
+font_size = 20
+font_color = Color(1, 1, 1, 0.784314)
+outline_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.427451)
 
 [node name="World" type="Node2D"]
 
@@ -127,10 +129,10 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_q41w8")
 
 [node name="resourceManager" type="Node2D" parent="."]
 script = ExtResource("8_b4m7g")
-gold = 500
-wood = 200
-stone = 100
-food = 100
+gold = 2000
+wood = 5000
+stone = 5000
+food = 5000
 
 [node name="buildingPlacement" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
 script = ExtResource("8_hhrwk")
@@ -478,15 +480,15 @@ scale = Vector2(0.165073, 0.165073)
 
 [node name="unit_attack_button" type="Button" parent="HUD/HUD/HBoxContainer"]
 layout_mode = 2
-icon = ExtResource("16_qjdfr")
+icon = ExtResource("34_potm0")
 
 [node name="unit_move_button" type="Button" parent="HUD/HUD/HBoxContainer"]
 layout_mode = 2
-icon = ExtResource("16_qjdfr")
+icon = ExtResource("31_hmfxq")
 
 [node name="unit_stop_button" type="Button" parent="HUD/HUD/HBoxContainer"]
 layout_mode = 2
-icon = ExtResource("16_qjdfr")
+icon = ExtResource("32_1xvpp")
 
 [node name="UnitGridContainer" type="GridContainer" parent="HUD/HUD"]
 layout_mode = 0
@@ -518,7 +520,6 @@ text = "  Next Wave in:
 label_settings = SubResource("LabelSettings_liug8")
 autowrap_mode = 3
 script = ExtResource("23_ledid")
-initial_wave_time = 120
 waveShortner = false
 
 [node name="WaveTimer" type="Timer" parent="HUD/HUD/PanelContainerWaveTimer/LabelTimer"]
@@ -580,73 +581,143 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="unitPortraitWorker" type="Panel" parent="HUD/HUD/SelectionID"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 501.0
-offset_right = 70.0
-offset_bottom = 541.0
-scale = Vector2(2.76901, 2.76901)
-theme_override_styles/panel = ExtResource("23_fki64")
-
-[node name="unitPortraitWorker2" type="Panel" parent="HUD/HUD/SelectionID"]
-layout_mode = 0
-offset_left = 156.0
-offset_top = 513.0
-offset_right = 196.0
-offset_bottom = 553.0
-scale = Vector2(0.75999, 0.75999)
-theme_override_styles/panel = SubResource("StyleBoxFlat_muu45")
-
-[node name="unitPortraitWorker4" type="Panel" parent="HUD/HUD/SelectionID"]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 656.0
-offset_right = 70.0
-offset_bottom = 696.0
-scale = Vector2(5.23999, 0.75999)
-theme_override_styles/panel = SubResource("StyleBoxFlat_wmjf6")
-
-[node name="unitPortraitWorker3" type="Panel" parent="HUD/HUD/SelectionID"]
-layout_mode = 0
-offset_left = 156.0
-offset_top = 564.0
-offset_right = 196.0
-offset_bottom = 604.0
-scale = Vector2(0.75999, 0.75999)
-theme_override_styles/panel = SubResource("StyleBoxFlat_1crrq")
-
-[node name="Label" type="Label" parent="HUD/HUD/SelectionID"]
-layout_mode = 0
+[node name="unitPortraitWorker" type="Control" parent="HUD/HUD/SelectionID"]
+anchors_preset = 0
 offset_left = 32.0
-offset_top = 621.0
-offset_right = 100.0
-offset_bottom = 647.0
+offset_top = 502.0
+offset_right = 72.0
+offset_bottom = 542.0
+scale = Vector2(2.94163, 2.94163)
+
+[node name="GridContainer" type="GridContainer" parent="HUD/HUD/SelectionID/unitPortraitWorker"]
+layout_mode = 0
+offset_left = 42.4794
+offset_top = 4.49268
+offset_right = 682.479
+offset_bottom = 911.493
+scale = Vector2(0.035, 0.035)
+theme_override_constants/v_separation = 105
+columns = 2
+
+[node name="TextureRectAttack" type="TextureRect" parent="HUD/HUD/SelectionID/unitPortraitWorker/GridContainer"]
+layout_mode = 2
+texture = ExtResource("34_potm0")
+
+[node name="Label2" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/GridContainer"]
+layout_mode = 2
+text = "99"
+label_settings = ExtResource("35_uddvq")
+
+[node name="TextureRectDefence" type="TextureRect" parent="HUD/HUD/SelectionID/unitPortraitWorker/GridContainer"]
+layout_mode = 2
+texture = ExtResource("35_44htd")
+
+[node name="Label3" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/GridContainer"]
+layout_mode = 2
+text = "99"
+label_settings = ExtResource("35_uddvq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/HUD/SelectionID/unitPortraitWorker"]
+layout_mode = 0
+offset_right = 302.0
+offset_bottom = 547.0
+scale = Vector2(0.12805, 0.12805)
+theme_override_constants/separation = -20
+
+[node name="TextureRectWorker" type="TextureRect" parent="HUD/HUD/SelectionID/unitPortraitWorker/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("33_2bb86")
+
+[node name="Label" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/VBoxContainer"]
+layout_mode = 2
 text = "WORKER"
+label_settings = SubResource("LabelSettings_yoxcv")
 
-[node name="Label4" type="Label" parent="HUD/HUD/SelectionID"]
-layout_mode = 0
-offset_left = 89.0
-offset_top = 659.0
-offset_right = 181.0
-offset_bottom = 685.0
+[node name="TextureProgressBar" parent="HUD/HUD/SelectionID/unitPortraitWorker" instance=ExtResource("39_wpw1l")]
+layout_mode = 2
+offset_top = 49.9395
+offset_right = 70.0
+offset_bottom = 62.8845
+
+[node name="Label4" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/TextureProgressBar"]
+layout_mode = 2
+offset_left = 4.41932
+offset_top = -1.66687
+offset_right = 139.419
+offset_bottom = 51.3331
+scale = Vector2(0.3, 0.3)
 text = "HP: 100/100"
+label_settings = SubResource("LabelSettings_rvedw")
 
-[node name="Label2" type="Label" parent="HUD/HUD/SelectionID"]
-layout_mode = 0
-offset_left = 193.0
-offset_top = 512.0
-offset_right = 261.0
-offset_bottom = 538.0
-text = "99"
+[node name="unitPortraitSolder" type="Control" parent="HUD/HUD/SelectionID"]
+visible = false
+anchors_preset = 0
+offset_left = 32.0
+offset_top = 502.0
+offset_right = 72.0
+offset_bottom = 542.0
+scale = Vector2(2.94163, 2.94163)
 
-[node name="Label3" type="Label" parent="HUD/HUD/SelectionID"]
+[node name="GridContainer" type="GridContainer" parent="HUD/HUD/SelectionID/unitPortraitSolder"]
 layout_mode = 0
-offset_left = 193.0
-offset_top = 565.0
-offset_right = 261.0
-offset_bottom = 591.0
+offset_left = 42.4794
+offset_top = 4.49268
+offset_right = 682.479
+offset_bottom = 911.493
+scale = Vector2(0.035, 0.035)
+theme_override_constants/v_separation = 105
+columns = 2
+
+[node name="TextureRectAttack" type="TextureRect" parent="HUD/HUD/SelectionID/unitPortraitSolder/GridContainer"]
+layout_mode = 2
+texture = ExtResource("34_potm0")
+
+[node name="Label2" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/GridContainer"]
+layout_mode = 2
 text = "99"
+label_settings = ExtResource("35_uddvq")
+
+[node name="TextureRectDefence" type="TextureRect" parent="HUD/HUD/SelectionID/unitPortraitSolder/GridContainer"]
+layout_mode = 2
+texture = ExtResource("35_44htd")
+
+[node name="Label3" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/GridContainer"]
+layout_mode = 2
+text = "99"
+label_settings = ExtResource("35_uddvq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/HUD/SelectionID/unitPortraitSolder"]
+layout_mode = 0
+offset_right = 302.0
+offset_bottom = 547.0
+scale = Vector2(0.12805, 0.12805)
+theme_override_constants/separation = -20
+
+[node name="TextureRectSolder" type="TextureRect" parent="HUD/HUD/SelectionID/unitPortraitSolder/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("40_bkewo")
+
+[node name="Label" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/VBoxContainer"]
+layout_mode = 2
+text = "SOLDER
+"
+label_settings = SubResource("LabelSettings_yoxcv")
+
+[node name="TextureProgressBar" parent="HUD/HUD/SelectionID/unitPortraitSolder" instance=ExtResource("39_wpw1l")]
+layout_mode = 2
+offset_top = 49.9395
+offset_right = 70.0
+offset_bottom = 62.8845
+
+[node name="Label4" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/TextureProgressBar"]
+layout_mode = 2
+offset_left = 4.41932
+offset_top = -1.66687
+offset_right = 139.419
+offset_bottom = 51.3331
+scale = Vector2(0.3, 0.3)
+text = "HP: 100/100"
+label_settings = SubResource("LabelSettings_rvedw")
 
 [connection signal="mouse_entered" from="HUD/HUD/Control" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control" to="mouseHandle" method="_on_exit"]
@@ -684,21 +755,21 @@ text = "99"
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="mouseHandle" method="_on_entered"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_pressed"]
-[connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_exited"]
 [connection signal="pressed" from="HUD/HUD/build_menu_button" to="buildingPlacement" method="_on_build_menu_button_pressed"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_exited"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_exited"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_exited"]
 [connection signal="timeout" from="HUD/HUD/PanelContainerWaveTimer/LabelTimer/WaveTimer" to="HUD/HUD/PanelContainerWaveTimer/LabelTimer" method="_on_wave_timer_timeout"]

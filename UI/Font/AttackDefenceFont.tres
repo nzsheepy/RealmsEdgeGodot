@@ -1,0 +1,12 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://biwjixnle6grb"]
+
+[ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="1_2kkwf"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_2kkwf")
+font_size = 150
+font_color = Color(1, 1, 1, 0.784314)
+outline_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 20
+shadow_color = Color(0.466667, 0.466667, 0.466667, 0.427451)
