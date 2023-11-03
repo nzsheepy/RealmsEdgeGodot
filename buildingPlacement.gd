@@ -148,48 +148,32 @@ func displayBuildingPreview():
 			justPressed = false  # Reset justPressed if the player doesn't have enough resources
 
 func placeBuilding(tile_pos, buildingSize):
-	if currentBuilding == null || building == null:
+	if !canPlaceBuilding(tile_pos, buildingSize):
 		return
 
-	# Raycast check per tile of building size
-	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsPointQueryParameters2D.new()
-	query.collide_with_areas = true
-	query.collide_with_bodies = false
-	query.collision_mask = 8
-	query.exclude = [building.get_node("BuildingArea")]
+	print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
+	print("wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]))
+	print("stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceType.STONE, currentBuilding["BuildingStone"]))
+	print("food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceType.FOOD, currentBuilding["BuildingFood"]))
 
-	for i in range(buildingSize):
-		for j in range(buildingSize):
-			var check_tile = building.global_position + Vector2(i * 16, j * 16) + Vector2(8, 8)
-			query.position = check_tile
-			var result = space_state.intersect_point(query)
-			if result:
-				return
+	building.modulate = Color(1, 1, 1, 1)
+	building.built = true
+	building.startBuild()
+	add_child(building)
+	building = null
 
-	if grid.GetTilesTypeRange(tile_pos, tile_pos + Vector2(buildingSize -1,buildingSize - 1)) == currentBuilding["BuildingTerrain"]:
-		print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
-		print("wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]))
-		print("stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceType.STONE, currentBuilding["BuildingStone"]))
-		print("food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceType.FOOD, currentBuilding["BuildingFood"]))
+	currentBuilding = null
+	res = null
 
-		building.modulate = Color(1, 1, 1, 1)
-		building.built = true
-		building.startBuild()
-		add_child(building)
-		building = null
-
-		currentBuilding = null
-		res = null
-
-		buildmenutoggle = false
-		button_hide()
-		justPressed = false
+	buildmenutoggle = false
+	button_hide()
+	justPressed = false
 
 func canPlaceBuilding(tile_pos, buildingSize):
 	if currentBuilding == null || building == null:
 		return false
 
+	# Raycast check per tile of building size
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsPointQueryParameters2D.new()
 	query.collide_with_areas = true
@@ -206,6 +190,9 @@ func canPlaceBuilding(tile_pos, buildingSize):
 				return false
 
 	if grid.GetTilesTypeRange(tile_pos, tile_pos + Vector2(buildingSize -1,buildingSize - 1)) != currentBuilding["BuildingTerrain"]:
+		return false
+
+	if building.FindSurroundingGrassTiles().size() < 1:
 		return false
 
 	return true

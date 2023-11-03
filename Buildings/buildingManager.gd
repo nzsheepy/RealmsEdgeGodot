@@ -252,10 +252,10 @@ func AddUnitToBuilding(newUnit):
 func FindSurroundingGrassTiles():
 	var grass_tiles = []
 
-	for x in range(-1, buildingSize + 2):
-		for y in range(-1, buildingSize + 2):
+	for x in range(-1, buildingSize + 1):
+		for y in range(-1, buildingSize + 1):
 			# Skip if corner
-			if (x == -1 && y == -1) || (x == -1 && y == buildingSize + 1) || (x == buildingSize + 1 && y == -1) || (x == buildingSize + 1 && y == buildingSize + 1):
+			if (x == -1 && y == -1) || (x == -1 && y == buildingSize) || (x == buildingSize && y == -1) || (x == buildingSize && y == buildingSize):
 				continue
 
 			# Skip if tile inside
