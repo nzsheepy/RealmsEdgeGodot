@@ -72,12 +72,17 @@ func FindTargetCenter():
 func FindAndMoveTownCenter():
 	if townCenterTarget != null:
 		MoveUnit(townCenterTarget.global_position)
+		reacquireTargetTimer = 0.0
+		reacquireCurrentWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
 		return
 
 	var townCenters = buildingPlacement.GetBuildingsOfType("TownCenter")
 	if townCenters.size() == 0:
 		character.movement_component.Stop()
 		return
+
+	reacquireTargetTimer = 0.0
+	reacquireCurrentWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
 
 	townCenterTarget = townCenters[randi() % townCenters.size()]
 	MoveUnit(townCenterTarget.global_position)
