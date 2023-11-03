@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=51 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="PackedScene" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
@@ -35,7 +35,9 @@
 [ext_resource type="Texture2D" uid="uid://b2heqvhnertgv" path="res://UI/HUD/Command Card/MoveCCIcon.png" id="31_hmfxq"]
 [ext_resource type="Texture2D" uid="uid://cn0c1muoi8e6a" path="res://UI/HUD/Command Card/StopCCIcon.png" id="32_1xvpp"]
 [ext_resource type="Texture2D" uid="uid://ckvc7jje1i7k" path="res://UI/HUD/Selection ID/SelectionIDWorker.png" id="33_2bb86"]
+[ext_resource type="PackedScene" uid="uid://4005e2ur1m6y" path="res://UI/HUD/SelectionBox/selected_unit_solder.tscn" id="33_i2vvn"]
 [ext_resource type="Texture2D" uid="uid://3bqpt0uilfgd" path="res://UI/HUD/Command Card/AttackCCIcon.png" id="34_potm0"]
+[ext_resource type="PackedScene" uid="uid://cennhdoytmbp" path="res://UI/HUD/SelectionBox/selected_unit_worker.tscn" id="34_sklus"]
 [ext_resource type="Texture2D" uid="uid://d03adgyuuykeo" path="res://UI/HUD/Command Card/DefenseCCIcon.png" id="35_44htd"]
 [ext_resource type="LabelSettings" uid="uid://biwjixnle6grb" path="res://UI/Font/AttackDefenceFont.tres" id="35_uddvq"]
 [ext_resource type="PackedScene" uid="uid://cygxij8t2fvly" path="res://UI/Progress Bar/texture_progress_bar.tscn" id="39_wpw1l"]
@@ -494,10 +496,16 @@ icon = ExtResource("32_1xvpp")
 layout_mode = 0
 offset_left = 241.0
 offset_top = 577.0
-offset_right = 2911.3
-offset_bottom = 1014.1
-scale = Vector2(0.29, 0.29)
+offset_right = 4118.56
+offset_bottom = 1177.0
+scale = Vector2(0.2, 0.2)
 columns = 20
+
+[node name="Control" parent="HUD/HUD/UnitGridContainer" instance=ExtResource("33_i2vvn")]
+layout_mode = 2
+
+[node name="Control2" parent="HUD/HUD/UnitGridContainer" instance=ExtResource("34_sklus")]
+layout_mode = 2
 
 [node name="PanelContainerWaveTimer" type="PanelContainer" parent="HUD/HUD"]
 clip_contents = true
@@ -520,6 +528,7 @@ text = "  Next Wave in:
 label_settings = SubResource("LabelSettings_liug8")
 autowrap_mode = 3
 script = ExtResource("23_ledid")
+initial_wave_time = 120
 waveShortner = false
 
 [node name="WaveTimer" type="Timer" parent="HUD/HUD/PanelContainerWaveTimer/LabelTimer"]

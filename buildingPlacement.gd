@@ -260,6 +260,8 @@ func button_show():
 	get_node("../HUD/HUD/HBoxContainer/unit_attack_button").hide()
 	get_node("../HUD/HUD/HBoxContainer/unit_move_button").hide()
 	get_node("../HUD/HUD/HBoxContainer/unit_stop_button").hide()
+	mouseHandle.show_resource_tips()
+	
 
 
 func button_hide():

@@ -1,25 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cennhdoytmbp"]
+[gd_scene load_steps=2 format=3 uid="uid://cennhdoytmbp"]
 
 [ext_resource type="Texture2D" uid="uid://bc4kpb2bg2k0x" path="res://Unit Selectors/UnitSelectorWORKER.png" id="1_80oeu"]
-[ext_resource type="Texture2D" uid="uid://cb4p8kuqj7jt0" path="res://icon.svg" id="1_b3g8p"]
 
 [node name="Control" type="TextureRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -76.5
-offset_top = -86.0
-offset_right = -1075.5
-offset_bottom = -506.0
+offset_right = -999.0
+offset_bottom = -420.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(5, 5)
 texture = ExtResource("1_80oeu")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 76.5
-offset_top = 85.0
-offset_right = 204.5
-offset_bottom = 213.0
-texture = ExtResource("1_b3g8p")
