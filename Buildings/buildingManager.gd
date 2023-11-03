@@ -17,7 +17,7 @@ var firstloop = true
 @export var built = false
 var isFoundation = false
 @export var buildTime : int
-
+var visibleUnits = []
 
 @onready var constructionProgressLabel = get_node("BuildingConstructionPercent")
 @onready var healthPercent = get_node("healthPercent")
@@ -146,6 +146,7 @@ func _process(delta):
 				return
 
 			var unit = loadUnit.instantiate()
+			unit.get_node("UnitController").pathingToBuilding = self
 			get_node("../../Units").add_child(unit)
 			AddUnitToBuilding(unit)
 			unit.get_node("StateController").SetState(StateController.State.MOVING)
@@ -163,6 +164,7 @@ func HandleBarracks():
 
 			# Spawn a new soldier and add it to the building
 			var soldier = soldierPreload.instantiate()
+			soldier.get_node("UnitController").pathingToBuilding = self
 			get_node("../../Units").add_child(soldier)
 			resourceManager.add(ResourceManager.ResourceType.POP, 1)
 
@@ -185,10 +187,14 @@ func GetNewUnitPosition():
 
 
 func AddUnitToBuilding(newUnit):
+	var stateController = newUnit.get_node("StateController")
 	var unitsCount = unitsGathering.size()
 
 	if isBarracks:
 		unitsCount = unitsToTrain.size()
+
+	if !stateController.isSoldier:
+		visibleUnits.append(newUnit)
 
 	# Save old unit mask
 	unitMask = newUnit.collision_mask
@@ -203,16 +209,15 @@ func AddUnitToBuilding(newUnit):
 
 	var unitController: UnitController = newUnit.get_node("UnitController")
 
-	if !unitController.CanEnterBuilding():
+	if !unitController.CanEnterBuilding(self):
 		return
 
-	if newUnit.has_node("StateController"):
+	if stateController:
 		if isBarracks:
 			unitsToTrain[newUnit] = elapsedTime + trainingTime
 		else:
 			unitsGathering.append(newUnit)
 
-		var stateController: StateController = newUnit.get_node("StateController")
 		stateController.SetState(StateController.State.GATHERING)
 
 		unitController.set_selected(false)
@@ -234,6 +239,8 @@ func RemoveUnitFromBuilding(unit):
 	# Find new safe position for unit outside of building
 	var new_pos = Vector2(0, 0)
 	var found = false
+
+	visibleUnits.erase(unit)
 
 	for x in range(-1, buildingSize + 2):
 		for y in range(-1, buildingSize + 2):

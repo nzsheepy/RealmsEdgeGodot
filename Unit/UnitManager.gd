@@ -7,6 +7,42 @@ func _ready():
 	DeselectAll()
 
 
+func _process(_delta):
+	# Move command
+	if (Input.is_action_just_released("RightClick")):
+		# Perform raycast for building in position
+		var mouse_pos = get_global_mouse_position()
+		var space_state = get_world_2d().direct_space_state
+		var query = PhysicsPointQueryParameters2D.new()
+		query.collide_with_areas = true
+		query.collide_with_bodies = false
+		query.collision_mask = 8
+		query.position = mouse_pos
+		var result = space_state.intersect_point(query)
+		var building = null
+		if result:
+			building = result[0].collider.get_parent()
+			if !(building is Building):
+				building = null
+
+		for child in get_children():
+			var unitController = child.get_node("UnitController")
+			if !unitController:
+				continue
+
+			if !unitController.selected:
+				continue
+
+			if building && building == unitController.occupyingBuilding:
+				continue
+
+			if building && building.has_node("EnterArea") && building.visibleUnits.has(child):
+				building.AddUnitToBuilding(child)
+				
+			unitController.MoveCommand(mouse_pos, building)
+
+
+
 func DeselectAll():
 	for child in get_children():
 		if child.has_node("UnitController"):
