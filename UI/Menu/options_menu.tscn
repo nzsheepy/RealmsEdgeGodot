@@ -52,6 +52,7 @@ texture_normal = ExtResource("6_due3e")
 texture_hover = ExtResource("7_c53ue")
 
 [node name="Settings Options" type="VBoxContainer" parent="."]
+layout_mode = 0
 offset_left = 1000.3
 offset_top = 298.067
 offset_right = 1452.3
