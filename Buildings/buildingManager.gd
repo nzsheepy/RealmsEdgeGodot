@@ -7,6 +7,7 @@ class_name Building
 @onready var grid : Grid = $"../../Grid"
 
 @export var buildingSize: int
+@export var overrideBuildingSize : int = -1
 @export var resource: ResourceManager.ResourceType
 @export var gatherAmount: int
 @export var gatherTime: int
@@ -178,12 +179,21 @@ func GetNewUnitPosition():
 	if isBarracks:
 		unitCount = unitsToTrain.size()
 
-	if unitCount >= buildingSize * buildingSize:
+	var realBuildingSize = buildingSize
+	if overrideBuildingSize != -1:
+		realBuildingSize = overrideBuildingSize
+
+	if unitCount >= realBuildingSize * realBuildingSize:
 		return Vector2(-1, -1)
 
-	var tile_pos = Vector2(unitCount % buildingSize, unitCount / buildingSize)
+	var tile_pos = Vector2(unitCount % realBuildingSize, unitCount / realBuildingSize)
 
-	return global_position + tile_pos * 16 + Vector2(8, 8)
+	var offset = Vector2(0, 0)
+	if overrideBuildingSize != -1:
+		var offsetTileSize = (abs(buildingSize - realBuildingSize) / 2) * 16
+		offset = Vector2(offsetTileSize, offsetTileSize)
+
+	return global_position + tile_pos * 16 + Vector2(8, 8) + offset
 
 
 func AddUnitToBuilding(newUnit):
@@ -199,7 +209,11 @@ func AddUnitToBuilding(newUnit):
 	# Save old unit mask
 	unitMask = newUnit.collision_mask
 
-	if unitsCount >= buildingSize * buildingSize:
+	var realBuildingSize = buildingSize
+	if overrideBuildingSize != -1:
+		realBuildingSize = overrideBuildingSize
+
+	if unitsCount >= realBuildingSize * realBuildingSize:
 		return
 
 	var new_pos = GetNewUnitPosition()
@@ -242,8 +256,12 @@ func RemoveUnitFromBuilding(unit):
 
 	visibleUnits.erase(unit)
 
-	for x in range(-1, buildingSize + 2):
-		for y in range(-1, buildingSize + 2):
+	var realBuildingSize = buildingSize
+	if overrideBuildingSize != -1:
+		realBuildingSize = overrideBuildingSize
+
+	for x in range(-1, realBuildingSize + 2):
+		for y in range(-1, realBuildingSize + 2):
 			var pos = global_position + Vector2(x, y) * 16 + Vector2(8, 8)
 			var tile_pos = grid.WorldToTilePos(pos)
 			if grid.TileBlocked(tile_pos):
@@ -288,7 +306,7 @@ func RemoveUnitFromBuilding(unit):
 
 	var i = 0
 	for u in units:
-		var tile_pos = Vector2(i % buildingSize, i / buildingSize)
+		var tile_pos = Vector2(i % realBuildingSize, i / realBuildingSize)
 		u.position = global_position + tile_pos * 16 + Vector2(8, 8)
 		i += 1
 
