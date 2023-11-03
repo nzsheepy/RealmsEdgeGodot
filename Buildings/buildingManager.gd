@@ -249,32 +249,56 @@ func AddUnitToBuilding(newUnit):
 	updateGatherRateLabel()
 
 
-func RemoveUnitFromBuilding(unit):
-	# Find new safe position for unit outside of building
-	var new_pos = Vector2(0, 0)
-	var found = false
+func FindSurroundingGrassTiles():
+	var grass_tiles = []
 
+	for x in range(-1, buildingSize + 2):
+		for y in range(-1, buildingSize + 2):
+			# Skip if corner
+			if (x == -1 && y == -1) || (x == -1 && y == buildingSize + 1) || (x == buildingSize + 1 && y == -1) || (x == buildingSize + 1 && y == buildingSize + 1):
+				continue
+
+			# Skip if tile inside
+			if x >= 0 && x < buildingSize && y >= 0 && y < buildingSize:
+				continue
+
+			var pos = global_position + Vector2(x, y) * 16 + Vector2(8, 8)
+			var tile_pos = grid.WorldToTilePos(pos)
+			if grid.TileBlocked(tile_pos):
+				continue
+
+			grass_tiles.append(pos)
+
+	return grass_tiles
+
+
+func FindExitPosition():
+	var mouse_pos = get_global_mouse_position()
+	var grass_tiles = FindSurroundingGrassTiles()
+
+	if grass_tiles.size() == 0:
+		return global_position
+
+	var closest_tile = grass_tiles[0]
+	var closest_dist = (mouse_pos - closest_tile).length_squared()
+	for tile in grass_tiles:
+		var dist = (mouse_pos - tile).length_squared()
+		if dist < closest_dist:
+			closest_dist = dist
+			closest_tile = tile
+
+	return closest_tile
+
+
+func RemoveUnitFromBuilding(unit):
 	visibleUnits.erase(unit)
 
 	var realBuildingSize = buildingSize
 	if overrideBuildingSize != -1:
 		realBuildingSize = overrideBuildingSize
 
-	for x in range(-1, realBuildingSize + 2):
-		for y in range(-1, realBuildingSize + 2):
-			var pos = global_position + Vector2(x, y) * 16 + Vector2(8, 8)
-			var tile_pos = grid.WorldToTilePos(pos)
-			if grid.TileBlocked(tile_pos):
-				continue
-			else:
-				new_pos = pos
-				found = true
-				break
-
-		if found:
-			break
-
-
+	# Find new safe position for unit outside of building
+	var new_pos = FindExitPosition()
 	unit.position = new_pos
 
 	if isBarracks:
