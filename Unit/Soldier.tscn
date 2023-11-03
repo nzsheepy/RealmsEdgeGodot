@@ -25,7 +25,6 @@ radius = 20.0
 
 [node name="Soldier" instance=ExtResource("1_oeo8f")]
 collision_layer = 514
-collision_mask = 7
 isUnit = true
 
 [node name="HealthComponent" parent="." index="0"]
@@ -39,6 +38,7 @@ navAgent = NodePath("../NavigationAgent2D")
 script = ExtResource("2_tejvs")
 isSoldier = true
 tryAttack = true
+attackDamage = 100.0
 
 [node name="UnitController" type="Node2D" parent="." index="3"]
 script = ExtResource("3_4i2hj")
@@ -84,7 +84,11 @@ debug_color = Color(0.992157, 0, 0.254902, 0.419608)
 
 [connection signal="navigation_finished" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="area_entered" from="Detection" to="StateController" method="_on_detection_area_entered"]
+[connection signal="area_exited" from="Detection" to="StateController" method="_on_detection_area_exited"]
 [connection signal="body_entered" from="Detection" to="StateController" method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="StateController" method="_on_detection_body_exited"]
+[connection signal="area_entered" from="AttackRange" to="StateController" method="_on_attack_range_area_entered"]
+[connection signal="area_exited" from="AttackRange" to="StateController" method="_on_attack_range_area_exited"]
 [connection signal="body_entered" from="AttackRange" to="StateController" method="_on_attack_range_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="StateController" method="_on_attack_range_body_exited"]

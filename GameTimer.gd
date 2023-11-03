@@ -2,6 +2,7 @@ extends Label
 
 @onready var timerLabel = $LabelTimer
 @onready var espawn = $"../../../../EnemySpawner"
+@onready var necromancers = $"../../../../Necromancers"
 @onready var textScroll = $"../../../../HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText/HBoxContainer/LabelPopText"
 @onready var textPanel = $"../../../../HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText"
 var current_wave = 1
@@ -71,3 +72,6 @@ func _on_wave_timer_timeout():
 	current_wave += 1
 	start_new_wave()
 	espawn.startwave()
+
+	for child in necromancers.get_children():
+		child.startwave()

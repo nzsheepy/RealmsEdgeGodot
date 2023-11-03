@@ -12,6 +12,8 @@ var state = State.MOVING
 var target
 var attackTarget
 var townCenterTarget
+var necromancer = null
+var hasNecromancer = false
 
 var reacquireTargetWaitTime = 1.5
 var reacquireCurrentWaitTime = 1.5
@@ -29,8 +31,11 @@ var attackTimer = 0.0
 func _ready():
 	FindAndMoveTownCenter()
 
-
 func _physics_process(_delta):
+	if hasNecromancer && necromancer == null:
+		character.Destroy()
+		return
+
 	reacquireTargetTimer += _delta
 
 	if state == State.ATTACKING:
@@ -72,12 +77,17 @@ func FindTargetCenter():
 func FindAndMoveTownCenter():
 	if townCenterTarget != null:
 		MoveUnit(townCenterTarget.global_position)
+		reacquireTargetTimer = 0.0
+		reacquireCurrentWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
 		return
 
 	var townCenters = buildingPlacement.GetBuildingsOfType("TownCenter")
 	if townCenters.size() == 0:
 		character.movement_component.Stop()
 		return
+
+	reacquireTargetTimer = 0.0
+	reacquireCurrentWaitTime = reacquireTargetWaitTime + (randf() * reacquireTargetDeviation)
 
 	townCenterTarget = townCenters[randi() % townCenters.size()]
 	MoveUnit(townCenterTarget.global_position)
