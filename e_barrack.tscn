@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://vefwt228xkhw"]
+
+[ext_resource type="Texture2D" uid="uid://dxef1bki27v8x" path="res://MiniWorldSprites/Buildings/Red/RedBarracks.png" id="1_prrl6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kncsl"]
+size = Vector2(16.3333, 15.875)
+
+[node name="Node2D" type="Sprite2D"]
+position = Vector2(8, 8)
+texture = ExtResource("1_prrl6")
+hframes = 4
+vframes = 5
+frame = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.25, 0)
+shape = SubResource("RectangleShape2D_kncsl")
