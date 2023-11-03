@@ -1,19 +1,26 @@
-[gd_scene load_steps=50 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=58 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
 [ext_resource type="PackedScene" uid="uid://btldymmsuq2wy" path="res://Buildings/town_center.tscn" id="5_usv12"]
 [ext_resource type="Script" path="res://mouseHandle.gd" id="6_0kifu"]
-[ext_resource type="PackedScene" uid="uid://cb3yhxcntmdm6" path="res://necrodancer.tscn" id="8_3bayd"]
+[ext_resource type="PackedScene" uid="uid://237jrtmggres" path="res://enemy_building.tscn" id="6_5vrah"]
+[ext_resource type="PackedScene" uid="uid://vefwt228xkhw" path="res://e_barrack.tscn" id="7_olyge"]
+[ext_resource type="Texture2D" uid="uid://d3m2c6xg8nhqk" path="res://MiniWorldSprites/Buildings/Red/RedHouses.png" id="8_a0yka"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
 [ext_resource type="Script" path="res://buildingPlacement.gd" id="8_hhrwk"]
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="9_biqw0"]
+[ext_resource type="Texture2D" uid="uid://fkfr15c1ayef" path="res://MiniWorldSprites/Buildings/Red/RedTower.png" id="9_sysw1"]
+[ext_resource type="Texture2D" uid="uid://c7brxu0wy0apt" path="res://MiniWorldSprites/Buildings/Red/RedResources.png" id="10_7o1mh"]
 [ext_resource type="Script" path="res://Selection.gd" id="10_77cnk"]
 [ext_resource type="Script" path="res://UI/HUD/UI_resources.gd" id="10_hxk5g"]
 [ext_resource type="Texture2D" uid="uid://c1omevbv3wad1" path="res://UI/HUD/HUD.png" id="11_oca1s"]
+[ext_resource type="Texture2D" uid="uid://dk0dnyvundo6p" path="res://MiniWorldSprites/Buildings/Red/RedHuts.png" id="11_uilcy"]
+[ext_resource type="Texture2D" uid="uid://8p36d41bkywl" path="res://MiniWorldSprites/Buildings/Enemy/Mausoleum.png" id="12_6qwfu"]
 [ext_resource type="Texture2D" uid="uid://c76u4bk54c4wg" path="res://UI/HUD/icons/Gold.png" id="12_67fed"]
 [ext_resource type="Texture2D" uid="uid://cmc45nl0xt2o4" path="res://UI/HUD/icons/Wood.png" id="13_lkvij"]
+[ext_resource type="Texture2D" uid="uid://bimn70kcq04j4" path="res://MiniWorldSprites/Nature/Wheatfield.png" id="13_oe26l"]
 [ext_resource type="Texture2D" uid="uid://bwqvyprvxyq5k" path="res://UI/HUD/icons/Stone.png" id="14_3myer"]
 [ext_resource type="Texture2D" uid="uid://b31qeua8ux13l" path="res://UI/HUD/icons/Food.png" id="15_3ae74"]
 [ext_resource type="LabelSettings" uid="uid://71ho6woepd36" path="res://UI/HUD/icons/ResourceFont.tres" id="15_tlm4n"]
@@ -54,6 +61,9 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r1uk1"]
+size = Vector2(31.75, 27.6667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s5xso"]
 size = Vector2(0, 0)
@@ -105,6 +115,7 @@ shadow_color = Color(0, 0, 0, 0.427451)
 [node name="World" type="Node2D"]
 
 [node name="Grid" parent="." instance=ExtResource("1_6nfbs")]
+position = Vector2(0, 0)
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("selection", "unitManager")]
 anchor_mode = 0
@@ -140,9 +151,2995 @@ script = ExtResource("8_hhrwk")
 grid = NodePath("../Grid")
 
 [node name="towncenter" parent="buildingPlacement" instance=ExtResource("5_usv12")]
-position = Vector2(256, 78)
+position = Vector2(310, 473)
 gatherTime = 3
 built = true
+
+[node name="EnemyBuildings" type="Node2D" parent="."]
+position = Vector2(-1, 0)
+
+[node name="EnemyTC" parent="EnemyBuildings" instance=ExtResource("6_5vrah")]
+position = Vector2(1915, 220)
+scale = Vector2(5, 5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2465, 335)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse8" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2076, 473)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse9" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2076, 501)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse10" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2076, 529)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse11" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2047, 529)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse12" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2047, 501)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse13" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2019, 529)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse14" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2049, 557)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse15" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2077, 557)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse16" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2077, 585)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse17" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2106, 585)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse18" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1604, 412)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse19" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1604, 441)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse20" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1634, 441)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse21" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1839, 466)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse22" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1839, 494)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse23" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1634, 471)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse24" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1839, 524)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse25" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2210, 645)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse26" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2210, 674)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse27" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2443, 555)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse28" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2473, 556)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse29" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2542, 525)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse30" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2567, 550)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse31" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1735, 741)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse32" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1706, 741)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse33" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2004, 820)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse34" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1973, 820)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse35" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1973, 849)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse36" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2005, 849)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse37" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2006, 878)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse38" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2006, 907)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyTower" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1991, 1061)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_sysw1")
+hframes = 3
+vframes = 6
+frame = 3
+
+[node name="EnemyTower2" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1991, 1101)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_sysw1")
+hframes = 3
+vframes = 6
+frame = 7
+
+[node name="EnemyTower3" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1409, 1181)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_sysw1")
+hframes = 3
+vframes = 6
+frame = 3
+
+[node name="EnemyTower4" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1409, 1221)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_sysw1")
+hframes = 3
+vframes = 6
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2465, 363)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2514, 363)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2579, 399)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse6" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2579, 431)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse7" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2580, 462)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyBarracks" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1819, 93)
+scale = Vector2(3, 3)
+
+[node name="EnemyBarracks2" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1763, 92)
+scale = Vector2(3, 3)
+
+[node name="EnemyBarracks3" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1754, 423)
+scale = Vector2(3, 3)
+
+[node name="EnemyBarracks4" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1753, 477)
+scale = Vector2(3, 3)
+
+[node name="EnemyMiningCamp" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2129, 465)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp2" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2256, 351)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp8" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2368, 801)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp9" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2420, 800)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp10" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2240, 513)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp3" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2224, 383)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp4" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2303, 273)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp5" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2337, 240)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp11" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2418, 369)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp6" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1553, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyMiningCamp7" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1537, 272)
+scale = Vector2(2, 2)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 10
+
+[node name="EnemyLumberCamp" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1713, 46)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp2" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1666, 98)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp3" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2420, 65)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp7" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2304, 769)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp8" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2270, 751)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp9" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2223, 752)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp10" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2577, 783)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp4" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2497, 94)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp5" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1603, 93)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp6" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1554, 96)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="EnemyLumberCamp11" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2480, 305)
+scale = Vector2(2, 2)
+texture = ExtResource("11_uilcy")
+hframes = 5
+vframes = 1
+frame = 4
+
+[node name="Mausoleum" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1914, 372)
+scale = Vector2(3, 3)
+texture = ExtResource("12_6qwfu")
+hframes = 2
+vframes = 1
+frame = 0
+
+[node name="CollisionShape2D" parent="EnemyBuildings/Mausoleum/Area2D" index="0"]
+position = Vector2(0.208313, 2.16667)
+shape = SubResource("RectangleShape2D_r1uk1")
+
+[node name="EnemyFarm" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1653, 284)
+scale = Vector2(3, 3)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 3
+
+[node name="Node2D" type="Node2D" parent="EnemyBuildings/EnemyFarm"]
+position = Vector2(-8.00012, -8)
+
+[node name="Sprite2D48" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D51" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D52" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D33" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D36" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D41" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D58" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D59" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D61" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D64" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D66" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D69" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D70" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D44" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D63" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D72" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D73" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D55" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D56" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D80" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D81" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D82" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D83" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D84" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D87" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D89" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D90" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D92" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D93" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D94" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D97" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D39" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D40" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D43" type="Sprite2D" parent="EnemyBuildings/EnemyFarm/Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="EnemyFarm5" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1690, 668)
+scale = Vector2(3, 3)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 3
+
+[node name="Node2D" type="Node2D" parent="EnemyBuildings/EnemyFarm5"]
+position = Vector2(-8.00012, -8)
+
+[node name="Sprite2D48" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D51" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D52" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D33" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D36" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D41" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D58" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D59" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D61" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D64" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D66" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D69" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D70" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D44" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D63" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D72" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D73" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D55" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D56" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D80" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D81" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D82" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D83" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D84" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D87" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D89" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D90" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D92" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D93" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D94" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D97" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D39" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D40" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D43" type="Sprite2D" parent="EnemyBuildings/EnemyFarm5/Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="EnemyFarm6" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2089, 860)
+scale = Vector2(3, 3)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 3
+
+[node name="Node2D" type="Node2D" parent="EnemyBuildings/EnemyFarm6"]
+position = Vector2(-8.00012, -8)
+
+[node name="Sprite2D48" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D51" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D52" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D33" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D36" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D41" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D58" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D59" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D61" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D64" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D66" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D69" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D70" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D44" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D63" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D72" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D73" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D55" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D56" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D80" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D81" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D82" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D83" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D84" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D87" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D89" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D90" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D92" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D93" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D94" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D97" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D39" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D40" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D43" type="Sprite2D" parent="EnemyBuildings/EnemyFarm6/Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="EnemyFarm7" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(1947, 666)
+scale = Vector2(3, 3)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 3
+
+[node name="Node2D" type="Node2D" parent="EnemyBuildings/EnemyFarm7"]
+position = Vector2(-8.00012, -8)
+
+[node name="Sprite2D48" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D51" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D52" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D33" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D36" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D41" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D58" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D59" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D61" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D64" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D66" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D69" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D70" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D44" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D63" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D72" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D73" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D55" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D56" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D80" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D81" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D82" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D83" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D84" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D87" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D89" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D90" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D92" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D93" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D94" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D97" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D39" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D40" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D43" type="Sprite2D" parent="EnemyBuildings/EnemyFarm7/Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="EnemyFarm8" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2060, 667)
+scale = Vector2(3, 3)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 3
+
+[node name="Node2D" type="Node2D" parent="EnemyBuildings/EnemyFarm8"]
+position = Vector2(-8.00012, -8)
+
+[node name="Sprite2D48" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D51" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D52" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D33" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D36" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D41" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D58" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D59" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D61" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D64" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D66" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D69" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D70" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D44" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D63" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D72" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D73" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D55" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D56" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D80" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D81" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D82" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D83" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D84" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D87" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D89" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D90" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D92" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D93" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D94" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D97" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D39" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D40" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D43" type="Sprite2D" parent="EnemyBuildings/EnemyFarm8/Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="EnemyFarm3" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2472, 434)
+scale = Vector2(3, 3)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 3
+
+[node name="Node2D" type="Node2D" parent="EnemyBuildings/EnemyFarm3"]
+position = Vector2(-8.00012, -8)
+
+[node name="Sprite2D48" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D51" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D52" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D33" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D36" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D41" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D58" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D59" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D61" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D64" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D66" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D69" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D70" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D44" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D63" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D72" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D73" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D55" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D56" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D80" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D81" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D82" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D83" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D84" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D87" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D89" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D90" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D92" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D93" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D94" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D97" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D39" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D40" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D43" type="Sprite2D" parent="EnemyBuildings/EnemyFarm3/Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="EnemyFarm4" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2342, 556)
+scale = Vector2(3, 3)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 3
+
+[node name="Node2D" type="Node2D" parent="EnemyBuildings/EnemyFarm4"]
+position = Vector2(-8.00012, -8)
+
+[node name="Sprite2D48" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D51" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D52" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D33" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D36" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D41" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D58" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D59" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D61" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D64" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D66" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D69" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D70" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D44" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D63" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D72" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D73" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D55" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D56" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D80" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D81" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D82" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D83" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D84" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D87" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D89" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D90" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D92" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D93" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D94" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D97" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D39" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D40" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D43" type="Sprite2D" parent="EnemyBuildings/EnemyFarm4/Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="EnemyFarm2" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
+position = Vector2(2294, 119)
+scale = Vector2(3, 3)
+texture = ExtResource("10_7o1mh")
+hframes = 3
+frame = 3
+
+[node name="Node2D" type="Node2D" parent="EnemyBuildings/EnemyFarm2"]
+position = Vector2(-8.00012, -8)
+
+[node name="Sprite2D48" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(2.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D51" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(7.99733, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D52" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(13.3307, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D26" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(2.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D33" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(7.99733, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D36" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(13.3307, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D27" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(18.664, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D41" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(23.9973, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D58" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(18.664, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D59" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(23.9973, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D25" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(18.6667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D61" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(24, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D64" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(23.9973, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D66" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(18.664, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D69" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(18.664, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D70" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(23.9973, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D44" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(18.6667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D63" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(24, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D72" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(23.9973, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D73" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(18.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D55" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-8.00267, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D56" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-2.66933, 23.9973)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D80" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-8.00267, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D81" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-2.66933, 18.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D82" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-8, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D83" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-2.66667, 13.3333)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D84" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-8.00267, 7.99734)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D87" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-2.66933, 7.99733)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D89" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-8.00267, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D90" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-2.66933, 2.664)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D92" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-8, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D93" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-2.66667, -2.66666)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D94" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-8.00267, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D97" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(-2.66933, -8.00266)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D22" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(2.66667, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D28" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(8, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D29" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(13.3333, -2.66667)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D39" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(2.664, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D40" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(7.99733, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="Sprite2D43" type="Sprite2D" parent="EnemyBuildings/EnemyFarm2/Node2D"]
+position = Vector2(13.3307, -8.00267)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("13_oe26l")
+hframes = 4
+
+[node name="enemyHouseGroup" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(1754, 145)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup10" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2564, 598)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup10" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse6" parent="EnemyBuildings/enemyHouseGroup10" instance=ExtResource("7_olyge")]
+position = Vector2(-38, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse7" parent="EnemyBuildings/enemyHouseGroup10" instance=ExtResource("7_olyge")]
+position = Vector2(-123.333, 87.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup10" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup10" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup10" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup11" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2564, 661)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup11" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup11" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup11" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup11" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup12" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2500, 661)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup12" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup12" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup12" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup12" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup13" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2435, 661)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup13" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup13" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup13" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup13" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup4" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(1754, 267)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup4" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup4" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup4" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup4" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup5" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2099, 112)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup5" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup5" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup5" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup5" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup6" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2162, 112)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup6" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup6" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup6" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup6" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup7" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2098, 173)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup7" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup7" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup7" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup7" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup8" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2097, 233)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup8" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse6" parent="EnemyBuildings/enemyHouseGroup8" instance=ExtResource("7_olyge")]
+position = Vector2(-36.6667, -100.667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup8" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse7" parent="EnemyBuildings/enemyHouseGroup8" instance=ExtResource("7_olyge")]
+position = Vector2(-57.3334, -100)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse8" parent="EnemyBuildings/enemyHouseGroup8" instance=ExtResource("7_olyge")]
+position = Vector2(-310, -14.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse9" parent="EnemyBuildings/enemyHouseGroup8" instance=ExtResource("7_olyge")]
+position = Vector2(222.667, -74)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup8" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup8" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup9" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(2098, 49)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup9" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup9" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup9" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup9" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup3" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(1687, 146)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse2" parent="EnemyBuildings/enemyHouseGroup3" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup3" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup3" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup3" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="enemyHouseGroup2" type="Node2D" parent="EnemyBuildings"]
+position = Vector2(1754, 205)
+scale = Vector2(1.5, 1.5)
+
+[node name="EnemyHouse6" parent="EnemyBuildings/enemyHouseGroup2" instance=ExtResource("7_olyge")]
+position = Vector2(-15.9999, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse3" parent="EnemyBuildings/enemyHouseGroup2" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 22.6667)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse4" parent="EnemyBuildings/enemyHouseGroup2" instance=ExtResource("7_olyge")]
+position = Vector2(-16, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
+
+[node name="EnemyHouse5" parent="EnemyBuildings/enemyHouseGroup2" instance=ExtResource("7_olyge")]
+position = Vector2(4.66663, 43.3333)
+texture = ExtResource("8_a0yka")
+hframes = 3
+vframes = 4
+frame = 7
 
 [node name="mouseHandle" type="Node2D" parent="."]
 script = ExtResource("6_0kifu")
@@ -150,15 +3147,10 @@ script = ExtResource("6_0kifu")
 [node name="Units" type="Node2D" parent="."]
 script = ExtResource("4_2brtq")
 
-[node name="Necromancers" type="Node2D" parent="."]
-
-[node name="Necrodancer" parent="Necromancers" instance=ExtResource("8_3bayd")]
-position = Vector2(901, 282)
-
 [node name="EnemySpawner" type="Node2D" parent="."]
-position = Vector2(894, 405)
+position = Vector2(1916, 384)
 script = ExtResource("9_biqw0")
-canAutoSpawn = false
+singleWaitTime = 10.0
 
 [node name="Selection" type="Node2D" parent="." node_paths=PackedStringArray("area", "collision_shape", "unitManager", "timer")]
 script = ExtResource("10_77cnk")
@@ -527,6 +3519,7 @@ text = "  Next Wave in:
 label_settings = SubResource("LabelSettings_liug8")
 autowrap_mode = 3
 script = ExtResource("23_ledid")
+initial_wave_time = 20
 waveShortner = false
 
 [node name="WaveTimer" type="Timer" parent="HUD/HUD/PanelContainerWaveTimer/LabelTimer"]
@@ -762,21 +3755,23 @@ label_settings = SubResource("LabelSettings_rvedw")
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="mouseHandle" method="_on_entered"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_pressed"]
-[connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_exited"]
 [connection signal="pressed" from="HUD/HUD/build_menu_button" to="buildingPlacement" method="_on_build_menu_button_pressed"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_exited"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_exited"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_exited"]
 [connection signal="timeout" from="HUD/HUD/PanelContainerWaveTimer/LabelTimer/WaveTimer" to="HUD/HUD/PanelContainerWaveTimer/LabelTimer" method="_on_wave_timer_timeout"]
+
+[editable path="EnemyBuildings/Mausoleum"]
