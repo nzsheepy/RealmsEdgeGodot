@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw2yyjl7t7shv"]
+[gd_scene load_steps=9 format=3 uid="uid://dw2yyjl7t7shv"]
 
 [ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="1_qp2e3"]
 [ext_resource type="Script" path="res://Unit/StateController.gd" id="2_5pcvi"]
@@ -17,6 +17,12 @@ border_width_bottom = 2
 border_color = Color(0.415686, 0.886275, 0.909804, 1)
 border_blend = true
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_v0gml"]
+radius = 80.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q6m2q"]
+radius = 20.0
+
 [node name="Unit" instance=ExtResource("1_qp2e3")]
 collision_layer = 514
 isUnit = true
@@ -30,6 +36,7 @@ navAgent = NodePath("../NavigationAgent2D")
 
 [node name="StateController" type="Node2D" parent="." index="2"]
 script = ExtResource("2_5pcvi")
+attackDamage = 15.0
 
 [node name="UnitController" type="Node2D" parent="." index="3"]
 script = ExtResource("3_necqr")
@@ -56,5 +63,25 @@ avoidance_enabled = true
 radius = 8.0
 neighbor_distance = 64.0
 
+[node name="Detection" type="Area2D" parent="." index="8"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection" index="0"]
+shape = SubResource("CircleShape2D_v0gml")
+debug_color = Color(0.454902, 0.560784, 0.560784, 0.419608)
+
+[node name="AttackRange" type="Area2D" parent="." index="9"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0"]
+shape = SubResource("CircleShape2D_q6m2q")
+debug_color = Color(0.992157, 0, 0.254902, 0.419608)
+
 [connection signal="navigation_finished" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="MovementComponent" method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="body_entered" from="Detection" to="StateController" method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="StateController" method="_on_detection_body_exited"]
+[connection signal="body_entered" from="AttackRange" to="StateController" method="_on_attack_range_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="StateController" method="_on_attack_range_body_exited"]

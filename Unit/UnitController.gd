@@ -29,6 +29,9 @@ func MoveCommand(pos, movingToBuilding):
 		occupyingBuilding.RemoveUnitFromBuilding(get_parent())
 		occupyingBuilding = null
 
+	if !stateController.isSoldier:
+		stateController.SetAgression(false)
+
 	pathingToBuilding = movingToBuilding
 	stateController.MoveUnit(pos)
 
