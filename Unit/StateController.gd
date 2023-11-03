@@ -41,9 +41,17 @@ func _process(delta):
 
 		if attackTimer > attackWaitTime:
 			attackTimer = 0.0
+			if attackTarget == null:
+				SetState(State.IDLE)
+				return
+
 			var attackHealthComp = attackTarget.get_node("HealthComponent")
 			if attackHealthComp:
 				attackHealthComp.TakeDamage(attackDamage)
+			elif attackTarget.get_node("Attackable"):
+				var attackable = attackTarget.get_node("Attackable")
+				if attackable:
+					attackable.TakeDamage(attackDamage)
 
 		return
 
@@ -154,3 +162,46 @@ func _on_attack_range_body_exited(body:Node2D):
 		SetState(State.IDLE)
 
 
+func _on_detection_area_entered(area:Area2D):
+	var parent = area.get_parent()
+	var attackable = parent.get_node("Attackable")
+	if !attackable:
+		return
+
+	visibleTargets.append(parent)
+
+
+func _on_detection_area_exited(area:Area2D):
+	var parent = area.get_parent()
+	var attackable = parent.get_node("Attackable")
+	if !attackable:
+		return
+
+	visibleTargets.erase(parent)
+
+
+func _on_attack_range_area_entered(area:Area2D):
+	var parent = area.get_parent()
+	var attackable = parent.get_node("Attackable")
+	if !attackable:
+		return
+
+	attackTarget = parent
+	SetState(State.ATTACKING)
+
+
+func _on_attack_range_area_exited(area:Area2D):
+	var parent = area.get_parent()
+	var attackable = parent.get_node("Attackable")
+	if !attackable:
+		return
+
+	if parent != attackTarget:
+		return
+
+	attackTarget = null
+
+	if moveTargetLoc != null:
+		MoveUnit(moveTargetLoc)
+	else:
+		SetState(State.IDLE)

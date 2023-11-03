@@ -8,10 +8,11 @@ class_name Entity
 
 @onready var resourceManager : ResourceManager = get_node("../../resourceManager")
 
-func Destroy():
-	# TODO: dereference all references to this object
-	enemySpanwer.spawnEnemy(global_position)
-	queue_free()
-
+func Destroy(killed = true):
 	if isUnit:
 		resourceManager.use(resourceManager.ResourceType.POP, 1)
+
+		if killed:
+			enemySpanwer.spawnEnemy(global_position)
+
+	queue_free()
