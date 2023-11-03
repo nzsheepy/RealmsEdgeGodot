@@ -39,3 +39,8 @@ func _process(delta):
 		add_child(enemyInstance)
 
 		print("Enemy spawned")
+
+func spawnEnemy(pos):
+	var enemyInstance = enemy.instantiate()
+	add_child(enemyInstance)
+	enemyInstance.global_position = pos

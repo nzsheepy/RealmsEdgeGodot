@@ -5,6 +5,7 @@ class_name Building
 
 @onready var resourceManager = $"../../resourceManager"
 @onready var grid : Grid = $"../../Grid"
+@onready var enemySpanwer = $"../../EnemySpawner"
 
 @export var buildingSize: int
 @export var overrideBuildingSize : int = -1
@@ -358,10 +359,12 @@ func TakeDamage(damage):
 	if currentHealth <= 0:
 		for unit in units:
 			unit.Destroy()
-		
+		enemySpanwer.spawnEnemy(global_position)
 		queue_free()
 		if buildingType == "House" && !isFoundation && built:
 			resourceManager.add(ResourceManager.ResourceType.MAXPOP, -5)
+		
+		
 
 func updateHealthPercentLabel():
 	var health_percent = int((currentHealth / float(buildingHealth)) * 100)
