@@ -3151,6 +3151,7 @@ script = ExtResource("4_2brtq")
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(1916, 384)
 script = ExtResource("9_biqw0")
+canAutoSpawn = false
 singleWaitTime = 10.0
 
 [node name="Necromancers" type="Node2D" parent="."]
