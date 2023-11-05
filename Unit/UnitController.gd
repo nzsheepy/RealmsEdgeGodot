@@ -10,7 +10,11 @@ var selected = false
 var occupyingBuilding = null
 @export var canEnterBuildings = true
 var pathingToBuilding = true
+var _selected = false
 
+
+func is_selected() -> bool:
+	return _selected
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	set_selected(selected)

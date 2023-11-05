@@ -1,13 +1,54 @@
-[gd_scene load_steps=7 format=3 uid="uid://usestnj534go"]
+[gd_scene load_steps=13 format=3 uid="uid://usestnj534go"]
 
 [ext_resource type="Texture2D" uid="uid://uktbpk78njih" path="res://MiniWorldSprites/Buildings/Cyan/CyanHouses.png" id="1_4sav3"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_4hh16"]
 [ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="3_3bjm3"]
 [ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="4_bmj7q"]
+[ext_resource type="Texture2D" uid="uid://bbsxl4ellqt4y" path="res://Character Animations/370603310_264078972862701_8385670816339842842_n.png" id="5_3m8jq"]
 [ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="5_5hxb5"]
+[ext_resource type="Texture2D" uid="uid://bccq71xrimdc6" path="res://UI/Progress Bar/Progress.png" id="6_gegjy"]
+[ext_resource type="Texture2D" uid="uid://bgociksxtalc0" path="res://UI/Progress Bar/Over.png" id="7_chjnq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_35m27"]
 size = Vector2(24, 24)
+
+[sub_resource type="Animation" id="Animation_eg1l7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_uifw2"]
+resource_name = "fireAnimation"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wl2ft"]
+_data = {
+"RESET": SubResource("Animation_eg1l7"),
+"fireAnimation": SubResource("Animation_uifw2")
+}
 
 [node name="house" type="Sprite2D"]
 position = Vector2(6, 6)
@@ -33,26 +74,67 @@ position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_35m27")
 
 [node name="Foundation" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(8, 8)
 texture = ExtResource("3_3bjm3")
 
-[node name="BuildingConstructionPercent" type="Label" parent="."]
-offset_left = 3.33333
-offset_top = 2.0
-offset_right = 44.3333
-offset_bottom = 45.0
-scale = Vector2(0.236764, 0.278948)
-theme = ExtResource("4_bmj7q")
-text = "99%"
-label_settings = ExtResource("5_5hxb5")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Damaged" type="Node2D" parent="."]
+position = Vector2(8, 8)
+
+[node name="burning" type="Sprite2D" parent="Damaged"]
+modulate = Color(1, 0.188235, 0.180392, 1)
+texture = ExtResource("1_4sav3")
+hframes = 3
+vframes = 4
+frame = 10
+
+[node name="fire" type="Sprite2D" parent="Damaged"]
+position = Vector2(3.66665, -3.66666)
+scale = Vector2(0.0540196, 0.0540196)
+texture = ExtResource("5_3m8jq")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Damaged/fire"]
+autoplay = "fireAnimation"
+libraries = {
+"": SubResource("AnimationLibrary_wl2ft")
+}
+
+[node name="fire2" type="Sprite2D" parent="Damaged"]
+position = Vector2(-3.5, -0.5)
+scale = Vector2(0.0540196, 0.0540196)
+texture = ExtResource("5_3m8jq")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Damaged/fire2"]
+autoplay = "fireAnimation"
+libraries = {
+"": SubResource("AnimationLibrary_wl2ft")
+}
+
+[node name="TexturehealthBar" type="TextureProgressBar" parent="."]
+offset_top = -2.66667
+offset_right = 32.0
+offset_bottom = 5.33333
+scale = Vector2(0.5, 0.5)
+value = 10.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("6_gegjy")
+texture_over = ExtResource("7_chjnq")
+texture_progress = ExtResource("6_gegjy")
+tint_under = Color(0.623529, 0.552941, 0.498039, 1)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0, 0.164706, 1)
 
 [node name="healthPercent" type="Label" parent="."]
 offset_left = -1.33333
-offset_top = -9.33333
+offset_top = -7.33333
 offset_right = 39.6667
-offset_bottom = 33.6667
+offset_bottom = 35.6667
 scale = Vector2(0.236764, 0.278948)
 theme = ExtResource("4_bmj7q")
 text = "HP:"
@@ -60,10 +142,41 @@ label_settings = ExtResource("5_5hxb5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 24.0
+scale = Vector2(0.5, 0.5)
+value = 10.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("6_gegjy")
+texture_over = ExtResource("7_chjnq")
+texture_progress = ExtResource("6_gegjy")
+tint_under = Color(0.623529, 0.552941, 0.498039, 0.784314)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0.631373, 0.164706, 0.784314)
+
+[node name="BuildingConstructionPercent" type="Label" parent="."]
+offset_left = -11.3333
+offset_top = 12.0
+offset_right = 157.667
+offset_bottom = 55.0
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_bmj7q")
+text = "Construction: 99%"
+label_settings = ExtResource("5_5hxb5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="GatherRate" type="Label" parent="."]
-offset_top = 14.3333
-offset_right = 41.0
-offset_bottom = 57.3333
+offset_left = -6.00003
+offset_top = 12.0
+offset_right = 90.0
+offset_bottom = 55.0
 scale = Vector2(0.236764, 0.278948)
 theme = ExtResource("4_bmj7q")
 text = "Gathering:"

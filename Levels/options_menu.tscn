@@ -1,20 +1,22 @@
-[gd_scene load_steps=13 format=3 uid="uid://chp5mqvplnjr2"]
+[gd_scene load_steps=15 format=3 uid="uid://chp5mqvplnjr2"]
 
-[ext_resource type="Texture2D" uid="uid://bqcjpt24lk1qj" path="res://UI/Options Menu/InGameMenuBLANK.png" id="1_m0axw"]
-[ext_resource type="Texture2D" uid="uid://ddrirdx5yxtrt" path="res://UI/Options Menu/RTGButton.png" id="2_mkkrj"]
-[ext_resource type="Texture2D" uid="uid://nfr7e0hatdnf" path="res://UI/Options Menu/RTGButtonHover.png" id="3_fgrcc"]
-[ext_resource type="Texture2D" uid="uid://obpaic8evpln" path="res://UI/Options Menu/ResetButton.png" id="4_ucfyj"]
-[ext_resource type="Texture2D" uid="uid://pjug475bc5st" path="res://UI/Options Menu/ResetButtonHover.png" id="5_ppm6f"]
-[ext_resource type="Texture2D" uid="uid://b0f84dwpdswa7" path="res://UI/Options Menu/QuitButton.png" id="6_due3e"]
-[ext_resource type="Texture2D" uid="uid://t4hhrpltayeu" path="res://UI/Options Menu/QuitButtonHover.png" id="7_c53ue"]
-[ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="10_us03l"]
-[ext_resource type="Texture2D" uid="uid://csr28gimoi7v8" path="res://UI/Options Menu/SliderButton.png" id="11_fewyk"]
-[ext_resource type="Texture2D" uid="uid://cm55iqd2mqjn6" path="res://UI/Options Menu/SliderBar.png" id="12_i5qlw"]
+[ext_resource type="Texture2D" uid="uid://bqcjpt24lk1qj" path="res://UI/Options Menu/InGameMenuBLANK.png" id="1_mi66a"]
+[ext_resource type="Texture2D" uid="uid://ddrirdx5yxtrt" path="res://UI/Options Menu/RTGButton.png" id="2_fwu3v"]
+[ext_resource type="Script" path="res://Levels/options_menu.gd" id="2_st2qa"]
+[ext_resource type="Texture2D" uid="uid://nfr7e0hatdnf" path="res://UI/Options Menu/RTGButtonHover.png" id="3_pkocl"]
+[ext_resource type="Texture2D" uid="uid://obpaic8evpln" path="res://UI/Options Menu/ResetButton.png" id="4_xrxfl"]
+[ext_resource type="Texture2D" uid="uid://pjug475bc5st" path="res://UI/Options Menu/ResetButtonHover.png" id="5_vd141"]
+[ext_resource type="Texture2D" uid="uid://b0f84dwpdswa7" path="res://UI/Options Menu/QuitButton.png" id="6_xaaoj"]
+[ext_resource type="Texture2D" uid="uid://t4hhrpltayeu" path="res://UI/Options Menu/QuitButtonHover.png" id="7_a3p0q"]
+[ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="8_g4dwh"]
+[ext_resource type="Texture2D" uid="uid://csr28gimoi7v8" path="res://UI/Options Menu/SliderButton.png" id="9_vo37r"]
+[ext_resource type="Texture2D" uid="uid://cm55iqd2mqjn6" path="res://UI/Options Menu/SliderBar.png" id="10_s8aiy"]
+[ext_resource type="Texture2D" uid="uid://b4o8wkidp0yp7" path="res://UI/menu/OpeningBackground.jpg" id="12_8covd"]
 
 [sub_resource type="Theme" id="Theme_8nfod"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gnwxg"]
-texture = ExtResource("12_i5qlw")
+texture = ExtResource("10_s8aiy")
 texture_margin_left = 10.0
 texture_margin_top = 1.0
 texture_margin_bottom = 5.0
@@ -25,7 +27,17 @@ offset_top = 7.99997
 offset_right = 1952.0
 offset_bottom = 1088.0
 scale = Vector2(0.628811, 0.62402)
-texture = ExtResource("1_m0axw")
+texture = ExtResource("1_mi66a")
+script = ExtResource("2_st2qa")
+
+[node name="TextureMenuBackground" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -90.6473
+offset_top = -57.6904
+offset_right = 978.353
+offset_bottom = 592.31
+scale = Vector2(2, 2)
+texture = ExtResource("12_8covd")
 
 [node name="VBoxContainer Menu Buttons" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -38,18 +50,18 @@ theme_override_constants/separation = 70
 
 [node name="RTG" type="TextureButton" parent="VBoxContainer Menu Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("2_mkkrj")
-texture_hover = ExtResource("3_fgrcc")
+texture_normal = ExtResource("2_fwu3v")
+texture_hover = ExtResource("3_pkocl")
 
 [node name="Restart" type="TextureButton" parent="VBoxContainer Menu Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("4_ucfyj")
-texture_hover = ExtResource("5_ppm6f")
+texture_normal = ExtResource("4_xrxfl")
+texture_hover = ExtResource("5_vd141")
 
 [node name="Quit" type="TextureButton" parent="VBoxContainer Menu Buttons"]
 layout_mode = 2
-texture_normal = ExtResource("6_due3e")
-texture_hover = ExtResource("7_c53ue")
+texture_normal = ExtResource("6_xaaoj")
+texture_hover = ExtResource("7_a3p0q")
 
 [node name="Settings Options" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -57,11 +69,11 @@ offset_left = 1000.3
 offset_top = 298.067
 offset_right = 1452.3
 offset_bottom = 843.067
-theme = ExtResource("10_us03l")
+theme = ExtResource("8_g4dwh")
 
 [node name="Screen Size Label" type="Label" parent="Settings Options"]
 layout_mode = 2
-theme = ExtResource("10_us03l")
+theme = ExtResource("8_g4dwh")
 theme_override_colors/font_color = Color(0.796078, 0.654902, 0.145098, 1)
 theme_override_font_sizes/font_size = 19
 text = "Screen Size"
@@ -82,8 +94,8 @@ layout_mode = 2
 theme = SubResource("Theme_8nfod")
 theme_override_constants/center_grabber = 0
 theme_override_constants/grabber_offset = 0
-theme_override_icons/grabber = ExtResource("11_fewyk")
-theme_override_icons/grabber_highlight = ExtResource("11_fewyk")
+theme_override_icons/grabber = ExtResource("9_vo37r")
+theme_override_icons/grabber_highlight = ExtResource("9_vo37r")
 theme_override_styles/slider = SubResource("StyleBoxTexture_gnwxg")
 
 [node name="Easy Medium Hard Label" type="Label" parent="Settings Options"]
@@ -107,8 +119,8 @@ layout_mode = 2
 theme = SubResource("Theme_8nfod")
 theme_override_constants/center_grabber = 0
 theme_override_constants/grabber_offset = 0
-theme_override_icons/grabber = ExtResource("11_fewyk")
-theme_override_icons/grabber_highlight = ExtResource("11_fewyk")
+theme_override_icons/grabber = ExtResource("9_vo37r")
+theme_override_icons/grabber_highlight = ExtResource("9_vo37r")
 theme_override_styles/slider = SubResource("StyleBoxTexture_gnwxg")
 
 [node name="Camera Grip Label" type="Label" parent="Settings Options"]
@@ -121,8 +133,8 @@ layout_mode = 2
 theme = SubResource("Theme_8nfod")
 theme_override_constants/center_grabber = 0
 theme_override_constants/grabber_offset = 0
-theme_override_icons/grabber = ExtResource("11_fewyk")
-theme_override_icons/grabber_highlight = ExtResource("11_fewyk")
+theme_override_icons/grabber = ExtResource("9_vo37r")
+theme_override_icons/grabber_highlight = ExtResource("9_vo37r")
 theme_override_styles/slider = SubResource("StyleBoxTexture_gnwxg")
 
 [node name="Arrow Keys Label" type="Label" parent="Settings Options"]
@@ -135,6 +147,11 @@ layout_mode = 2
 theme = SubResource("Theme_8nfod")
 theme_override_constants/center_grabber = 0
 theme_override_constants/grabber_offset = 0
-theme_override_icons/grabber = ExtResource("11_fewyk")
-theme_override_icons/grabber_highlight = ExtResource("11_fewyk")
+theme_override_icons/grabber = ExtResource("9_vo37r")
+theme_override_icons/grabber_highlight = ExtResource("9_vo37r")
 theme_override_styles/slider = SubResource("StyleBoxTexture_gnwxg")
+
+[connection signal="pressed" from="VBoxContainer Menu Buttons/RTG" to="." method="_on_rtg_pressed"]
+[connection signal="pressed" from="VBoxContainer Menu Buttons/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer Menu Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="value_changed" from="Settings Options/Arrow Keys Slider" to="." method="_on_arrow_keys_slider_value_changed"]

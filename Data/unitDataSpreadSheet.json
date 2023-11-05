@@ -1,13 +1,50 @@
 {
   "Worker": {
     "UnitAttack": 10,
-    "UnitArmor": 5,
-    "UnitHealth": 30,
-    "UnitGoldCost": 100,
-    "UnitWoodCost": 50,
-    "UnitStoneCost": 25,
+    "UnitAttackWait": 1,
+    "UnitArmor": 3,
+    "UnitHealth": 20,
+    "UnitGoldCost": 0,
+    "UnitWoodCost": 0,
+    "UnitStoneCost": 0,
     "UnitFoodCost": 50,
-    "TrainingTime": 60,
+    "unitSpeed": 60,
+    "UnitHelpDesciption": "Basic worker unit: Build, Gather, Repair, Attack,"
+  },
+  "Solder": {
+    "UnitAttack": 25,
+    "UnitAttackWait": 1,
+    "UnitArmor": 8,
+    "UnitHealth": 50,
+    "UnitGoldCost": 200,
+    "UnitWoodCost": 150,
+    "UnitStoneCost": 50,
+    "UnitFoodCost": 100,
+    "unitSpeed": 50,
     "UnitHelpDesciption": "Basic Melee Unit: Effective in melee"
+  },
+  "Zombie": {
+    "UnitAttack": 5,
+    "UnitAttackWait": 1,
+    "UnitArmor": 3,
+    "UnitHealth": 100,
+    "UnitGoldCost": 0,
+    "UnitWoodCost": 0,
+    "UnitStoneCost": 0,
+    "UnitFoodCost": 0,
+    "unitSpeed": 35,
+    "UnitHelpDesciption": "Enemy Basic unit"
+  },
+  "Necromancer": {
+    "UnitAttack": 1,
+    "UnitAttackWait": 1,
+    "UnitArmor": 1,
+    "UnitHealth": 1000,
+    "UnitGoldCost": 0,
+    "UnitWoodCost": 0,
+    "UnitStoneCost": 0,
+    "UnitFoodCost": 0,
+    "unitSpeed": 0,
+    "UnitHelpDesciption": null
   }
 }

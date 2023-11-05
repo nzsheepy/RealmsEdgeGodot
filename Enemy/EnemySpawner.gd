@@ -12,6 +12,8 @@ var enemy = preload("res://Enemy/Enemy.tscn")
 @export_group("Trickle Spawn")
 @export var singleWaitTime = 2.0
 
+@export var waveSizeGrowthFactor = 1.5  # The factor by which the wave size grows each time
+
 
 
 var waveNumber = 0
@@ -60,3 +62,7 @@ func spawnEnemy(pos):
 		add_child(enemyInstance)
 
 	enemyInstance.global_position = pos
+
+func increase_wave_size():
+	waveAmount = int(waveAmount * waveSizeGrowthFactor)
+	print("Wave size increased to: " + str(waveAmount))

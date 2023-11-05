@@ -27,6 +27,12 @@ var reacquireCurrentWaitTime = 1.5
 var reacquireTargetDeviation = 0.5
 var reacquireTargetTimer = 0.0
 
+#billy please link these you have access to:
+#UnitAttack	UnitAttackWait	UnitArmor	UnitHealth	UnitGoldCost	UnitWoodCost	UnitStoneCost	UnitFoodCost	unitSpeed
+var unit_data_worker = ImportData.unitdata["Worker"]
+var unit_data_solder = ImportData.unitdata["Solder"]
+var unit_data_Zombie = ImportData.unitdata["Zombie"]
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

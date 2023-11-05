@@ -1,0 +1,33 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://ce4bmhml17b1f"
+path="res://.godot/imported/Vampire Wars.ttf-b8723d4aa3ea30ecc26ffed2f06b3d7b.fontdata"
+
+[deps]
+
+source_file="res://UI/Font/Vampire Wars.ttf"
+dest_files=["res://.godot/imported/Vampire Wars.ttf-b8723d4aa3ea30ecc26ffed2f06b3d7b.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}

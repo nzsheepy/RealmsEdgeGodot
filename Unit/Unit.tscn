@@ -1,12 +1,356 @@
-[gd_scene load_steps=9 format=3 uid="uid://dw2yyjl7t7shv"]
+[gd_scene load_steps=51 format=3 uid="uid://dw2yyjl7t7shv"]
 
 [ext_resource type="PackedScene" uid="uid://bftnxisbnkcia" path="res://Entity/Entity.tscn" id="1_qp2e3"]
 [ext_resource type="Script" path="res://Unit/StateController.gd" id="2_5pcvi"]
+[ext_resource type="Texture2D" uid="uid://bccq71xrimdc6" path="res://UI/Progress Bar/Progress.png" id="2_8ljdh"]
+[ext_resource type="Script" path="res://Unit/AnimationComponent.gd" id="2_j4fws"]
+[ext_resource type="Texture2D" uid="uid://bgociksxtalc0" path="res://UI/Progress Bar/Over.png" id="3_ghqms"]
 [ext_resource type="Script" path="res://Unit/UnitController.gd" id="3_necqr"]
-[ext_resource type="PackedScene" uid="uid://gilsut3dvvbo" path="res://Character Animations/worker_char.tscn" id="4_og7cl"]
+[ext_resource type="Texture2D" uid="uid://g0lehoth8x04" path="res://MiniWorldSprites/Characters/Workers/FarmerTemplate.png" id="4_lcepb"]
+[ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="4_vp74v"]
+[ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="5_o555r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jnwvx"]
 radius = 6.0
+
+[sub_resource type="Animation" id="Animation_7tiyn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_q0knx"]
+resource_name = "workerIdleAway"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_3yh64"]
+resource_name = "workerIdleForward"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_o42ff"]
+resource_name = "workerIdleLeft"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_3xcth"]
+resource_name = "workerIdleRight"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_1fgqd"]
+resource_name = "workerSwooshAway"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [45, 46, 47]
+}
+
+[sub_resource type="Animation" id="Animation_dh8q1"]
+resource_name = "workerSwooshForward"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [40, 41, 42]
+}
+
+[sub_resource type="Animation" id="Animation_pejcq"]
+resource_name = "workerSwooshLeft"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [55, 56, 57]
+}
+
+[sub_resource type="Animation" id="Animation_lr0k1"]
+resource_name = "workerSwooshRight"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [50, 51, 52]
+}
+
+[sub_resource type="Animation" id="Animation_4tt0q"]
+resource_name = "workerWalkAway"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_a57mg"]
+resource_name = "workerWalkForward"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 0, 4]
+}
+
+[sub_resource type="Animation" id="Animation_adj8w"]
+resource_name = "workerWalkLeft"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_eevgi"]
+resource_name = "workerWalkRight"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [11, 12, 13, 14]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ee6dq"]
+_data = {
+"RESET": SubResource("Animation_7tiyn"),
+"workerIdleAway": SubResource("Animation_q0knx"),
+"workerIdleForward": SubResource("Animation_3yh64"),
+"workerIdleLeft": SubResource("Animation_o42ff"),
+"workerIdleRight": SubResource("Animation_3xcth"),
+"workerSwooshAway": SubResource("Animation_1fgqd"),
+"workerSwooshForward": SubResource("Animation_dh8q1"),
+"workerSwooshLeft": SubResource("Animation_pejcq"),
+"workerSwooshRight": SubResource("Animation_lr0k1"),
+"workerWalkAway": SubResource("Animation_4tt0q"),
+"workerWalkForward": SubResource("Animation_a57mg"),
+"workerWalkLeft": SubResource("Animation_adj8w"),
+"workerWalkRight": SubResource("Animation_eevgi")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oqxxt"]
+animation = &"workerIdleLeft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tcxn3"]
+animation = &"workerIdleAway"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ryy5c"]
+animation = &"workerIdleRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vj0pj"]
+animation = &"workerIdleForward"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_eii7x"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_oqxxt")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_tcxn3")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ryy5c")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_vj0pj")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_payrt"]
+animation = &"workerSwooshLeft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wvh8t"]
+animation = &"workerSwooshAway"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b73ff"]
+animation = &"workerSwooshRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nub5l"]
+animation = &"workerSwooshForward"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_045li"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_payrt")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_wvh8t")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_b73ff")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_nub5l")
+blend_point_3/pos = Vector2(0, -1)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qx6ky"]
+animation = &"workerWalkLeft"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_448j5"]
+animation = &"workerWalkAway"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qncan"]
+animation = &"workerWalkRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_47cmg"]
+animation = &"workerWalkForward"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_g8lih"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_qx6ky")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_448j5")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_qncan")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_47cmg")
+blend_point_3/pos = Vector2(0, -0.9)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qrfbh"]
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5xvqx"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a24cq"]
+advance_mode = 2
+advance_condition = &"swing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xe06k"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vdn2q"]
+advance_mode = 2
+advance_condition = &"swing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b2fxw"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d6i4l"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hefva"]
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_eii7x")
+states/Idle/position = Vector2(455, 87)
+states/Swing/node = SubResource("AnimationNodeBlendSpace2D_045li")
+states/Swing/position = Vector2(551, -23)
+states/Walk/node = SubResource("AnimationNodeBlendSpace2D_g8lih")
+states/Walk/position = Vector2(662, 87)
+transitions = ["Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_qrfbh"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_5xvqx"), "Idle", "Swing", SubResource("AnimationNodeStateMachineTransition_a24cq"), "Swing", "Idle", SubResource("AnimationNodeStateMachineTransition_xe06k"), "Walk", "Swing", SubResource("AnimationNodeStateMachineTransition_vdn2q"), "Swing", "Walk", SubResource("AnimationNodeStateMachineTransition_b2fxw"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d6i4l")]
+graph_offset = Vector2(20, -89)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6crfj"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -30,23 +374,78 @@ isUnit = true
 [node name="HealthComponent" parent="." index="0"]
 position = Vector2(0, 0)
 
-[node name="MovementComponent" parent="." index="1" node_paths=PackedStringArray("navAgent")]
+[node name="TexturehealthBar" type="TextureProgressBar" parent="." index="1"]
+offset_left = -7.5
+offset_top = -9.16667
+offset_right = 24.5
+offset_bottom = -1.16667
+scale = Vector2(0.5, 0.5)
+value = 10.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("2_8ljdh")
+texture_over = ExtResource("3_ghqms")
+texture_progress = ExtResource("2_8ljdh")
+tint_under = Color(0.623529, 0.552941, 0.498039, 1)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0, 0.164706, 1)
+
+[node name="healthPercent" type="Label" parent="." index="2"]
+offset_left = -8.0
+offset_top = -13.0
+offset_right = 33.0
+offset_bottom = 30.0
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_vp74v")
+text = "HP:"
+label_settings = ExtResource("5_o555r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MovementComponent" parent="." index="3" node_paths=PackedStringArray("navAgent")]
 position = Vector2(0, 0)
 navAgent = NodePath("../NavigationAgent2D")
 
-[node name="StateController" type="Node2D" parent="." index="2"]
+[node name="AnimationComponent" type="Node2D" parent="." index="4"]
+script = ExtResource("2_j4fws")
+
+[node name="StateController" type="Node2D" parent="." index="5"]
 script = ExtResource("2_5pcvi")
 attackDamage = 15.0
 
-[node name="UnitController" type="Node2D" parent="." index="3"]
+[node name="UnitController" type="Node2D" parent="." index="6"]
 script = ExtResource("3_necqr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="7"]
 shape = SubResource("CircleShape2D_jnwvx")
 
-[node name="Worker_Char" parent="." index="5" instance=ExtResource("4_og7cl")]
+[node name="Worker_Char" type="Sprite2D" parent="." index="8"]
+texture_filter = 1
+texture = ExtResource("4_lcepb")
+hframes = 5
+vframes = 12
 
-[node name="Box" type="Panel" parent="." index="6"]
+[node name="Worker_Animation" type="AnimationPlayer" parent="." index="9"]
+root_node = NodePath("../Worker_Char")
+libraries = {
+"": SubResource("AnimationLibrary_ee6dq")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="10"]
+tree_root = SubResource("AnimationNodeStateMachine_hefva")
+anim_player = NodePath("../Worker_Animation")
+active = true
+parameters/conditions/idle = false
+parameters/conditions/is_moving = false
+parameters/conditions/swing = false
+parameters/Idle/blend_position = Vector2(-0.370667, 0.371179)
+parameters/Swing/blend_position = Vector2(0, 0)
+parameters/Walk/blend_position = Vector2(-0.00622225, -0.318777)
+
+[node name="Box" type="Panel" parent="." index="11"]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 8.0
@@ -54,7 +453,7 @@ offset_bottom = 8.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_6crfj")
 metadata/_edit_use_anchors_ = true
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="7"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="12"]
 path_desired_distance = 16.0
 target_desired_distance = 30.0
 path_max_distance = 32.0
@@ -63,7 +462,7 @@ avoidance_enabled = true
 radius = 8.0
 neighbor_distance = 64.0
 
-[node name="Detection" type="Area2D" parent="." index="8"]
+[node name="Detection" type="Area2D" parent="." index="13"]
 collision_layer = 0
 collision_mask = 4
 
@@ -71,7 +470,7 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_v0gml")
 debug_color = Color(0.454902, 0.560784, 0.560784, 0.419608)
 
-[node name="AttackRange" type="Area2D" parent="." index="9"]
+[node name="AttackRange" type="Area2D" parent="." index="14"]
 collision_layer = 0
 collision_mask = 4
 

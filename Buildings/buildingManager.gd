@@ -1,4 +1,4 @@
-#current buildingManger
+#current buildingManger almost working
 
 extends Node2D
 class_name Building
@@ -20,25 +20,39 @@ var firstloop = true
 var isFoundation = false
 @export var buildTime : int
 var visibleUnits = []
+var gatherProgress = 0
+var can_train_worker = true
 
 @onready var constructionProgressLabel = get_node("BuildingConstructionPercent")
 @onready var healthPercent = get_node("healthPercent")
 @onready var gatherRate = get_node("GatherRate")
 
+@onready var constructionProgressBar = get_node("TextureProgressBar")
+@onready var healthBar = get_node("TexturehealthBar")
+
+@onready var burning = get_node("Damaged")
 # Variable to keep track of time since the last resource gathering event
 var elapsedTime = 0
 var buildingTime = 0
 var unitsGathering = []
 var unitMask = 0
 
+var unit_data_worker = ImportData.unitdata["Worker"]
+var unit_data_solder = ImportData.unitdata["Solder"]
+
 @export var buildingHealth: int = 1000
 @onready var currentHealth: int = buildingHealth
 
 @export_group("Barracks")
 @onready var isBarracks : bool = buildingType == "Barracks"
+
 @export var trainingTime : int = 10
 var unitsToTrain = {}
 var soldierPreload = preload("res://Unit/Soldier.tscn")
+var totalResourceOnceCompleted = 0
+
+
+
 
 func _ready():
 	if buildingType in ImportData.buildingdata and "ConstructionTime" in ImportData.buildingdata[buildingType]:
@@ -66,12 +80,21 @@ func _ready():
 		print("Warning: GatherAmount not set for", buildingType)
 		gatherAmount = 1  # Set to a default value or handle this case as needed
 
+		# Set the training time for barracks based on the GatherSpeed from ImportData
+	if isBarracks and "GatherSpeed" in ImportData.buildingdata[buildingType]:
+		trainingTime = ImportData.buildingdata[buildingType]["GatherSpeed"]
+	else:
+		print("Warning: GatherSpeed not set for", buildingType)
+		trainingTime = 10  # Set to a default value or handle this case as needed
+
+	burning.hide()
 	var foundation = get_node("Foundation")
 	if foundation:
 		foundation.visible = false
+	gatherRate.hide()
 	constructionProgressLabel.hide()
 	updateHealthPercentLabel()
-	updateGatherRateLabel()
+	updateProgress()
 
 
 func startBuild():
@@ -89,34 +112,25 @@ func startBuild():
 
 
 func _process(delta):
-	if !built:
-		return
-
 	if isFoundation:
+		# Handle foundation logic
 		buildingTime += delta
 		var progress = int(min(buildingTime / buildTime, 1.0) * 100)
+		constructionProgressBar.value = progress
 		constructionProgressLabel.text = str(progress) + "%" + " (" + str(buildTime) + "s)"
 
 		if buildingTime >= buildTime:
-			# Allow units to enter again
-			var area = get_node("EnterArea")
-			if area:
-				area.set("scale", Vector2(1, 1))
-
+			constructionCompleted()
 			built = true
 			isFoundation = false
-			self_modulate = Color(1, 1, 1, 1)
-			var foundation = get_node("Foundation")
-			if foundation:
-				foundation.visible = false
-				constructionProgressLabel.hide()
-				updateGatherRateLabel()
+			updateProgress()  # Update UI after construction is completed
 
-	if isFoundation:
-		return
-			
+		return  # Skip the rest of the process if still in foundation
+
+	if not built:
+		return  # If not built and not in foundation, skip the rest of the process
+
 	elapsedTime += delta
-	updateGatherRateLabel()
 
 	if firstloop and buildingType == "House":
 		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 5)
@@ -124,37 +138,123 @@ func _process(delta):
 
 	if isBarracks:
 		HandleBarracks()
-		return
+	if buildingType == "TownCenter":
+		HandleTownCenter()
+		if can_train_worker:
+			updateProgress()
+	else:
+		# Handle resource gathering for other building types
+		if unitsGathering.size() == 0 and !noUnitsRequired:
+			elapsedTime = 0  # Reset the timer if no units are gathering and it's required
+		elif elapsedTime >= gatherTime:
+			elapsedTime = 0  # Reset the timer
+			var totalResource = gatherAmount * (unitsGathering.size() if not noUnitsRequired else 1)
+			resourceManager.add(resource, totalResource)
 
-	# Check if enough time has passed for resource gathering
+	updateProgress()  # Update UI elements at the end of the process
+
+
+
+func constructionCompleted():
+	built = true
+	isFoundation = false
+	self_modulate = Color(1, 1, 1, 1)
+	var foundation = get_node("Foundation")
+	if foundation:
+		foundation.visible = false
+	constructionProgressLabel.hide()
+	updateProgress()  # This will now correctly show the gather rate label since 'built' is true
+
+var lastUnitsToTrainSize = 0  # Add this at the class level
+
+func updateProgress():
+	if isFoundation:
+		var progress = int(min(buildingTime / buildTime, 1.0) * 100)
+		constructionProgressBar.value = progress
+		gatherRate.text = "Construction: %d%%" % progress
+	elif isBarracks:
+		if unitsToTrain.size() > 0:
+			if unitsToTrain.size() != lastUnitsToTrainSize:
+				elapsedTime = 0
+				lastUnitsToTrainSize = unitsToTrain.size()
+			var training_progress = elapsedTime / float(trainingTime)
+			var progress = int(training_progress * 100)
+			constructionProgressBar.value = progress
+			if progress >= 100:
+				constructionProgressBar.value = 0
+				gatherRate.text = "Training: 100%"
+				print("Training completed in: ", elapsedTime, " seconds.")
+				elapsedTime = 0  # Reset elapsedTime after training is complete
+			else:
+				gatherRate.text = "Training: %d%%" % progress
+		else:
+			constructionProgressBar.value = 0
+			gatherRate.text = "Training: 0%"
+	elif buildingType == "TownCenter":
+		if not can_train_worker:
+			constructionProgressBar.value = 0
+			gatherRate.text = "Cannot train Worker: Insufficient resources or population"
+		else:
+			var percentage_time_completed = int((elapsedTime / gatherTime) * 100)
+			if percentage_time_completed >= 100:
+				# If training is complete, reset the progress bar and elapsedTime
+				constructionProgressBar.value = 0
+				elapsedTime = 0
+				gatherRate.text = "Worker ready for training"
+				# Do not proceed to fill the bar again until HandleTownCenter updates can_train_worker
+			else:
+				constructionProgressBar.value = percentage_time_completed
+				gatherRate.text = "Training: %d%%" % percentage_time_completed
+	else:
+		var totalResource = calculateTotalResourceOnceCompleted()
+		if totalResource > 0:
+			var percentage_time_completed = int((elapsedTime / gatherTime) * 100)
+			constructionProgressBar.value = percentage_time_completed
+			gatherRate.text = "%d%%, + %d" % [percentage_time_completed, totalResource]
+		else:
+			constructionProgressBar.value = 0
+			gatherRate.text = "Place Worker To gather 0%"
+
+	# Decide whether to show or hide the gatherRate label
+	if built and not isFoundation:
+		gatherRate.show()
+	else:
+		gatherRate.hide()
+
+func calculateTotalResourceOnceCompleted() -> int:
+	if isFoundation or not resourceManager.check(resource, 1):
+		return 0  # No resources to gather or still under construction
+	var totalResource = gatherAmount * unitsGathering.size()
+	if noUnitsRequired:
+		totalResource = gatherAmount
+	return totalResource
+
+func HandleTownCenter():
+	can_train_worker = resourceManager.check(ResourceManager.ResourceType.POP, 1) and can_afford_unit(unit_data_worker)
 	if elapsedTime >= gatherTime:
-		elapsedTime = 0  # Reset the timer
-		# Calculate the total resource to gather based on amount of units gathering
-		var totalResource = gatherAmount * unitsGathering.size()
+		elapsedTime = 0 # Reset the timer
+		# Check if there's enough food and population to train a worker
+		var can_afford_food = resourceManager.check(ResourceManager.ResourceType.FOOD, unit_data_worker["UnitFoodCost"])
+		var has_population_space = resourceManager.check(ResourceManager.ResourceType.POP, 1)
 
-		if noUnitsRequired:
-			totalResource = gatherAmount
-
-		if buildingType == "TownCenter" && resourceManager.check(resource,1):
-			# Only add 1 unit
-			totalResource = 1
-
-			if unitsGathering.size() >= buildingSize * buildingSize:
-				return
-
+		if can_afford_food and has_population_space and unitsGathering.size() < buildingSize * buildingSize:
 			var new_pos = GetNewUnitPosition()
+			if new_pos.x != -1 and new_pos.y != -1:
+				purchase_unit(unit_data_worker)  # Deduct the resources for the unit
+				var unit = loadUnit.instantiate()
+				unit.get_node("UnitController").pathingToBuilding = self
+				get_node("../../Units").add_child(unit)
+				AddUnitToBuilding(unit)
+				unit.get_node("StateController").SetState(StateController.State.MOVING)
+				# Increase population here, after the unit is successfully created
+				resourceManager.add(ResourceManager.ResourceType.POP, 1)
+				elapsedTime = 0  # Reset the timer after successful unit creation
+				can_train_worker = resourceManager.check(ResourceManager.ResourceType.POP, 1) and can_afford_unit(unit_data_worker)
+		else:
+			print("Not enough resources to create a worker.")
+			can_train_worker = false
+			elapsedTime = 0  # Reset the timer since we can't proceed with training
 
-			if new_pos.x == -1 || new_pos.y == -1:
-				return
-
-			var unit = loadUnit.instantiate()
-			unit.get_node("UnitController").pathingToBuilding = self
-			get_node("../../Units").add_child(unit)
-			AddUnitToBuilding(unit)
-			unit.get_node("StateController").SetState(StateController.State.MOVING)
-		
-		# Add the resource to the player's inventory
-		resourceManager.add(resource, totalResource)
 
 
 func HandleBarracks():
@@ -247,7 +347,7 @@ func AddUnitToBuilding(newUnit):
 		navAgent.avoidance_enabled = false
 		newUnit.position = new_pos
 	
-	updateGatherRateLabel()
+	updateProgress()
 
 
 func FindSurroundingGrassTiles():
@@ -335,7 +435,7 @@ func RemoveUnitFromBuilding(unit):
 		u.position = global_position + tile_pos * 16 + Vector2(8, 8)
 		i += 1
 
-	updateGatherRateLabel()
+	updateProgress()
 
 func _on_enter_area_body_entered(body:Node2D):
 	if body.has_node("StateController"):
@@ -364,19 +464,33 @@ func TakeDamage(damage):
 		if buildingType == "House" && !isFoundation && built:
 			resourceManager.add(ResourceManager.ResourceType.MAXPOP, -5)
 		
-		
-
 func updateHealthPercentLabel():
 	var health_percent = int((currentHealth / float(buildingHealth)) * 100)
+	healthBar.hide()
+	# Set the label's visibility based on the health percentage
+	healthPercent.visible = health_percent < 80
+	if health_percent < 95:
+		healthBar.show()
+	if health_percent < 40:
+		burning.show()
+	healthBar.value = health_percent
+	# Update the label's text to show the current health
 	healthPercent.text = "HP: %d/%d (%d%%)" % [currentHealth, buildingHealth, health_percent]
 
-func updateGatherRateLabel():
-	if gatherTime > 0:  # To avoid division by zero
-		var percentage_time_completed = int((elapsedTime / gatherTime) * 100)
-		var totalResourceOnceCompleted = gatherAmount * unitsGathering.size()
-		if noUnitsRequired:
-			totalResourceOnceCompleted = gatherAmount
+	
+func can_afford_unit(unit_data: Dictionary) -> bool:
+	return (
+		resourceManager.check(ResourceManager.ResourceType.GOLD, unit_data["UnitGoldCost"]) &&
+		resourceManager.check(ResourceManager.ResourceType.WOOD, unit_data["UnitWoodCost"]) &&
+		resourceManager.check(ResourceManager.ResourceType.STONE, unit_data["UnitStoneCost"]) &&
+		resourceManager.check(ResourceManager.ResourceType.FOOD, unit_data["UnitFoodCost"])
+	)
 
-		gatherRate.text = "Progress: %d%%, + %d" % [percentage_time_completed, totalResourceOnceCompleted]
-	else:
-		gatherRate.text = "Gather time is not set."
+
+func purchase_unit(unit_data: Dictionary):
+	resourceManager.use(ResourceManager.ResourceType.GOLD, unit_data["UnitGoldCost"])
+	resourceManager.use(ResourceManager.ResourceType.WOOD, unit_data["UnitWoodCost"])
+	resourceManager.use(ResourceManager.ResourceType.STONE, unit_data["UnitStoneCost"])
+	resourceManager.use(ResourceManager.ResourceType.FOOD, unit_data["UnitFoodCost"])
+
+

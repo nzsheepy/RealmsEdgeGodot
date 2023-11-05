@@ -46,9 +46,11 @@ func _process(_delta):
 		draw_area()
 
 	#end dragbox location
+#end dragbox location
 	if Input.is_action_just_released("LeftClick"):
 		end = get_global_mouse_position()
 		endViewport = get_local_mouse_position()
+		var add_to_selection = Input.is_key_pressed(KEY_SHIFT)  # Check if SHIFT is pressed
 
 		var dist = start.distance_to(end)
 
@@ -56,22 +58,22 @@ func _process(_delta):
 			isDragging = false
 			draw_area(false)
 			# use start and end to work out top left and bottom right
-			var top_left = Vector2()
-			var bottom_right = Vector2()
-			top_left.x = min(start.x, end.x)
-			top_left.y = min(start.y, end.y)
-			bottom_right.x = max(start.x, end.x)
-			bottom_right.y = max(start.y, end.y)
-			selection.SelectArea(top_left, bottom_right)
+			var top_left = Vector2(min(start.x, end.x), min(start.y, end.y))
+			var bottom_right = Vector2(max(start.x, end.x), max(start.y, end.y))
+			# Now pass the 'add_to_selection' as the third argument
+			selection.SelectArea(top_left, bottom_right, add_to_selection)
 		elif dist > 0:
 			isDragging = false
 			draw_area(false)
-			selection.SelectSingleUnit(get_global_mouse_position())
+			# Pass 'add_to_selection' as the second argument
+			selection.SelectSingleUnit(get_global_mouse_position(), add_to_selection)
 		else:
 			end = start
 			isDragging = false
 			draw_area(false)
-			selection.SelectSingleUnit(get_global_mouse_position())
+			# Pass 'add_to_selection' as the second argument
+			selection.SelectSingleUnit(get_global_mouse_position(), add_to_selection)
+
 
 func handle_camera_grip(_delta):
 	var current_mouse_position = get_global_mouse_position()

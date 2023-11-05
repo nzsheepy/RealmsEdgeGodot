@@ -59,6 +59,13 @@ func _physics_process(_delta):
 	if (buildmenutoggle == false):
 		return
 
+	if currentBuilding != null:
+	# Check for right-click to cancel the building placement
+		if Input.is_action_just_pressed("escape") or Input.is_action_just_pressed("RightClick"):  # 'ui_cancel' is typically the right-click or escape key
+			resetBuildingPlacement()
+			return  # Return early to avoid further processing in this frame
+
+	
 	var building_buttons = {
 		"House": get_node("../HUD/HUD/BuildingGridContainer/house_button"),
 		"LumberCamp": get_node("../HUD/HUD/BuildingGridContainer/lumber_camp_button"),
@@ -116,58 +123,84 @@ func GetBuildingsOfType(buildingType):
 	return buildings
 
 func displayBuildingPreview():
-	if (mouseHandle.mouseBlocked):
+	if mouseHandle.mouseBlocked:
 		return
-	
-	if (currentBuilding != null): 
-		var has_enough_resources = (resourceManager.check(resourceType.GOLD, currentBuilding["BuildingGold"]) &&
-		resourceManager.check(resourceType.WOOD, currentBuilding["BuildingWood"]) &&
-		resourceManager.check(resourceType.STONE, currentBuilding["BuildingStone"]) &&
-		resourceManager.check(resourceType.FOOD, currentBuilding["BuildingFood"]))
-		
+
+	if currentBuilding != null:
+		var has_enough_resources = checkResourcesForBuilding()
+
 		if has_enough_resources:
-			if justPressed:
-				remove_child(building)
-				building = res.instantiate()
-				building.modulate = Color(1, 1, 1, 0.5)
-				add_child(building)
-			#var offset = (building.buildingSize/2.0) * 16
-		var tile_pos = grid.WorldToTilePos(get_global_mouse_position()) 
-		var new_pos = grid.TileToWorldPos(tile_pos) #- Vector2(offset, offset)
-		if building != null:
-			building.position = new_pos
-		if building != null and building.buildingSize != null:
+			if justPressed or building == null:
+				instantiateBuildingPreview()
+
+			var tile_pos = grid.WorldToTilePos(get_global_mouse_position())
+			var new_pos = grid.TileToWorldPos(tile_pos)
+			if building != null:
+				building.position = new_pos
+
 			if canPlaceBuilding(tile_pos, building.buildingSize):
 				building.modulate = Color(0.2, 1, 0.2, 0.5)
+				# Check for left-click without shift for a single placement
+				if Input.is_action_just_pressed("LeftClick") and not Input.is_key_pressed(KEY_SHIFT):
+					placeBuilding(tile_pos, building.buildingSize)
+				# Check for left-click with shift for continuous placement
+				elif Input.is_action_pressed("LeftClick") and Input.is_key_pressed(KEY_SHIFT):
+					placeBuilding(tile_pos, building.buildingSize)
 			else:
 				building.modulate = Color(1, 0.2, 0.2, 0.5)
-
-			if Input.is_action_just_pressed("LeftClick"):
-				placeBuilding(tile_pos, building.buildingSize)
 		else:
 			justPressed = false  # Reset justPressed if the player doesn't have enough resources
 
-func placeBuilding(tile_pos, buildingSize):
-	if !canPlaceBuilding(tile_pos, buildingSize):
-		return
 
-	print("gold used:", currentBuilding["BuildingGold"], resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]))
-	print("wood used:", currentBuilding["BuildingWood"], resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]))
-	print("stone used:", currentBuilding["BuildingStone"], resourceManager.use(resourceType.STONE, currentBuilding["BuildingStone"]))
-	print("food used:", currentBuilding["BuildingFood"], resourceManager.use(resourceType.FOOD, currentBuilding["BuildingFood"]))
-
-	building.modulate = Color(1, 1, 1, 1)
-	building.built = true
-	building.startBuild()
+func instantiateBuildingPreview():
+	remove_existing_preview()
+	building = res.instantiate()
+	building.modulate = Color(1, 1, 1, 0.5)
 	add_child(building)
+
+func remove_existing_preview():
+	if building and building.is_inside_tree():
+		remove_child(building)
 	building = null
 
+func placeBuilding(tile_pos, buildingSize):
+	if canPlaceBuilding(tile_pos, buildingSize) and deductResourcesForBuilding():
+		var placed_building = building
+		placed_building.modulate = Color(1, 1, 1, 1)
+		placed_building.built = true
+		placed_building.startBuild()
+		add_child(placed_building)
+		building = null  # Clear the current building preview
+
+		# If shift is held, prepare for another building placement
+		if Input.is_key_pressed(KEY_SHIFT):
+			instantiateBuildingPreview()
+		else:
+			resetBuildingPlacement()
+	else:
+		resetBuildingPlacement()  # Reset if can't place or not enough resources
+
+func resetBuildingPlacement():
+	remove_existing_preview()
 	currentBuilding = null
 	res = null
-
 	buildmenutoggle = false
 	button_hide()
 	justPressed = false
+
+
+func deductResourcesForBuilding():
+	# Deduct resources for the current building
+	if resourceManager.use(resourceType.GOLD, currentBuilding["BuildingGold"]) and resourceManager.use(resourceType.WOOD, currentBuilding["BuildingWood"]) and resourceManager.use(resourceType.STONE, currentBuilding["BuildingStone"]) and resourceManager.use(resourceType.FOOD, currentBuilding["BuildingFood"]):
+		print("Resources deducted for building.")
+		return true
+	else:
+		print("Not enough resources to place building.")
+		return false
+
+func checkResourcesForBuilding():
+	# Check if there are enough resources for the current building
+	return resourceManager.check(resourceType.GOLD, currentBuilding["BuildingGold"]) and resourceManager.check(resourceType.WOOD, currentBuilding["BuildingWood"]) and resourceManager.check(resourceType.STONE, currentBuilding["BuildingStone"]) and resourceManager.check(resourceType.FOOD, currentBuilding["BuildingFood"])
 
 func canPlaceBuilding(tile_pos, buildingSize):
 	if currentBuilding == null || building == null:

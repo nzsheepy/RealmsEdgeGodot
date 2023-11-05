@@ -5,6 +5,8 @@ var loadPreviewWorker = preload("res://UI/HUD/SelectionBox/selected_unit_worker.
 var loadPreviewSolder = preload("res://UI/HUD/SelectionBox/selected_unit_solder.tscn")
 
 func _ready():
+	get_node("../HUD/HUD/SelectionID/unitPortraitSolder").set_visible(false)
+	get_node("../HUD/HUD/SelectionID/unitPortraitWorker").set_visible(false)
 	DeselectAll()
 
 
@@ -48,7 +50,8 @@ func DeselectAll():
 	for child in get_children():
 		if child.has_node("UnitController"):
 			child.get_node("UnitController").set_selected(false)
-
+			get_node("../HUD/HUD/SelectionID/unitPortraitSolder").set_visible(false)
+			get_node("../HUD/HUD/SelectionID/unitPortraitWorker").set_visible(false)
 
 func unitSelected():
 	var selected_units = []
@@ -64,16 +67,25 @@ func unitSelected():
 			child.queue_free()
 		var selectionCount = 0
 		var firstSelected = selected_units[0] 
+		#var unit_current_health = firstSelected.current_health
+		
 		if firstSelected.get_node("StateController").isSoldier:
-			#show the solder ID grop
-			pass
+			
+			#get_node("../../HUD/HUD/SelectionID/unitPortraitSolder/TextureProgressBar/LabelCurrentHealthSolder").text = "%d/%d" % [unit_current_health, str(ImportData.unitdata["Solder"]["UnitHealth"])]
+			#get_node("../../HUD/HUD/SelectionID/unitPortraitSolder/TextureProgressBar").value = unit_current_health
+			get_node("../HUD/HUD/SelectionID/unitPortraitSolder").set_visible(true)
+			get_node("../HUD/HUD/SelectionID/unitPortraitWorker").set_visible(false)
+		
 		else:
-			pass
-			#show the worker ID grop
+			#get_node("../HUD/HUD/SelectionID/unitPortraitWorker/TextureProgressBar/LabelCurrentHealthWorker").text = "%d/%d" % [unit_current_health, str(ImportData.unitdata["Worker"]["UnitHealth"])]
+			#get_node("../HUD/HUD/SelectionID/unitPortraitWorker/TextureProgressBar").value = unit_current_health
+			get_node("../HUD/HUD/SelectionID/unitPortraitSolder").set_visible(false)
+			get_node("../HUD/HUD/SelectionID/unitPortraitWorker").set_visible(true)
+			#show the worker ID grop 
 		# Add new selection
 		for unit in selected_units:
 
-			if selectionCount >= 30:
+			if selectionCount >= 60:
 				break
 			selectionCount += 1
 			if unit.get_node("StateController").isSoldier:

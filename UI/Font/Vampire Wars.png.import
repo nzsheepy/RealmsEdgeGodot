@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1rcw6ieg5krh"
-path="res://.godot/imported/LogoNoWriting.png-70125c92e3dc27f903344a0dd4cbcbbe.ctex"
+uid="uid://bn0bl423w245k"
+path="res://.godot/imported/Vampire Wars.png-1f341cc068200ea2107362db265fc89b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://LogoNoWriting.png"
-dest_files=["res://.godot/imported/LogoNoWriting.png-70125c92e3dc27f903344a0dd4cbcbbe.ctex"]
+source_file="res://UI/Font/Vampire Wars.png"
+dest_files=["res://.godot/imported/Vampire Wars.png-1f341cc068200ea2107362db265fc89b.ctex"]
 
 [params]
 
