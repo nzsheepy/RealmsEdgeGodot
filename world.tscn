@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=71 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
@@ -20,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://dk0dnyvundo6p" path="res://MiniWorldSprites/Buildings/Red/RedHuts.png" id="11_uilcy"]
 [ext_resource type="Texture2D" uid="uid://8p36d41bkywl" path="res://MiniWorldSprites/Buildings/Enemy/Mausoleum.png" id="12_6qwfu"]
 [ext_resource type="Texture2D" uid="uid://c76u4bk54c4wg" path="res://UI/HUD/icons/Gold.png" id="12_67fed"]
-[ext_resource type="Script" path="res://Attackable.gd" id="13_da0jf"]
 [ext_resource type="Texture2D" uid="uid://cmc45nl0xt2o4" path="res://UI/HUD/icons/Wood.png" id="13_lkvij"]
 [ext_resource type="Texture2D" uid="uid://bimn70kcq04j4" path="res://MiniWorldSprites/Nature/Wheatfield.png" id="13_oe26l"]
 [ext_resource type="Texture2D" uid="uid://bwqvyprvxyq5k" path="res://UI/HUD/icons/Stone.png" id="14_3myer"]
@@ -55,6 +54,8 @@
 [ext_resource type="Texture2D" uid="uid://bccq71xrimdc6" path="res://UI/Progress Bar/Progress.png" id="49_nsbxv"]
 [ext_resource type="Texture2D" uid="uid://bgociksxtalc0" path="res://UI/Progress Bar/Over.png" id="50_xe8ms"]
 [ext_resource type="Texture2D" uid="uid://bdeibwqqyy23u" path="res://UI/cursor/CursorAnimationBlue.png" id="51_e5obf"]
+[ext_resource type="Script" path="res://ControlLoading.gd" id="55_g0adp"]
+[ext_resource type="Texture2D" uid="uid://bavq0woun0w7r" path="res://Avatars/Logo.png" id="56_siyx3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41w8"]
 bg_color = Color(0, 0.933333, 0.843137, 0.219608)
@@ -830,9 +831,6 @@ frame = 0
 [node name="CollisionShape2D" parent="EnemyBuildings/Mausoleum/Area2D" index="0"]
 position = Vector2(0.208313, 2.16667)
 shape = SubResource("RectangleShape2D_r1uk1")
-
-[node name="Attackable" parent="EnemyBuildings/Mausoleum" index="1"]
-script = ExtResource("13_da0jf")
 
 [node name="EnemyFarm" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
 position = Vector2(1653, 284)
@@ -3952,6 +3950,44 @@ libraries = {
 "": SubResource("AnimationLibrary_phiq5")
 }
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="ControlLoading" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("55_g0adp")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ControlLoading"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRectLoading" type="TextureRect" parent="CanvasLayer/ControlLoading"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = -4.0
+offset_right = 1258.0
+offset_bottom = 602.0
+texture = ExtResource("56_siyx3")
+
+[node name="Label" type="Label" parent="CanvasLayer/ControlLoading"]
+layout_mode = 0
+offset_left = 387.0
+offset_top = 401.0
+offset_right = 1025.0
+offset_bottom = 533.0
+text = "Loading . . ."
+label_settings = ExtResource("46_rarby")
+
 [connection signal="mouse_entered" from="HUD/HUD/Control" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_entered" from="HUD/HUD/Control2" to="mouseHandle" method="_on_entered"]
@@ -3989,10 +4025,10 @@ libraries = {
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/barracks_button" to="mouseHandle" method="_on_entered"]
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_pressed"]
-[connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_entered"]
-[connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_exited"]
+[connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_exit"]
+[connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_exited"]
 [connection signal="pressed" from="HUD/HUD/build_menu_button" to="buildingPlacement" method="_on_build_menu_button_pressed"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_entered"]
@@ -4004,8 +4040,8 @@ libraries = {
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_entered"]
-[connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_exit"]
+[connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_exited"]
 [connection signal="timeout" from="HUD/HUD/PanelContainerWaveTimer/LabelTimer/WaveTimer" to="HUD/HUD/PanelContainerWaveTimer/LabelTimer" method="_on_wave_timer_timeout"]
 
 [editable path="EnemyBuildings/Mausoleum"]

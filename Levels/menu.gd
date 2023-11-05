@@ -1,20 +1,22 @@
 extends Control
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+const target_scene_path = "res://world.tscn"
+var loading : bool = false
+var resource : PackedScene
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(_delta):
+	if !loading:
+		return
+
+	get_tree().change_scene_to_packed(resource)
 
 
 func _on_start_button_pressed():
 	get_node("ControlLoading").show()
-	get_tree().change_scene_to_file("res://world.tscn")
-	print("hi billy, i have been pressed")
+	resource = ResourceLoader.load(target_scene_path)
+	loading = true
 
 func _on_options_button_pressed():
 	get_tree().change_scene_to_file("res://Levels/main_menu_options.tscn")
