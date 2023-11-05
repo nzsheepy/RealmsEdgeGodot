@@ -3950,10 +3950,11 @@ libraries = {
 "": SubResource("AnimationLibrary_phiq5")
 }
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="LoadingLayer" type="CanvasLayer" parent="."]
 layer = 128
 
-[node name="ControlLoading" type="Control" parent="CanvasLayer"]
+[node name="ControlLoading" type="Control" parent="LoadingLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -3962,7 +3963,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("55_g0adp")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ControlLoading"]
+[node name="ColorRect" type="ColorRect" parent="LoadingLayer/ControlLoading"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -3971,7 +3972,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="TextureRectLoading" type="TextureRect" parent="CanvasLayer/ControlLoading"]
+[node name="TextureRectLoading" type="TextureRect" parent="LoadingLayer/ControlLoading"]
 layout_mode = 0
 offset_left = 56.0
 offset_top = -4.0
@@ -3979,7 +3980,7 @@ offset_right = 1258.0
 offset_bottom = 602.0
 texture = ExtResource("56_siyx3")
 
-[node name="Label" type="Label" parent="CanvasLayer/ControlLoading"]
+[node name="Label" type="Label" parent="LoadingLayer/ControlLoading"]
 layout_mode = 0
 offset_left = 387.0
 offset_top = 401.0

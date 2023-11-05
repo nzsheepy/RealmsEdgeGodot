@@ -124,6 +124,9 @@ func _process(delta):
 			built = true
 			isFoundation = false
 			updateProgress()  # Update UI after construction is completed
+			var area :Area2D = get_node("EnterArea")
+			if area:
+				area.set("scale", Vector2(1, 1))
 
 		return  # Skip the rest of the process if still in foundation
 
@@ -140,8 +143,6 @@ func _process(delta):
 		HandleBarracks()
 	if buildingType == "TownCenter":
 		HandleTownCenter()
-		if can_train_worker:
-			updateProgress()
 	else:
 		# Handle resource gathering for other building types
 		if unitsGathering.size() == 0 and !noUnitsRequired:
