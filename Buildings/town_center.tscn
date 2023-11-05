@@ -1,14 +1,54 @@
-[gd_scene load_steps=8 format=3 uid="uid://btldymmsuq2wy"]
+[gd_scene load_steps=13 format=3 uid="uid://btldymmsuq2wy"]
 
 [ext_resource type="Texture2D" uid="uid://b8bnl5n6eii2k" path="res://MiniWorldSprites/Buildings/Cyan/CyanKeep.png" id="1_612h3"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_t0sh2"]
 [ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="3_ttxa7"]
 [ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="4_huox8"]
-[ext_resource type="LabelSettings" uid="uid://cq6ct73bo7dn5" path="res://Buildings/PercentFont.tres" id="5_fd3mx"]
+[ext_resource type="Texture2D" uid="uid://bbsxl4ellqt4y" path="res://Character Animations/370603310_264078972862701_8385670816339842842_n.png" id="5_7lt00"]
+[ext_resource type="Texture2D" uid="uid://bccq71xrimdc6" path="res://UI/Progress Bar/Progress.png" id="6_6nnsr"]
 [ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="6_v01qv"]
+[ext_resource type="Texture2D" uid="uid://bgociksxtalc0" path="res://UI/Progress Bar/Over.png" id="7_bcer6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljc4g"]
 size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_eg1l7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_uifw2"]
+resource_name = "fireAnimation"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wl2ft"]
+_data = {
+"RESET": SubResource("Animation_eg1l7"),
+"fireAnimation": SubResource("Animation_uifw2")
+}
 
 [node name="towncenter" type="Sprite2D"]
 scale = Vector2(4, 4)
@@ -38,22 +78,107 @@ position = Vector2(16, 16)
 scale = Vector2(2, 2)
 texture = ExtResource("3_ttxa7")
 
-[node name="BuildingConstructionPercent" type="Label" parent="."]
-offset_left = 11.0
-offset_top = 11.0
-offset_right = 52.0
-offset_bottom = 54.0
-scale = Vector2(0.236764, 0.278948)
-theme = ExtResource("4_huox8")
-text = "99%"
-label_settings = ExtResource("5_fd3mx")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Damaged" type="Node2D" parent="."]
+position = Vector2(16, 16)
+
+[node name="burning" type="Sprite2D" parent="Damaged"]
+modulate = Color(1, 0.188235, 0.180392, 1)
+texture = ExtResource("1_612h3")
+hframes = 3
+vframes = 2
+frame = 3
+
+[node name="fire" type="Sprite2D" parent="Damaged"]
+position = Vector2(3.66665, -3.66666)
+scale = Vector2(0.0540196, 0.0540196)
+texture = ExtResource("5_7lt00")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Damaged/fire"]
+autoplay = "fireAnimation"
+libraries = {
+"": SubResource("AnimationLibrary_wl2ft")
+}
+
+[node name="fire2" type="Sprite2D" parent="Damaged"]
+position = Vector2(-8.75, 3)
+scale = Vector2(0.0540196, 0.0540196)
+texture = ExtResource("5_7lt00")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Damaged/fire2"]
+autoplay = "fireAnimation"
+libraries = {
+"": SubResource("AnimationLibrary_wl2ft")
+}
+
+[node name="fire3" type="Sprite2D" parent="Damaged"]
+position = Vector2(8.5, 6.5)
+scale = Vector2(0.0540196, 0.0540196)
+texture = ExtResource("5_7lt00")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Damaged/fire3"]
+autoplay = "fireAnimation"
+libraries = {
+"": SubResource("AnimationLibrary_wl2ft")
+}
+
+[node name="fire4" type="Sprite2D" parent="Damaged"]
+position = Vector2(-8.25, -9)
+scale = Vector2(0.0540196, 0.0540196)
+texture = ExtResource("5_7lt00")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Damaged/fire4"]
+autoplay = "fireAnimation"
+libraries = {
+"": SubResource("AnimationLibrary_wl2ft")
+}
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = 4.5
+offset_top = 31.75
+offset_right = 36.5
+offset_bottom = 39.75
+scale = Vector2(0.744129, 0.744129)
+value = 10.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("6_6nnsr")
+texture_over = ExtResource("7_bcer6")
+texture_progress = ExtResource("6_6nnsr")
+tint_under = Color(0.623529, 0.552941, 0.498039, 1)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0.631373, 0.164706, 1)
+
+[node name="TexturehealthBar" type="TextureProgressBar" parent="."]
+offset_left = 7.75
+offset_top = -2.75
+offset_right = 39.75
+offset_bottom = 5.25
+scale = Vector2(0.5, 0.5)
+value = 10.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("6_6nnsr")
+texture_over = ExtResource("7_bcer6")
+texture_progress = ExtResource("6_6nnsr")
+tint_under = Color(0.623529, 0.552941, 0.498039, 1)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0, 0.164706, 1)
 
 [node name="healthPercent" type="Label" parent="."]
-offset_top = -8.25
-offset_right = 41.0
-offset_bottom = 34.75
+offset_left = 7.25
+offset_top = -6.75
+offset_right = 48.25
+offset_bottom = 36.25
 scale = Vector2(0.236764, 0.278948)
 theme = ExtResource("4_huox8")
 text = "HP:"
@@ -61,12 +186,26 @@ label_settings = ExtResource("6_v01qv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="BuildingConstructionPercent" type="Label" parent="."]
+offset_left = -3.5
+offset_top = 28.5
+offset_right = 165.5
+offset_bottom = 71.5
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_huox8")
+text = "Construction: 99%"
+label_settings = ExtResource("6_v01qv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="GatherRate" type="Label" parent="."]
-offset_left = 0.25
-offset_top = 32.0
-offset_right = 82.25
-offset_bottom = 67.0
-scale = Vector2(0.161827, 0.172528)
+offset_left = 1.83333
+offset_top = 28.5
+offset_right = 97.8333
+offset_bottom = 71.5
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("4_huox8")
 text = "Gathering:"
+label_settings = ExtResource("6_v01qv")
 horizontal_alignment = 1
 vertical_alignment = 1

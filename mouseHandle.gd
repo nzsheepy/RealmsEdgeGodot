@@ -4,16 +4,34 @@ var mouseBlocked = false
 @onready var labelBuildingName = $"../HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/LabelBuildingName"
 @onready var labelBuildingdescription = $"../HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer/LabelBuildingDescription"
 
+@onready var mouseClick = $"../CursorClick"
+
+var elapsedTime = 0  # Initialize elapsedTime to 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	mouseClick.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_released("LeftClick"):
 		print("Left Click, mouse blocked: ", mouseBlocked)
+	
+	if Input.is_action_just_pressed("RightClick") and not mouseBlocked:
+		mouseClick.position = get_global_mouse_position()
+		mouseClick.show()
+		# Assuming 'animation_player' is the AnimationPlayer node that controls the animation
+		var animation_player = mouseClick.get_node("../CursorClick/Sprite2D/AnimationPlayer")  # Replace with your actual AnimationPlayer path
+		animation_player.stop()  # Stop any current animation
+		animation_player.play("click")  # Replace with your actual animation name
+		elapsedTime = 0
+
+	elapsedTime += delta
+	if elapsedTime > 0.2:
+		mouseClick.hide()
+		elapsedTime = 0
+
+
 
 func show_button_tips():
 	get_node("../HUD/HUD/CommandCardBuildingTips").visible = true

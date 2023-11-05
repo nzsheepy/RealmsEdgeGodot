@@ -1,12 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://70eit8yb72d8"]
+[gd_scene load_steps=16 format=3 uid="uid://70eit8yb72d8"]
 
 [ext_resource type="Texture2D" uid="uid://h4i8wlslinqd" path="res://MiniWorldSprites/Buildings/Cyan/CyanResources.png" id="1_up8ql"]
 [ext_resource type="Script" path="res://Buildings/buildingManager.gd" id="2_bfytj"]
 [ext_resource type="Texture2D" uid="uid://bimn70kcq04j4" path="res://MiniWorldSprites/Nature/Wheatfield.png" id="3_jaqvi"]
 [ext_resource type="Texture2D" uid="uid://r61em18aoh3f" path="res://MiniWorldSprites/Buildings/Cyan/Foundation.png" id="4_o71gt"]
+[ext_resource type="Texture2D" uid="uid://bbsxl4ellqt4y" path="res://Character Animations/370603310_264078972862701_8385670816339842842_n.png" id="5_8gljj"]
 [ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="5_ceesq"]
-[ext_resource type="LabelSettings" uid="uid://cq6ct73bo7dn5" path="res://Buildings/PercentFont.tres" id="6_udikp"]
+[ext_resource type="Texture2D" uid="uid://bccq71xrimdc6" path="res://UI/Progress Bar/Progress.png" id="7_6q7sa"]
 [ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="7_iq0dl"]
+[ext_resource type="Texture2D" uid="uid://bgociksxtalc0" path="res://UI/Progress Bar/Over.png" id="8_a1fdq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5xh55"]
 size = Vector2(36.6667, 36.3333)
@@ -16,6 +18,44 @@ size = Vector2(26.66, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r36tp"]
 size = Vector2(16, 26.66)
+
+[sub_resource type="Animation" id="Animation_eg1l7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_uifw2"]
+resource_name = "fireAnimation"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wl2ft"]
+_data = {
+"RESET": SubResource("Animation_eg1l7"),
+"fireAnimation": SubResource("Animation_uifw2")
+}
 
 [node name="building" type="Sprite2D"]
 scale = Vector2(3, 3)
@@ -343,36 +383,111 @@ position = Vector2(18.3333, 18.3333)
 scale = Vector2(2.29167, 2.27083)
 texture = ExtResource("4_o71gt")
 
-[node name="BuildingConstructionPercent" type="Label" parent="."]
-offset_left = 3.0
-offset_top = 1.5
-offset_right = 44.0
-offset_bottom = 44.5
-scale = Vector2(0.236764, 0.278948)
-theme = ExtResource("5_ceesq")
-text = "99%"
-label_settings = ExtResource("6_udikp")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Damaged" type="Node2D" parent="."]
+position = Vector2(8, 8)
 
-[node name="healthPercent" type="Label" parent="."]
-offset_top = -8.33333
-offset_right = 41.0
-offset_bottom = 34.6667
+[node name="burning" type="Sprite2D" parent="Damaged"]
+modulate = Color(1, 0.188235, 0.180392, 1)
+position = Vector2(10.3333, 10.3333)
+texture = ExtResource("1_up8ql")
+hframes = 3
+vframes = 5
+frame = 3
+
+[node name="fire" type="Sprite2D" parent="Damaged"]
+position = Vector2(13.6667, 7)
+scale = Vector2(0.0540196, 0.0540196)
+texture = ExtResource("5_8gljj")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Damaged/fire"]
+autoplay = "fireAnimation"
+libraries = {
+"": SubResource("AnimationLibrary_wl2ft")
+}
+
+[node name="fire2" type="Sprite2D" parent="Damaged"]
+position = Vector2(5.66667, 11.6667)
+scale = Vector2(0.0540196, 0.0540196)
+texture = ExtResource("5_8gljj")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Damaged/fire2"]
+autoplay = "fireAnimation"
+libraries = {
+"": SubResource("AnimationLibrary_wl2ft")
+}
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_left = 6.33333
+offset_top = 26.0
+offset_right = 38.3333
+offset_bottom = 34.0
+scale = Vector2(0.744129, 0.744129)
+value = 10.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("7_6q7sa")
+texture_over = ExtResource("8_a1fdq")
+texture_progress = ExtResource("7_6q7sa")
+tint_under = Color(0.623529, 0.552941, 0.498039, 1)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0.631373, 0.164706, 1)
+
+[node name="TexturehealthBar" type="TextureProgressBar" parent="."]
+offset_left = 10.3333
+offset_top = 7.33333
+offset_right = 42.3333
+offset_bottom = 15.3333
+scale = Vector2(0.5, 0.5)
+value = 10.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("7_6q7sa")
+texture_over = ExtResource("8_a1fdq")
+texture_progress = ExtResource("7_6q7sa")
+tint_under = Color(0.623529, 0.552941, 0.498039, 1)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0, 0.164706, 1)
+
+[node name="BuildingConstructionPercent" type="Label" parent="."]
+offset_left = -1.66667
+offset_top = 23.3333
+offset_right = 167.333
+offset_bottom = 66.3333
 scale = Vector2(0.236764, 0.278948)
 theme = ExtResource("5_ceesq")
-text = "HP:"
+text = "Construction: 99%"
 label_settings = ExtResource("7_iq0dl")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GatherRate" type="Label" parent="."]
-offset_top = 14.3333
-offset_right = 41.0
-offset_bottom = 57.3333
+offset_left = 3.66667
+offset_top = 23.3333
+offset_right = 99.6667
+offset_bottom = 66.3333
 scale = Vector2(0.236764, 0.278948)
 theme = ExtResource("5_ceesq")
 text = "Gathering:"
+label_settings = ExtResource("7_iq0dl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="healthPercent" type="Label" parent="."]
+offset_left = 9.33333
+offset_top = 3.0
+offset_right = 50.3333
+offset_bottom = 46.0
+scale = Vector2(0.236764, 0.278948)
+theme = ExtResource("5_ceesq")
+text = "HP:"
 label_settings = ExtResource("7_iq0dl")
 horizontal_alignment = 1
 vertical_alignment = 1

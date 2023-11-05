@@ -27,6 +27,12 @@ var visibleTargets = []
 var attackTimer = 0.0
 @onready var character: Entity = get_parent()
 
+#billy please link these you have access to:
+#UnitAttack	UnitAttackWait	UnitArmor	UnitHealth	UnitGoldCost	UnitWoodCost	UnitStoneCost	UnitFoodCost	unitSpeed
+var unit_data_worker = ImportData.unitdata["Worker"]
+var unit_data_solder = ImportData.unitdata["Solder"]
+var unit_data_Zombie = ImportData.unitdata["Zombie"]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	FindAndMoveTownCenter()

@@ -5,6 +5,9 @@ extends Label
 @onready var necromancers = $"../../../../Necromancers"
 @onready var textScroll = $"../../../../HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText/HBoxContainer/LabelPopText"
 @onready var textPanel = $"../../../../HUD/HUD/Text_for_scroll/text_Scroll/PanelPopText"
+@onready var waveTexture = get_node("../../../../HUD/HUD/Text_for_scroll/TextureWaveIncoming")
+@export var minimum_wave_time = 10.0  # Minimum time in seconds for a wave
+
 var current_wave = 1
 @export var initial_wave_time = 1 * 10  # 10 minutes in seconds
 @export var waveShortner : bool = true  # Toggle for shortening wave times
@@ -17,12 +20,20 @@ var text_hide_duration = 2.0  # Duration over which the text is hidden
 var text_state = "idle"  # "idle", "revealing", "holding", "hiding"
 var welcome_message_shown = false  # To track whether the welcome message has been shown
 
+var wave_texture_state = "hidden"  # "hidden", "fading_in", "visible", "fading_out"
+var wave_texture_fade_in_time = 1.0  # Time to fade in the waveTexture
+var wave_texture_visible_time = 3.0  # Time to keep the waveTexture fully visible
+var wave_texture_fade_out_time = 1.0  # Time to fade out the waveTexture
+var wave_texture_elapsed_time = 0.0  # To accumulate the time for waveTexture
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("../../../../HUD/HUD/Text_for_scroll/text_Scroll").hide()
 
 	start_new_wave()
 	textPanel.modulate.a = 0.0  # Hide the text panel
+	waveTexture.hide()
 
 func _process(delta):
 	elapsed_time += delta  # Accumulate the time elapsed
@@ -60,10 +71,39 @@ func _process(delta):
 					welcome_message_shown = true  # Set to true so it doesn't show again
 					elapsed_time = 0  # Reset elapsed time
 
+	match wave_texture_state:
+		"hidden":
+			# Nothing to do when hidden
+			pass
+		"fading_in":
+			wave_texture_elapsed_time += delta
+			var fade_in_ratio = min(wave_texture_elapsed_time / wave_texture_fade_in_time, 1.0)
+			waveTexture.modulate.a = fade_in_ratio
+			if fade_in_ratio == 1.0:
+				wave_texture_state = "visible"
+				wave_texture_elapsed_time = 0  # Reset elapsed time for visibility
+		"visible":
+			wave_texture_elapsed_time += delta
+			if wave_texture_elapsed_time >= wave_texture_visible_time:
+				wave_texture_state = "fading_out"
+				wave_texture_elapsed_time = 0  # Reset elapsed time for fading out
+		"fading_out":
+			wave_texture_elapsed_time += delta
+			var fade_out_ratio = max(1.0 - wave_texture_elapsed_time / wave_texture_fade_out_time, 0.0)
+			waveTexture.modulate.a = fade_out_ratio
+			if fade_out_ratio == 0.0:
+				wave_texture_state = "hidden"
+				waveTexture.hide()  # Hide the texture when fully faded out
+
+
+
+
 func start_new_wave():
 	var new_wave_time = initial_wave_time
 	if waveShortner:
 		new_wave_time *= pow(time_decrease_factor, current_wave - 1)
+		# Ensure new_wave_time does not go below the minimum wave time
+		new_wave_time = max(new_wave_time, minimum_wave_time)
 	$WaveTimer.wait_time = new_wave_time
 	$WaveTimer.start()
 
@@ -72,6 +112,14 @@ func _on_wave_timer_timeout():
 	current_wave += 1
 	start_new_wave()
 	espawn.startwave()
+	espawn.increase_wave_size()  # Increase the wave size for the next wave exponentially
 
 	for child in necromancers.get_children():
 		child.startwave()
+		child.increase_wave_size()  # Increase the wave size for necromancer waves as well
+
+
+# Start fading in the waveTexture when the wave timer runs out
+	wave_texture_state = "fading_in"
+	wave_texture_elapsed_time = 0  # Reset elapsed time for fading in
+	waveTexture.show()  # Make sure the texture is visible before starting to fade in

@@ -1,12 +1,12 @@
-[gd_scene load_steps=59 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=70 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
 [ext_resource type="Script" path="res://Unit/UnitManager.gd" id="4_2brtq"]
 [ext_resource type="PackedScene" uid="uid://btldymmsuq2wy" path="res://Buildings/town_center.tscn" id="5_usv12"]
 [ext_resource type="Script" path="res://mouseHandle.gd" id="6_0kifu"]
-[ext_resource type="PackedScene" path="res://enemy_building.tscn" id="6_5vrah"]
-[ext_resource type="PackedScene" path="res://e_barrack.tscn" id="7_olyge"]
+[ext_resource type="PackedScene" uid="uid://dtsf7mhhe6q58" path="res://enemy_building.tscn" id="6_5vrah"]
+[ext_resource type="PackedScene" uid="uid://dtnb8baldvolk" path="res://e_barrack.tscn" id="7_olyge"]
 [ext_resource type="PackedScene" uid="uid://cb3yhxcntmdm6" path="res://necrodancer.tscn" id="8_3bayd"]
 [ext_resource type="Texture2D" uid="uid://d3m2c6xg8nhqk" path="res://MiniWorldSprites/Buildings/Red/RedHouses.png" id="8_a0yka"]
 [ext_resource type="Script" path="res://resourceManager.gd" id="8_b4m7g"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dk0dnyvundo6p" path="res://MiniWorldSprites/Buildings/Red/RedHuts.png" id="11_uilcy"]
 [ext_resource type="Texture2D" uid="uid://8p36d41bkywl" path="res://MiniWorldSprites/Buildings/Enemy/Mausoleum.png" id="12_6qwfu"]
 [ext_resource type="Texture2D" uid="uid://c76u4bk54c4wg" path="res://UI/HUD/icons/Gold.png" id="12_67fed"]
+[ext_resource type="Script" path="res://Attackable.gd" id="13_da0jf"]
 [ext_resource type="Texture2D" uid="uid://cmc45nl0xt2o4" path="res://UI/HUD/icons/Wood.png" id="13_lkvij"]
 [ext_resource type="Texture2D" uid="uid://bimn70kcq04j4" path="res://MiniWorldSprites/Nature/Wheatfield.png" id="13_oe26l"]
 [ext_resource type="Texture2D" uid="uid://bwqvyprvxyq5k" path="res://UI/HUD/icons/Stone.png" id="14_3myer"]
@@ -36,19 +37,24 @@
 [ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="23_f74y2"]
 [ext_resource type="StyleBox" uid="uid://cnack2eerg6rw" path="res://UI/Dialogue Box/new_style_box_flat.tres" id="23_fki64"]
 [ext_resource type="Script" path="res://GameTimer.gd" id="23_ledid"]
-[ext_resource type="LabelSettings" uid="uid://bhmp5hqfdr22" path="res://UI/Dialogue Box/labelDefaultTtile.tres" id="25_1dimv"]
 [ext_resource type="LabelSettings" uid="uid://bora3sdd8dkry" path="res://UI/Dialogue Box/labelDefault.tres" id="25_r72wb"]
 [ext_resource type="FontFile" uid="uid://bm52ys4apf5my" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Medium.ttf" id="27_j1mkb"]
 [ext_resource type="FontFile" uid="uid://cwqu3cfuskrrs" path="res://UI/Font/Inknut Antiqua/InknutAntiqua-Regular.ttf" id="27_s7wou"]
 [ext_resource type="Texture2D" uid="uid://bqkgs7vunc5bu" path="res://UI/Textbox/GreyFlag.png" id="30_2ddyc"]
+[ext_resource type="Texture2D" uid="uid://bustl7i5x15w" path="res://UI/HUD/icons/Settings.png" id="30_ws76v"]
 [ext_resource type="Texture2D" uid="uid://b2heqvhnertgv" path="res://UI/HUD/Command Card/MoveCCIcon.png" id="31_hmfxq"]
 [ext_resource type="Texture2D" uid="uid://cn0c1muoi8e6a" path="res://UI/HUD/Command Card/StopCCIcon.png" id="32_1xvpp"]
 [ext_resource type="Texture2D" uid="uid://ckvc7jje1i7k" path="res://UI/HUD/Selection ID/SelectionIDWorker.png" id="33_2bb86"]
 [ext_resource type="Texture2D" uid="uid://3bqpt0uilfgd" path="res://UI/HUD/Command Card/AttackCCIcon.png" id="34_potm0"]
 [ext_resource type="Texture2D" uid="uid://d03adgyuuykeo" path="res://UI/HUD/Command Card/DefenseCCIcon.png" id="35_44htd"]
 [ext_resource type="LabelSettings" uid="uid://biwjixnle6grb" path="res://UI/Font/AttackDefenceFont.tres" id="35_uddvq"]
-[ext_resource type="PackedScene" uid="uid://cygxij8t2fvly" path="res://UI/Progress Bar/texture_progress_bar.tscn" id="39_wpw1l"]
 [ext_resource type="Texture2D" uid="uid://dgqu1spwx8150" path="res://UI/HUD/Selection ID/SelectionIDSoldier.png" id="40_bkewo"]
+[ext_resource type="Texture2D" uid="uid://b3x0f1celdv2q" path="res://Avatars/Avatar_Lord4.png" id="45_ih58r"]
+[ext_resource type="Texture2D" uid="uid://1rcw6ieg5krh" path="res://Avatars/LogoNoWriting.png" id="45_io713"]
+[ext_resource type="LabelSettings" uid="uid://qjx806uw8aod" path="res://UI/Font/VampireWarsTitleLabel.tres" id="46_rarby"]
+[ext_resource type="Texture2D" uid="uid://bccq71xrimdc6" path="res://UI/Progress Bar/Progress.png" id="49_nsbxv"]
+[ext_resource type="Texture2D" uid="uid://bgociksxtalc0" path="res://UI/Progress Bar/Over.png" id="50_xe8ms"]
+[ext_resource type="Texture2D" uid="uid://bdeibwqqyy23u" path="res://UI/cursor/CursorAnimationBlue.png" id="51_e5obf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q41w8"]
 bg_color = Color(0, 0.933333, 0.843137, 0.219608)
@@ -75,6 +81,14 @@ default_font_size = 13
 /colors/color = Color(0.415686, 0.309804, 0.145098, 1)
 /colors/shadow = Color(0.258824, 0.258824, 0.258824, 1)
 /font_sizes/fontseize = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_xw4i4"]
+line_spacing = 0.0
+font = ExtResource("27_j1mkb")
+font_size = 18
+outline_color = Color(0.411765, 0.411765, 0.411765, 1)
+shadow_size = 2
+shadow_color = Color(0.313726, 0.313726, 0.313726, 0.427451)
 
 [sub_resource type="Theme" id="Theme_73eho"]
 
@@ -113,16 +127,148 @@ outline_color = Color(0.411765, 0.411765, 0.411765, 1)
 shadow_size = 2
 shadow_color = Color(0, 0, 0, 0.427451)
 
+[sub_resource type="Animation" id="Animation_xhd6j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-7, -8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sgtmr"]
+resource_name = "click"
+length = 2.1
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.21, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.5, 0.5), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.21),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_uwrp8"]
+resource_name = "click_2"
+length = 3.0
+loop_mode = 1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.06, 0.27, 0.28),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(0.5, 0.5), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.06, 0.22, 0.27),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_phiq5"]
+_data = {
+"RESET": SubResource("Animation_xhd6j"),
+"click": SubResource("Animation_sgtmr"),
+"click_2": SubResource("Animation_uwrp8")
+}
+
 [node name="World" type="Node2D"]
 
 [node name="Grid" parent="." instance=ExtResource("1_6nfbs")]
 position = Vector2(0, 0)
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("selection", "unitManager")]
-anchor_mode = 0
+offset = Vector2(300, 375)
 zoom = Vector2(2, 2)
-limit_left = 0
-limit_top = 0
+limit_left = -300
+limit_top = -375
+limit_right = 2325
+limit_bottom = 1250
 script = ExtResource("1_aabg1")
 selection = NodePath("../Selection")
 unitManager = NodePath("../Units")
@@ -141,19 +287,20 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q41w8")
 
 [node name="resourceManager" type="Node2D" parent="."]
+position = Vector2(1, 0)
 script = ExtResource("8_b4m7g")
-gold = 2000
-wood = 5000
-stone = 5000
-food = 5000
+gold = 30000
+wood = 25000
+stone = 25000
+food = 150
+maxPop = 2
 
 [node name="buildingPlacement" type="Node2D" parent="." node_paths=PackedStringArray("grid")]
 script = ExtResource("8_hhrwk")
 grid = NodePath("../Grid")
 
 [node name="towncenter" parent="buildingPlacement" instance=ExtResource("5_usv12")]
-position = Vector2(310, 473)
-gatherTime = 3
+position = Vector2(404, 257)
 built = true
 
 [node name="EnemyBuildings" type="Node2D" parent="."]
@@ -683,6 +830,9 @@ frame = 0
 [node name="CollisionShape2D" parent="EnemyBuildings/Mausoleum/Area2D" index="0"]
 position = Vector2(0.208313, 2.16667)
 shape = SubResource("RectangleShape2D_r1uk1")
+
+[node name="Attackable" parent="EnemyBuildings/Mausoleum" index="1"]
+script = ExtResource("13_da0jf")
 
 [node name="EnemyFarm" parent="EnemyBuildings" instance=ExtResource("7_olyge")]
 position = Vector2(1653, 284)
@@ -3336,6 +3486,14 @@ text = "200/200
 label_settings = ExtResource("15_tlm4n")
 horizontal_alignment = 1
 
+[node name="TextureButtonOptions" type="TextureButton" parent="HUD/HUD"]
+layout_mode = 0
+offset_left = 1231.0
+offset_top = 1.0
+offset_right = 1279.0
+offset_bottom = 49.0
+texture_normal = ExtResource("30_ws76v")
+
 [node name="BuildingGridContainer" type="GridContainer" parent="HUD/HUD"]
 layout_mode = 0
 offset_left = 1044.0
@@ -3410,7 +3568,7 @@ theme_override_colors/font_shadow_color = Color(0.741176, 0.741176, 0.741176, 1)
 theme_override_constants/line_spacing = -5
 theme_override_font_sizes/font_size = 18
 text = "Building Name + Hotkey"
-label_settings = ExtResource("25_1dimv")
+label_settings = SubResource("LabelSettings_xw4i4")
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/HUD/CommandCardBuildingTips/PanelContainerBuildingTips/VBoxContainer"]
@@ -3507,7 +3665,7 @@ offset_left = 241.0
 offset_top = 577.0
 offset_right = 2911.3
 offset_bottom = 1014.1
-scale = Vector2(0.29, 0.29)
+scale = Vector2(0.153, 0.153)
 columns = 20
 
 [node name="PanelContainerWaveTimer" type="PanelContainer" parent="HUD/HUD"]
@@ -3531,8 +3689,7 @@ text = "  Next Wave in:
 label_settings = SubResource("LabelSettings_liug8")
 autowrap_mode = 3
 script = ExtResource("23_ledid")
-initial_wave_time = 20
-waveShortner = false
+initial_wave_time = 180
 
 [node name="WaveTimer" type="Timer" parent="HUD/HUD/PanelContainerWaveTimer/LabelTimer"]
 wait_time = 300.0
@@ -3588,6 +3745,33 @@ scale = Vector2(0.579365, 0.602694)
 texture = ExtResource("30_2ddyc")
 expand_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="HUD/HUD/Text_for_scroll/text_Scroll"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 54.0
+offset_right = 442.0
+offset_bottom = 494.0
+scale = Vector2(0.245, 0.245)
+texture = ExtResource("45_ih58r")
+
+[node name="TextureWaveIncoming" type="TextureRect" parent="HUD/HUD/Text_for_scroll"]
+visible = false
+offset_left = 327.0
+offset_top = -17.0
+offset_right = 1327.0
+offset_bottom = 534.0
+scale = Vector2(0.615, 0.615)
+texture = ExtResource("45_io713")
+
+[node name="LabelWaveIncoming" type="Label" parent="HUD/HUD/Text_for_scroll/TextureWaveIncoming"]
+layout_mode = 0
+offset_left = 65.0406
+offset_top = 239.024
+offset_right = 948.041
+offset_bottom = 459.024
+text = "Wave Incoming!"
+label_settings = ExtResource("46_rarby")
+
 [node name="SelectionID" type="Control" parent="HUD/HUD"]
 anchors_preset = 0
 offset_right = 40.0
@@ -3615,7 +3799,7 @@ columns = 2
 layout_mode = 2
 texture = ExtResource("34_potm0")
 
-[node name="Label2" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/GridContainer"]
+[node name="LabelAttackWorker" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/GridContainer"]
 layout_mode = 2
 text = "99"
 label_settings = ExtResource("35_uddvq")
@@ -3624,7 +3808,7 @@ label_settings = ExtResource("35_uddvq")
 layout_mode = 2
 texture = ExtResource("35_44htd")
 
-[node name="Label3" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/GridContainer"]
+[node name="LabelDefenceWorker" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/GridContainer"]
 layout_mode = 2
 text = "99"
 label_settings = ExtResource("35_uddvq")
@@ -3640,18 +3824,30 @@ theme_override_constants/separation = -20
 layout_mode = 2
 texture = ExtResource("33_2bb86")
 
-[node name="Label" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/VBoxContainer"]
+[node name="LabelNameWorker" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/VBoxContainer"]
 layout_mode = 2
 text = "WORKER"
 label_settings = SubResource("LabelSettings_yoxcv")
 
-[node name="TextureProgressBar" parent="HUD/HUD/SelectionID/unitPortraitWorker" instance=ExtResource("39_wpw1l")]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HUD/HUD/SelectionID/unitPortraitWorker"]
 layout_mode = 2
 offset_top = 49.9395
 offset_right = 70.0
 offset_bottom = 62.8845
+value = 38.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("49_nsbxv")
+texture_over = ExtResource("50_xe8ms")
+texture_progress = ExtResource("49_nsbxv")
+tint_under = Color(0.623529, 0.552941, 0.498039, 1)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0.631373, 0.164706, 1)
 
-[node name="Label4" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/TextureProgressBar"]
+[node name="LabelCurrentHealthWorker" type="Label" parent="HUD/HUD/SelectionID/unitPortraitWorker/TextureProgressBar"]
 layout_mode = 2
 offset_left = 4.41932
 offset_top = -1.66687
@@ -3662,7 +3858,6 @@ text = "HP: 100/100"
 label_settings = SubResource("LabelSettings_rvedw")
 
 [node name="unitPortraitSolder" type="Control" parent="HUD/HUD/SelectionID"]
-visible = false
 anchors_preset = 0
 offset_left = 32.0
 offset_top = 502.0
@@ -3684,7 +3879,7 @@ columns = 2
 layout_mode = 2
 texture = ExtResource("34_potm0")
 
-[node name="Label2" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/GridContainer"]
+[node name="LabelAttackSolder" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/GridContainer"]
 layout_mode = 2
 text = "99"
 label_settings = ExtResource("35_uddvq")
@@ -3693,7 +3888,7 @@ label_settings = ExtResource("35_uddvq")
 layout_mode = 2
 texture = ExtResource("35_44htd")
 
-[node name="Label3" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/GridContainer"]
+[node name="LabelDefenceSolder" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/GridContainer"]
 layout_mode = 2
 text = "99"
 label_settings = ExtResource("35_uddvq")
@@ -3709,20 +3904,32 @@ theme_override_constants/separation = -20
 layout_mode = 2
 texture = ExtResource("40_bkewo")
 
-[node name="Label" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/VBoxContainer"]
+[node name="LabelNameSolder" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/VBoxContainer"]
 layout_mode = 2
 text = "SOLDER
 "
 label_settings = SubResource("LabelSettings_yoxcv")
 
-[node name="TextureProgressBar" parent="HUD/HUD/SelectionID/unitPortraitSolder" instance=ExtResource("39_wpw1l")]
+[node name="TextureHealthBar" type="TextureProgressBar" parent="HUD/HUD/SelectionID/unitPortraitSolder"]
 layout_mode = 2
 offset_top = 49.9395
 offset_right = 70.0
 offset_bottom = 62.8845
+value = 38.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("49_nsbxv")
+texture_over = ExtResource("50_xe8ms")
+texture_progress = ExtResource("49_nsbxv")
+tint_under = Color(0.623529, 0.552941, 0.498039, 1)
+tint_over = Color(0.239216, 0.2, 0.2, 1)
+tint_progress = Color(0.898039, 0.631373, 0.164706, 1)
 
-[node name="Label4" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/TextureProgressBar"]
-layout_mode = 2
+[node name="LabelCurrentHealthSolder" type="Label" parent="HUD/HUD/SelectionID/unitPortraitSolder/TextureHealthBar"]
+layout_mode = 0
 offset_left = 4.41932
 offset_top = -1.66687
 offset_right = 139.419
@@ -3731,12 +3938,27 @@ scale = Vector2(0.3, 0.3)
 text = "HP: 100/100"
 label_settings = SubResource("LabelSettings_rvedw")
 
+[node name="CursorClick" type="Node2D" parent="."]
+scale = Vector2(0.1, 0.1)
+
+[node name="Sprite2D" type="Sprite2D" parent="CursorClick"]
+position = Vector2(-7, -8)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("51_e5obf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CursorClick/Sprite2D"]
+autoplay = "click"
+libraries = {
+"": SubResource("AnimationLibrary_phiq5")
+}
+
 [connection signal="mouse_entered" from="HUD/HUD/Control" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_entered" from="HUD/HUD/Control2" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control2" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_entered" from="HUD/HUD/Control3" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control3" to="mouseHandle" method="_on_exit"]
+[connection signal="pressed" from="HUD/HUD/TextureButtonOptions" to="HUD/HUD" method="_on_texture_button_options_pressed"]
 [connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/house_button" to="buildingPlacement" method="_on_house_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/BuildingGridContainer/house_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/BuildingGridContainer/house_button" to="buildingPlacement" method="_on_house_button_mouse_exited"]
@@ -3772,12 +3994,12 @@ label_settings = SubResource("LabelSettings_rvedw")
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/build_menu_button" to="buildingPlacement" method="_on_build_menu_button_pressed"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_exit"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_entered"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_exited"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_entered"]

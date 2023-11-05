@@ -7,6 +7,11 @@ class_name Entity
 @onready var enemySpanwer = $"../../EnemySpawner"
 
 @onready var resourceManager : ResourceManager = get_node("../../resourceManager")
+@onready var animation_tree : AnimationTree = $AnimationTree
+@onready var stateController : StateController = $StateController
+
+# func getCurrentHealth():
+# 	return health_component.current_health
 
 func Destroy(killed = true):
 	if isUnit:

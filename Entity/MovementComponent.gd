@@ -8,6 +8,12 @@ var character: Entity
 var current_destination: Vector2 = Vector2(-1, -1)
 var current_speed = 0
 
+#billy please link these you have access to:
+#UnitAttack	UnitAttackWait	UnitArmor	UnitHealth	UnitGoldCost	UnitWoodCost	UnitStoneCost	UnitFoodCost	unitSpeed
+var unit_data_worker = ImportData.unitdata["Worker"]
+var unit_data_solder = ImportData.unitdata["Solder"]
+var unit_data_Zombie = ImportData.unitdata["Zombie"]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	character = get_parent()
@@ -23,7 +29,6 @@ func _physics_process(_delta):
 	var currentLocation = character.global_position
 	var nextLocation = navAgent.get_next_path_position()
 	var newVelocity = (nextLocation - currentLocation).normalized() * current_speed
-
 	navAgent.set_velocity(newVelocity)
 
 

@@ -12,11 +12,12 @@ func _process(delta):
 
 
 func _on_start_button_pressed():
+	get_node("ControlLoading").show()
 	get_tree().change_scene_to_file("res://world.tscn")
 	print("hi billy, i have been pressed")
 
 func _on_options_button_pressed():
-	get_tree().change_scene_to_file("res://Levels/options.tscn")
+	get_tree().change_scene_to_file("res://Levels/main_menu_options.tscn")
 
 
 func _on_quit_button_pressed():
