@@ -22,6 +22,7 @@ var isFoundation = false
 var visibleUnits = []
 var gatherProgress = 0
 var can_train_worker = true
+var can_train_soldier = false
 
 @onready var constructionProgressLabel = get_node("BuildingConstructionPercent")
 @onready var healthPercent = get_node("healthPercent")
@@ -47,11 +48,8 @@ var unit_data_solder = ImportData.unitdata["Solder"]
 @onready var isBarracks : bool = buildingType == "Barracks"
 
 @export var trainingTime : int = 10
-var unitsToTrain = {}
 var soldierPreload = preload("res://Unit/Soldier.tscn")
 var totalResourceOnceCompleted = 0
-
-
 
 
 func _ready():
@@ -174,10 +172,8 @@ func updateProgress():
 		constructionProgressBar.value = progress
 		gatherRate.text = "Construction: %d%%" % progress
 	elif isBarracks:
-		if unitsToTrain.size() > 0:
-			if unitsToTrain.size() != lastUnitsToTrainSize:
-				elapsedTime = 0
-				lastUnitsToTrainSize = unitsToTrain.size()
+		#if can_train_soldier:
+		if unitsGathering.size() > 0:
 			var training_progress = elapsedTime / float(trainingTime)
 			var progress = int(training_progress * 100)
 			constructionProgressBar.value = progress
@@ -259,27 +255,34 @@ func HandleTownCenter():
 
 
 func HandleBarracks():
-	for unit in unitsToTrain:
-		if unitsToTrain[unit] <= elapsedTime:
-			# Unit is done training, add it to the building
-			RemoveUnitFromBuilding(unit)
-			unit.Destroy(false)
+	can_train_soldier = unitsGathering.size() > 0 and can_afford_unit(unit_data_solder)
+	# if !can_train_soldier:
+	# 	return
 
-			# Spawn a new soldier and add it to the building
-			var soldier = soldierPreload.instantiate()
-			soldier.get_node("UnitController").pathingToBuilding = self
-			get_node("../../Units").add_child(soldier)
-			resourceManager.add(ResourceManager.ResourceType.POP, 1)
+	if unitsGathering.size() <= 0:
+		return
 
-			soldier.get_node("UnitController").canEnterBuildings = true
-			AddUnitToBuilding(soldier)
+	if elapsedTime / float(trainingTime) >= 1.0:
+		elapsedTime = 0
+		purchase_unit(unit_data_solder)
+
+		var unit = unitsGathering[0]
+
+		# Unit is done training
+		RemoveUnitFromBuilding(unit)
+		unit.Destroy(false)
+
+		# Spawn a new soldier and add it to the building
+		var soldier = soldierPreload.instantiate()
+		soldier.get_node("UnitController").pathingToBuilding = self
+		get_node("../../Units").add_child(soldier)
+		resourceManager.add(ResourceManager.ResourceType.POP, 1)
+
+		RemoveUnitFromBuilding(soldier)
 			
 
 func GetNewUnitPosition():
 	var unitCount = unitsGathering.size()
-
-	if isBarracks:
-		unitCount = unitsToTrain.size()
 
 	var realBuildingSize = buildingSize
 	if overrideBuildingSize != -1:
@@ -301,9 +304,6 @@ func GetNewUnitPosition():
 func AddUnitToBuilding(newUnit):
 	var stateController = newUnit.get_node("StateController")
 	var unitsCount = unitsGathering.size()
-
-	if isBarracks:
-		unitsCount = unitsToTrain.size()
 
 	if !stateController.isSoldier:
 		visibleUnits.append(newUnit)
@@ -329,10 +329,7 @@ func AddUnitToBuilding(newUnit):
 		return
 
 	if stateController:
-		if isBarracks:
-			unitsToTrain[newUnit] = elapsedTime + trainingTime
-		else:
-			unitsGathering.append(newUnit)
+		unitsGathering.append(newUnit)
 
 		stateController.SetState(StateController.State.GATHERING)
 
@@ -404,11 +401,10 @@ func RemoveUnitFromBuilding(unit):
 	unit.position = new_pos
 
 	if isBarracks:
-		unitsToTrain.erase(unit)
 		if unit.get_node("StateController").isSoldier:
 			unit.get_node("UnitController").canEnterBuildings = false
-	else:
-		unitsGathering.erase(unit)
+	
+	unitsGathering.erase(unit)
 	
 	unit.collision_mask = unitMask
 	unit.collision_layer = 514
@@ -421,14 +417,9 @@ func RemoveUnitFromBuilding(unit):
 	navAgent.avoidance_enabled = true
 
 	var unitsCount = unitsGathering.size()
-	if isBarracks:
-		unitsCount = unitsToTrain.size()
 
 	# Reset position of current units
 	var units = unitsGathering
-
-	if isBarracks:
-		units = unitsToTrain
 
 	var i = 0
 	for u in units:
@@ -454,8 +445,6 @@ func TakeDamage(damage):
 	updateHealthPercentLabel()
 
 	var units = unitsGathering
-	if isBarracks:
-		units = unitsToTrain
 
 	if currentHealth <= 0:
 		for unit in units:
