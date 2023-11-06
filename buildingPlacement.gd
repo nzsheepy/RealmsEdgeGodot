@@ -169,7 +169,7 @@ func placeBuilding(tile_pos, buildingSize):
 		var placed_building = building
 
 		if placed_building.buildingType == "TownCenter":
-			gameTracker.AddTowncenter(placed_building)
+			gameTracker.AddTowncenter()
 
 		placed_building.modulate = Color(1, 1, 1, 1)
 		placed_building.built = true

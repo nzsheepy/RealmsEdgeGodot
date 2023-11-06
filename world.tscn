@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://cc5gby6fsnn4w"]
+[gd_scene load_steps=65 format=3 uid="uid://cc5gby6fsnn4w"]
 
 [ext_resource type="PackedScene" uid="uid://cg28tadvpc2uv" path="res://map.tscn" id="1_6nfbs"]
 [ext_resource type="Script" path="res://UI/Camera.gd" id="1_aabg1"]
@@ -47,6 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://bccq71xrimdc6" path="res://UI/Progress Bar/Progress.png" id="49_nsbxv"]
 [ext_resource type="Texture2D" uid="uid://bgociksxtalc0" path="res://UI/Progress Bar/Over.png" id="50_xe8ms"]
 [ext_resource type="Texture2D" uid="uid://bdeibwqqyy23u" path="res://UI/cursor/CursorAnimationBlue.png" id="51_e5obf"]
+[ext_resource type="PackedScene" uid="uid://chp5mqvplnjr2" path="res://Levels/options_menu.tscn" id="51_oxay6"]
 [ext_resource type="Script" path="res://ControlLoading.gd" id="55_g0adp"]
 [ext_resource type="Texture2D" uid="uid://bavq0woun0w7r" path="res://Avatars/Logo.png" id="56_siyx3"]
 [ext_resource type="Script" path="res://GameStateTracker.gd" id="57_uc7cb"]
@@ -959,7 +960,7 @@ libraries = {
 }
 
 [node name="LoadingLayer" type="CanvasLayer" parent="."]
-layer = 128
+layer = 127
 
 [node name="ControlLoading" type="Control" parent="LoadingLayer"]
 visible = false
@@ -997,9 +998,14 @@ offset_bottom = 533.0
 text = "Loading . . ."
 label_settings = ExtResource("46_rarby")
 
-[node name="GameStateTracker" type="Node2D" parent="." node_paths=PackedStringArray("startingTownCenter")]
+[node name="GameStateTracker" type="Node2D" parent="."]
 script = ExtResource("57_uc7cb")
-startingTownCenter = NodePath("../buildingPlacement/towncenter")
+
+[node name="OptionsLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="OptionsMenu" parent="OptionsLayer" instance=ExtResource("51_oxay6")]
+visible = false
 
 [connection signal="mouse_entered" from="HUD/HUD/Control" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control" to="mouseHandle" method="_on_exit"]

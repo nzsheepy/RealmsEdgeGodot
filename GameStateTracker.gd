@@ -1,19 +1,33 @@
 extends Node2D
 class_name GameStateTracker
 
-var towncenters = []
-@export var startingTownCenter : Building
-
-
-func _ready():
-	AddTowncenter(startingTownCenter)
+@export var towncenters = 1
+@export var necromancers = 2
+var gamedone = false
 
 
 func _physics_process(_delta):
-	# if all town centers are destroyed, game over
-	if len(towncenters) == 0:
-		print("Game Over")
+	if gamedone:
+		return
+
+	if towncenters == 0:
+		gamedone = true
+		get_tree().change_scene_to_file("res://Levels/GameOver.tscn")
+
+	if necromancers == 0:
+		gamedone = true
+		get_tree().change_scene_to_file("res://Levels/GameWon.tscn")
 
 
-func AddTowncenter(towncenter):
-	towncenters.append(towncenter)
+func AddTowncenter():
+	towncenters += 1
+
+func RemoveTowncenter():
+	towncenters -= 1
+
+
+func AddNecromancer():
+	necromancers += 1
+
+func RemoveNecromancer():
+	necromancers -= 1

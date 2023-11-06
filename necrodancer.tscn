@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Enemy/EnemySpawner.gd" id="1_6hods"]
 [ext_resource type="PackedScene" uid="uid://ene5wadpugev" path="res://Character Animations/enemy_lord_char.tscn" id="1_ffdfp"]
-[ext_resource type="PackedScene" uid="uid://2f2sj4330ktk" path="res://attackable.tscn" id="3_b2xrs"]
+[ext_resource type="PackedScene" uid="uid://hinxj6p2bp4v" path="res://attackable.tscn" id="3_b2xrs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eypvw"]
 size = Vector2(16.3333, 15.875)
@@ -23,3 +23,4 @@ shape = SubResource("RectangleShape2D_eypvw")
 
 [node name="Attackable" parent="." instance=ExtResource("3_b2xrs")]
 maxHealth = 1000
+isNecromancer = true

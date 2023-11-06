@@ -1,14 +1,16 @@
 extends TextureRect
 
-#var cameraOptions = get_node
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+const target_scene_path = "res://world.tscn"
+var loading : bool = false
+var resource : PackedScene
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(_delta):
+	if !loading:
+		return
+
+	get_tree().change_scene_to_packed(resource)
+
 
 
 func _on_quit_pressed():
@@ -16,11 +18,12 @@ func _on_quit_pressed():
 
 
 func _on_rtg_pressed():
-	pass
+	hide()
 
 
 func _on_restart_pressed():
-	get_tree().change_scene_to_file("res://world.tscn")
+	resource = ResourceLoader.load(target_scene_path)
+	loading = true
 
 
 func _on_arrow_keys_slider_value_changed(value:float):
