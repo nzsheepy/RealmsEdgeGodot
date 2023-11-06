@@ -21,11 +21,11 @@ border_width_bottom = 2
 border_color = Color(0.415686, 0.886275, 0.909804, 1)
 border_blend = true
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tbtkm"]
-radius = 80.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_hr5mo"]
+radius = 100.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cgvm8"]
-radius = 20.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_8eh61"]
+radius = 25.0
 
 [sub_resource type="Animation" id="Animation_4bc8p"]
 length = 0.001
@@ -273,7 +273,7 @@ navAgent = NodePath("../NavigationAgent2D")
 script = ExtResource("2_tejvs")
 isSoldier = true
 tryAttack = true
-attackDamage = 100.0
+attackDamage = 25.0
 
 [node name="UnitController" type="Node2D" parent="." index="3"]
 script = ExtResource("3_4i2hj")
@@ -337,7 +337,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection" index="0"]
-shape = SubResource("CircleShape2D_tbtkm")
+shape = SubResource("CircleShape2D_hr5mo")
 debug_color = Color(0.454902, 0.560784, 0.560784, 0.419608)
 
 [node name="AttackRange" type="Area2D" parent="." index="11"]
@@ -345,7 +345,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" index="0"]
-shape = SubResource("CircleShape2D_cgvm8")
+shape = SubResource("CircleShape2D_8eh61")
 debug_color = Color(0.992157, 0, 0.254902, 0.419608)
 
 [node name="Soldier_Animation" type="AnimationPlayer" parent="." index="12"]

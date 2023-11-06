@@ -373,6 +373,7 @@ isUnit = true
 
 [node name="HealthComponent" parent="." index="0"]
 position = Vector2(0, 0)
+health = 20
 
 [node name="TexturehealthBar" type="TextureProgressBar" parent="." index="1"]
 offset_left = -7.5
@@ -414,7 +415,7 @@ script = ExtResource("2_j4fws")
 
 [node name="StateController" type="Node2D" parent="." index="5"]
 script = ExtResource("2_5pcvi")
-attackDamage = 15.0
+attackDamage = 10.0
 
 [node name="UnitController" type="Node2D" parent="." index="6"]
 script = ExtResource("3_necqr")
