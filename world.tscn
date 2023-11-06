@@ -997,9 +997,8 @@ offset_bottom = 533.0
 text = "Loading . . ."
 label_settings = ExtResource("46_rarby")
 
-[node name="GameStateTracker" type="Node2D" parent="." node_paths=PackedStringArray("startingTownCenter")]
+[node name="GameStateTracker" type="Node2D" parent="."]
 script = ExtResource("57_uc7cb")
-startingTownCenter = NodePath("../buildingPlacement/towncenter")
 
 [connection signal="mouse_entered" from="HUD/HUD/Control" to="mouseHandle" method="_on_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/Control" to="mouseHandle" method="_on_exit"]

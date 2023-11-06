@@ -447,6 +447,12 @@ func TakeDamage(damage):
 	var units = unitsGathering
 
 	if currentHealth <= 0:
+		# Update game state tracker
+		if buildingType == "TownCenter":
+			var stateTracker = get_node("../../GameStateTracker")
+			if stateTracker:
+				stateTracker.RemoveTowncenter()
+
 		for unit in units:
 			unit.Destroy()
 		enemySpanwer.spawnEnemy(global_position)
