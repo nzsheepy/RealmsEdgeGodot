@@ -11,7 +11,7 @@
 [ext_resource type="Theme" uid="uid://d3l76yiraqpte" path="res://UI/Dialogue Box/fontDark.tres" id="8_g4dwh"]
 [ext_resource type="Texture2D" uid="uid://csr28gimoi7v8" path="res://UI/Options Menu/SliderButton.png" id="9_vo37r"]
 [ext_resource type="Texture2D" uid="uid://cm55iqd2mqjn6" path="res://UI/Options Menu/SliderBar.png" id="10_s8aiy"]
-[ext_resource type="Texture2D" uid="uid://b4o8wkidp0yp7" path="res://UI/menu/OpeningBackground.jpg" id="12_8covd"]
+[ext_resource type="Texture2D" uid="uid://b4o8wkidp0yp7" path="res://UI/Menu/OpeningBackground.jpg" id="12_8covd"]
 
 [sub_resource type="Theme" id="Theme_8nfod"]
 
@@ -32,6 +32,7 @@ script = ExtResource("2_st2qa")
 
 [node name="TextureMenuBackground" type="TextureRect" parent="."]
 z_index = -1
+layout_mode = 0
 offset_left = -90.6473
 offset_top = -57.6904
 offset_right = 978.353

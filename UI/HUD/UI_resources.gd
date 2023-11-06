@@ -24,6 +24,8 @@ var resourceManager
 var workerHealth = 0
 var solderHeatlh = 0
 
+@onready var optionsMenu = get_node("../../OptionsLayer/OptionsMenu")
+
 func _ready():
 	# Find and store a reference to the ResourceManager script
 	resourceManager = $"../../resourceManager"
@@ -48,4 +50,4 @@ func _process(delta):
 
 
 func _on_texture_button_options_pressed():
-	get_tree().change_scene_to_file("res://Levels/options_menu.tscn")
+	optionsMenu.show()
