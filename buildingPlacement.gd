@@ -4,6 +4,7 @@
 extends Node2D
 
 @export var grid : Grid
+@export var gameTracker : GameStateTracker
 var currentBuilding
 var res
 var building
@@ -166,6 +167,10 @@ func remove_existing_preview():
 func placeBuilding(tile_pos, buildingSize):
 	if canPlaceBuilding(tile_pos, buildingSize) and deductResourcesForBuilding():
 		var placed_building = building
+
+		if placed_building.buildingType == "TownCenter":
+			gameTracker.AddTowncenter(placed_building)
+
 		placed_building.modulate = Color(1, 1, 1, 1)
 		placed_building.built = true
 		placed_building.startBuild()
