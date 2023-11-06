@@ -1,17 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://dhvyciwj4f0wj"]
+[gd_scene load_steps=12 format=3 uid="uid://dhvyciwj4f0wj"]
 
 [ext_resource type="Script" path="res://Levels/menu.gd" id="1_6ctlf"]
-[ext_resource type="Texture2D" uid="uid://b4o8wkidp0yp7" path="res://UI/Menu/OpeningBackground.jpg" id="2_4s5g1"]
-[ext_resource type="Texture2D" uid="uid://b5hskp1w0rhv1" path="res://UI/Menu/OpeningMenuBlank.png" id="3_c3t55"]
-[ext_resource type="Texture2D" uid="uid://dsqtcpejyjo" path="res://UI/Menu/MainMenuPlayHover.png" id="5_44ws5"]
-[ext_resource type="Texture2D" uid="uid://dntcyrcr01gwj" path="res://UI/Menu/MainMenuPlay.png" id="5_c0ywd"]
-[ext_resource type="Texture2D" uid="uid://dfkf073t3jxpc" path="res://UI/Menu/MainMenuOptions.png" id="6_n24ek"]
-[ext_resource type="Texture2D" uid="uid://bw347yv8lfhh8" path="res://UI/Menu/MainMenuQuit.png" id="7_d1c73"]
-[ext_resource type="Texture2D" uid="uid://cb4p8kuqj7jt0" path="res://icon.svg" id="8_k87qu"]
-[ext_resource type="Texture2D" uid="uid://be4i0du2mfmw2" path="res://UI/Menu/MainMenuOptionsHover.png" id="9_kxcqo"]
+[ext_resource type="Texture2D" uid="uid://b4o8wkidp0yp7" path="res://UI/menu/OpeningBackground.jpg" id="2_4s5g1"]
+[ext_resource type="Texture2D" uid="uid://b5hskp1w0rhv1" path="res://UI/menu/OpeningMenuBlank.png" id="3_c3t55"]
+[ext_resource type="Texture2D" uid="uid://dsqtcpejyjo" path="res://UI/menu/MainMenuPlayHover.png" id="5_44ws5"]
+[ext_resource type="Texture2D" uid="uid://dntcyrcr01gwj" path="res://UI/menu/MainMenuPlay.png" id="5_c0ywd"]
+[ext_resource type="Texture2D" uid="uid://dfkf073t3jxpc" path="res://UI/menu/MainMenuOptions.png" id="6_n24ek"]
+[ext_resource type="Texture2D" uid="uid://bw347yv8lfhh8" path="res://UI/menu/MainMenuQuit.png" id="7_d1c73"]
+[ext_resource type="Texture2D" uid="uid://be4i0du2mfmw2" path="res://UI/menu/MainMenuOptionsHover.png" id="9_kxcqo"]
 [ext_resource type="Texture2D" uid="uid://bavq0woun0w7r" path="res://Avatars/Logo.png" id="10_akj61"]
 [ext_resource type="LabelSettings" uid="uid://qjx806uw8aod" path="res://UI/Font/VampireWarsTitleLabel.tres" id="11_foxgi"]
-[ext_resource type="Texture2D" uid="uid://cyd15qxqqjtbm" path="res://UI/Menu/MainMenuQuitHover.png" id="11_io6i1"]
+[ext_resource type="Texture2D" uid="uid://cyd15qxqqjtbm" path="res://UI/menu/MainMenuQuitHover.png" id="11_io6i1"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -67,10 +66,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("6_n24ek")
 texture_hover = ExtResource("9_kxcqo")
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer2"]
-layout_mode = 2
-texture_normal = ExtResource("8_k87qu")
 
 [node name="QuitButton" type="TextureButton" parent="VBoxContainer2"]
 layout_mode = 2

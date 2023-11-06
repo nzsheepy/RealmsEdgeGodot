@@ -282,11 +282,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_q41w8")
 [node name="resourceManager" type="Node2D" parent="."]
 position = Vector2(1, 0)
 script = ExtResource("8_b4m7g")
-gold = 30000
-wood = 25000
-stone = 25000
-food = 400
-maxPop = 2
+gold = 1500
+wood = 1000
+stone = 250
+food = 500
+maxPop = 10
 
 [node name="buildingPlacement" type="Node2D" parent="." node_paths=PackedStringArray("grid", "gameTracker")]
 script = ExtResource("8_hhrwk")
@@ -1046,19 +1046,19 @@ visible = false
 [connection signal="pressed" from="HUD/HUD/BuildingGridContainer/barracks_button" to="buildingPlacement" method="_on_barracks_button_pressed"]
 [connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_entered"]
-[connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_build_menu_button_mouse_exited"]
+[connection signal="mouse_exited" from="HUD/HUD/build_menu_button" to="mouseHandle" method="_on_exit"]
 [connection signal="pressed" from="HUD/HUD/build_menu_button" to="buildingPlacement" method="_on_build_menu_button_pressed"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_entered"]
-[connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_exited"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_exit"]
-[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_attack_button" to="mouseHandle" method="_on_unit_attack_button_mouse_exited"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_entered"]
-[connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_exited"]
+[connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_exit"]
+[connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_move_button" to="mouseHandle" method="_on_unit_move_button_mouse_exited"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_entered"]
 [connection signal="mouse_entered" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_entered"]
-[connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_exit"]
 [connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_unit_stop_button_mouse_exited"]
+[connection signal="mouse_exited" from="HUD/HUD/HBoxContainer/unit_stop_button" to="mouseHandle" method="_on_exit"]
 [connection signal="timeout" from="HUD/HUD/PanelContainerWaveTimer/LabelTimer/WaveTimer" to="HUD/HUD/PanelContainerWaveTimer/LabelTimer" method="_on_wave_timer_timeout"]

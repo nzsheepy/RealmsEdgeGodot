@@ -16,7 +16,7 @@
     "UnitAttackWait": 1,
     "UnitArmor": 8,
     "UnitHealth": 50,
-    "UnitGoldCost": 200,
+    "UnitGoldCost": 400,
     "UnitWoodCost": 150,
     "UnitStoneCost": 50,
     "UnitFoodCost": 100,

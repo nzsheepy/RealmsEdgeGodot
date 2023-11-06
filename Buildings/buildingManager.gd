@@ -134,7 +134,7 @@ func _process(delta):
 	elapsedTime += delta
 
 	if firstloop and buildingType == "House":
-		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 5)
+		resourceManager.add(ResourceManager.ResourceType.MAXPOP, 3)
 		firstloop = false
 
 	if isBarracks:
@@ -172,7 +172,8 @@ func updateProgress():
 		constructionProgressBar.value = progress
 		gatherRate.text = "Construction: %d%%" % progress
 	elif isBarracks:
-		#if can_train_soldier:
+		#if can_train_soldier: 
+		#swap this with unitgaterhing if
 		if unitsGathering.size() > 0:
 			var training_progress = elapsedTime / float(trainingTime)
 			var progress = int(training_progress * 100)
